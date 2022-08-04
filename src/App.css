@@ -1,38 +1,122 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.heading{
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.sub-heading{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.text{
+  font-size: 20px;
+}
+
+
+/***    Login Page     ***/
+h2 {
+  font-weight: 300
+}
+
+form {
+  display: inline-block;
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 2rem;
+  margin: 2rem 0 1rem 0
+}
+
+form label {
+  float: left;
+  font-size: .9rem;
+  margin: 0;
+  padding: 0
+}
+
+.right-label {
+  float: right;
+  cursor: pointer
+}
+
+input {
+  width: 15rem;
+  padding: .3rem;
+  border-radius: 5px;
+  outline: none;
+  border: none
+}
+.login{
+  border: #333 1px solid;
+  border-radius: 3px;
+  padding: 50px;
+}
+.login-btn {
+  display: block;
+  width: 100%;
+  padding: .3rem;
+  border: none;
+  background-color: black;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.login-btn:hover{
+  background: #333;
+  transition: all .5s
+}
+
+footer p {
+  margin: 0;
+  font-size: .9rem
+}
+
+@media screen and (max-width: 990px) {
+
+  .text{
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+
+  .search{
+    margin-top: 40px;
+  }
+
+}
+@media screen and (max-width: 800px) {
+
+  .heading{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .text{
+    font-size: 15px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+/* mobile */
+@media screen and (max-width: 580px) {
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .heading{
+    font-size: 15px;
+    font-weight: 600;
   }
-  to {
-    transform: rotate(360deg);
+  .text{
+    font-size: 12px;
   }
 }
