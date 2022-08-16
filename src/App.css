@@ -5,7 +5,6 @@
   font-family: "Roboto", sans-serif;
 }
 
-
 .center{
   position: absolute;
   left: 50%;
@@ -27,64 +26,95 @@
   font-size: 20px;
 }
 
+.logo{
+  position: absolute;
+  left : 100px;
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 40px;
+  text-decoration: none;
+  color: #fff;
+}
 
 /***    Login Page     ***/
-h2 {
-  font-weight: 300
+.login-app {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: #f8f9fd;
 }
 
-form {
-  display: inline-block;
-  background: #f3f3f3;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  padding: 2rem;
-  margin: 2rem 0 1rem 0
+
+input[type="text"],
+input[type="password"] {
+  height: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-form label {
-  float: left;
-  font-size: .9rem;
-  margin: 0;
-  padding: 0
-}
-
-.right-label {
-  float: right;
-  cursor: pointer
-}
-
-input {
-  width: 15rem;
-  padding: .3rem;
-  border-radius: 5px;
-  outline: none;
-  border: none
-}
-.login{
-  border: #333 1px solid;
-  border-radius: 3px;
-  padding: 50px;
-}
-.login-btn {
-  display: block;
-  width: 100%;
-  padding: .3rem;
-  border: none;
-  background-color: black;
+.login-button{
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #01d28e;
+  border: 1px solid #01d28e;
   color: #fff;
-  border-radius: 3px;
+  padding: 10px 20px;
 }
 
-.login-btn:hover{
-  background: #333;
-  transition: all .5s
+.login-button:hover {
+  background: #6cf0c2;
 }
 
-footer p {
-  margin: 0;
-  font-size: .9rem
+.button-container {
+  display: flex;
+  justify-content: center;
 }
+
+.login-form {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.list-container {
+  display: flex;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+/* charts */
+
+.charts{
+  width: 20%;
+  margin:50px 0;
+  border: solid 1px #888;
+  padding: 25px;
+}
+ .download-icon{
+  position: absolute;
+  right: 10px;
+  color: #333;
+ }
 
 @media screen and (max-width: 990px) {
 
