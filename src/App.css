@@ -105,30 +105,37 @@ input[type="password"] {
 /* charts */
 
 .charts{
-  position: relative;
   width: 700px;
-  margin:50px 0;
   border: solid 1px #ccc;
-  padding: 25px;
   border-top: solid 40px #ccc;
+}
+.chart-container{
+  width: 80%;
+  margin: 20px;
+  gap: 100px;
 }
 
 .chart-text{
-  position: absolute;
-  top: -30px;
-  left: 0;
-  
+  margin-top: -30px;
 }
 
 .pie-chart{
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 350px;
+  max-height: 350px;
 }
 
  .download-icon{
-  position: absolute;
-  right:10px;
   color: #333;
+  float: right;
+ }
+
+ .table-container{
+  position: relative;
+  border: solid 1px #ccc;
+  padding: 25px;
+  border-top: solid 40px #ccc;
+  width: 700px;
+  height: 440px;
  }
 
 @media screen and (max-width: 990px) {

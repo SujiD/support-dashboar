@@ -1,7 +1,7 @@
 .navbar {
     background-color: #060b26;
     height: 80px;
-    z-index: 100;
+    z-index: 10;
   }
   
   .menu-bars {
@@ -60,4 +60,8 @@
   }
   span {
     margin-left: 16px;
+  }
+
+  .logo{
+    cursor: pointer;
   }

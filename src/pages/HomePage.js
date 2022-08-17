@@ -64,36 +64,38 @@ const handleChange = (event) =>{
 }
   return (
     <>
-        <NavBar />
-        <div className="d-flex align-items-center justify-content-evenly">
+        <NavBar/>
+        <div className="d-flex align-items-center justify-content-evenly mb-5">
             <DataBox heading={"567,879"} text={"Ticket counts by owner"} color={"#70d8c1"} />
             <DataBox heading={"23,665"} text={"Ticket counts by product"} color={"#f5d881"} />
             <DataBox heading={"980,340"} text={"Ticket counts by status"} color={"#ffbd8e"} />
             <DataBox heading={"567,879"} text={"Ticket counts by priority"} color={"#ff984e"} />
         </div>
-        <div className="d-flex align-items-center justify-content-evenly">
-          <div className="charts d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-start gap-5 justify-content-evenly">
+          <div className="charts d-flex flex-column justify-content-center align-items-start">
             <span className="chart-text"><b>What's new with entities</b></span>
-            <Form.Select size="sm" onChange={(event) => handleChange(event)}>
-              <option>Owner</option>
-              <option>Product</option>
-              <option>Status</option>
-              <option>Priority</option>
-            </Form.Select>
-          {
-            selectStat === "Priority" ? <PieChart chartData={priorityD} className="pie-chart"/>
-            : (selectStat === "Status" ? 
-              <PieChart chartData={statusD} className="pie-chart"/>
-            : (
-                selectStat === "Product" ?
-                <PieChart chartData={productData} className="pie-chart"/>
-            :
-            <PieChart chartData={ownerD} className="pie-chart"/>
-              ) 
-            )
-          }
+            <div className=" d-flex align-items-center justify-content-evenly chart-container">
+              <Form.Select size="sm" onChange={(event) => handleChange(event)}>
+                <option>Owner</option>
+                <option>Product</option>  
+                <option>Status</option>
+                <option>Priority</option>
+              </Form.Select>
+            {
+              selectStat === "Priority" ? <PieChart chartData={priorityD} className="pie-chart"/>
+              : (selectStat === "Status" ? 
+                <PieChart chartData={statusD} className="pie-chart"/>
+              : (
+                  selectStat === "Product" ?
+                  <PieChart chartData={productData} className="pie-chart"/>
+              :
+              <PieChart chartData={ownerD} className="pie-chart"/>
+                ) 
+              )
+            }
+            </div>
           </div>
-        </div>
+        
         {
             selectStat === "Priority" ? <DataView viewData={priorityData} table={selectStat}/>
             : (selectStat === "Status" ? 
@@ -106,7 +108,7 @@ const handleChange = (event) =>{
               ) 
             )
         }
-        
+        </div>
     </>
     
   )
