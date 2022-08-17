@@ -105,14 +105,29 @@ input[type="password"] {
 /* charts */
 
 .charts{
-  width: 20%;
+  position: relative;
+  width: 700px;
   margin:50px 0;
-  border: solid 1px #888;
+  border: solid 1px #ccc;
   padding: 25px;
+  border-top: solid 40px #ccc;
 }
+
+.chart-text{
+  position: absolute;
+  top: -30px;
+  left: 0;
+  
+}
+
+.pie-chart{
+  max-width: 400px;
+  max-height: 400px;
+}
+
  .download-icon{
   position: absolute;
-  right: 10px;
+  right:10px;
   color: #333;
  }
 

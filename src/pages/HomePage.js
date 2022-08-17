@@ -1,30 +1,31 @@
 import { DataBox } from "../components/Data-Box/DataBox";
 import { NavBar } from "../components/nav-bar/NavBar";
-// import BarChart from "../components/BarChart";
 import { useState } from "react";
-import { DepartmentData, countData, colors, priorityData } from "../Data";
+import { DepartmentData, ownerData, colors, priorityData, statusData} from "../Data";
 import PieChart from "../components/PieChart";
 import DataView from "../components/DataView";
+import { Form } from "react-bootstrap";
 export const HomePage = () => {
-  
-const [userData, setUserData] = useState({
+
+const [selectStat, setSelectStat] = useState("owner");
+const [productData, setProductData] = useState({
   labels: DepartmentData.map((data)=>data.department),
   datasets: [
     {
     label: "Department",
-    data: DepartmentData.map((data)=>data.unresolved),
+    data: DepartmentData.map((data)=>data.count),
     backgroundColor: colors.map((color) =>color),
     borderColor: "black",
     borderWidth: 1,
   },
 ]});
 
-const [countD, setCountD] = useState({
-  labels: countData.map((d) => d.text),
+const [priorityD, setPriorityD] = useState({
+  labels: priorityData.map((d) => d.priority),
   datasets:[
     {
-      label: "Tickets",
-      data: countData.map((data)=>data.count),
+      label: "Priority",
+      data: priorityData.map((data)=>data.count),
       backgroundColor: colors.map((color) =>color),
       borderColor: "black",
       borderWidth: 1,
@@ -32,19 +33,35 @@ const [countD, setCountD] = useState({
   ]
 });
 
-const [priorityD, setPriorityD] = useState({
-  labels: priorityData.map((d) => d.status),
+const [statusD, setStatusD] = useState({
+  labels: statusData.map((d) => d.status),
   datasets:[
     {
-      label: "Tickets",
-      data: priorityData.map((data)=>data.count),
+      label: "Status",
+      data: statusData.map((data)=>data.count),
       backgroundColor: colors.map((color) =>color),
       borderColor: "black",
       borderWidth: 1,
     },
   ]
-})
+});
 
+const [ownerD, setOwnerD] = useState({
+  labels: ownerData.map((d) => d.owner),
+  datasets:[
+    {
+      label: "Owner",
+      data: ownerData.map((data)=>data.count),
+      backgroundColor: colors.map((color) =>color),
+      borderColor: "black",
+      borderWidth: 1,
+    },
+  ]
+});
+
+const handleChange = (event) =>{
+  setSelectStat(event.target.value)
+}
   return (
     <>
         <NavBar />
@@ -55,17 +72,41 @@ const [priorityD, setPriorityD] = useState({
             <DataBox heading={"567,879"} text={"Ticket counts by priority"} color={"#ff984e"} />
         </div>
         <div className="d-flex align-items-center justify-content-evenly">
-          <div className="charts">
-            <PieChart chartData={countD}/>
-          </div>
-          <div className="charts">
-              <PieChart chartData={userData}/>
-          </div>
-          <div className="charts">
-            <PieChart chartData={priorityD} />
+          <div className="charts d-flex align-items-center justify-content-between">
+            <span className="chart-text"><b>What's new with entities</b></span>
+            <Form.Select size="sm" onChange={(event) => handleChange(event)}>
+              <option>Owner</option>
+              <option>Product</option>
+              <option>Status</option>
+              <option>Priority</option>
+            </Form.Select>
+          {
+            selectStat === "Priority" ? <PieChart chartData={priorityD} className="pie-chart"/>
+            : (selectStat === "Status" ? 
+              <PieChart chartData={statusD} className="pie-chart"/>
+            : (
+                selectStat === "Product" ?
+                <PieChart chartData={productData} className="pie-chart"/>
+            :
+            <PieChart chartData={ownerD} className="pie-chart"/>
+              ) 
+            )
+          }
           </div>
         </div>
-        <DataView />
+        {
+            selectStat === "Priority" ? <DataView viewData={priorityData} table={selectStat}/>
+            : (selectStat === "Status" ? 
+                <DataView viewData={statusData} table={selectStat}/>
+            : (
+                selectStat === "Product" ?
+                <DataView viewData={DepartmentData} table={selectStat}/>
+            :
+            <DataView viewData={ownerData} table={selectStat}/>
+              ) 
+            )
+        }
+        
     </>
     
   )

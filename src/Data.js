@@ -30,32 +30,32 @@ export const UserData = [
       userLost: 234,
     },
   ];
-export const colors = ["#63C5DA", "#f5d881", "#70d8c1", "#ffbd8e", "#ff984e", ]
+export const colors = ["#63C5DA", "#f5d881", "#70d8c1", "#ffbd8e", "#ff984e", "#b36dd1" ]
 export const DepartmentData = [
   {
     id: 1,
     department: "Support Tickets",
-    unresolved: 2,
+    count: 2,
   },
   {
     id: 2,
     department: "MarkLogic Server",
-    unresolved: 18,
+    count: 18,
   },
   {
     id: 3,
     department: "Data Hub",
-    unresolved: 7,
+    count: 7,
   },
   {
     id: 4,
     department: "Framework",
-    unresolved: 6,
+    count: 6,
   },
   {
     id: 5,
     department: "Cloud Services",
-    unresolved: 8,
+    count: 8,
   },
 ]
 
@@ -86,23 +86,80 @@ export const priorityData = [
   {
     id: 1,
     count: 16,
-    status: "Low",
+    priority: "Low",
   },
   {
     id: 2,
     count: 66,
-    status: "Medium",
+    priority: "Medium",
   },
   {
     id: 3,
     count: 50,
-    status: "High",
+    priority: "High",
   },
   {
     id: 4,
     count: 12,
-    status: "Urgent",
+    priority: "Urgent",
   },
+]
+
+export const statusData = [
+  {
+    id: 1,
+    count: 12,
+    status: "Open",
+  },
+  {
+    id: 2,
+    count: 22,
+    status: "In Progress",
+  },
+  {
+    id: 3,
+    count: 44,
+    status: "Waiting on MarkLogic",
+  },
+  {
+    id: 4,
+    count: 14,
+    status: "Waiting on Customer",
+  },
+]
+
+
+export const ownerData = [
+  {
+    id: 1,
+    count: 4,
+    owner: "Ajith Kumar",
+  },
+  {
+    id: 2,
+    count: 8,
+    owner: "Avinash Mistry",
+  },
+  {
+    id: 3,
+    count: 9,
+    owner: "Chris Hamlin",
+  },
+  {
+    id: 4,
+    count: 3,
+    owner: "Ravi Gunupuram",
+  },
+  {
+    id: 5,
+    count: 12,
+    owner: "Mayank Srivastava",
+  },
+  {
+    id: 6,
+    count: 10,
+    owner: "Pradeep Biswal",
+  }
 ]
 
 export const database = [
