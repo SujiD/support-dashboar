@@ -1,15 +1,21 @@
-import { Navbar, Form, Button, Nav, Container } from 'react-bootstrap'
 import { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SideBarData } from './SideBarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 
 export const NavBar = () => {
+
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+  let navigate = useNavigate();
+
+  const handleLogout = () =>{
+    navigate("/");
+  }
+
   return (
     <>
      <IconContext.Provider value={{ color: '#fff' }}>
@@ -18,6 +24,7 @@ export const NavBar = () => {
             {sidebar ?  <AiIcons.AiOutlineClose /> : <FaIcons.FaBars /> }
           </Link>
           <span className='logo'>Mark<span className='text-danger logo'>Logic</span></span>
+          <button className='mx-5 logout-btn' onClick={handleLogout}>Logout</button>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>

@@ -5,7 +5,7 @@ import { Table } from "react-bootstrap";
 const DataView = (props) => {
   return (
      <div className="table-container">
-         {/* <span className="chart-text"><b>Table</b></span> */}
+         <span className="table-text"><b>Table</b></span>
         <CSVLink data={props.viewData} target="_blank" filename={props.table + ".csv"} className="download-icon fa-lg">
             <FontAwesomeIcon icon={faDownload} /> 
         </CSVLink>

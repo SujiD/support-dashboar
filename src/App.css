@@ -108,6 +108,7 @@ input[type="password"] {
   width: 700px;
   border: solid 1px #ccc;
   border-top: solid 40px #ccc;
+  border-radius: 10px;
 }
 .chart-container{
   width: 80%;
@@ -117,6 +118,12 @@ input[type="password"] {
 
 .chart-text{
   margin-top: -30px;
+}
+
+.table-text{
+  position: absolute;
+  top: -30px;
+  left:-5px;
 }
 
 .pie-chart{
@@ -132,11 +139,37 @@ input[type="password"] {
  .table-container{
   position: relative;
   border: solid 1px #ccc;
+  border-radius: 10px;
   padding: 25px;
   border-top: solid 40px #ccc;
   width: 700px;
-  height: 440px;
+  height: 430px;
  }
+
+
+ .cal {
+  float: right;
+  display: inline-block;
+  border: .1px solid #CCCAC5;
+  background-color: #FFF;
+  width: 110px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+.cal .month {
+  height: 25px;
+  line-height: 25px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  background-color: #E75951;
+  color: #FFF;
+}
+.cal .date {
+  font-size: 4rem;
+  color: #585858;
+  line-height: 90px;
+}
+
 
 @media screen and (max-width: 990px) {
 
@@ -172,3 +205,5 @@ input[type="password"] {
     font-size: 12px;
   }
 }
+
+

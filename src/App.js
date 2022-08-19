@@ -6,6 +6,7 @@ import {useSpring, animated} from "react-spring";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import ErrorPage from "./components/Error/ErrorPage";
 
 function App() {
   const styles = useSpring({
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} exact/>
           <Route path="/home" element={<HomePage />} exact/>
+          <Route path="*" element={<ErrorPage />} exact />
         </Routes>
       </Router>
       <ToastContainer />

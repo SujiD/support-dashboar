@@ -15,7 +15,7 @@ const [productData, setProductData] = useState({
     label: "Department",
     data: DepartmentData.map((data)=>data.count),
     backgroundColor: colors.map((color) =>color),
-    borderColor: "black",
+    borderColor: colors.map((color) =>color),
     borderWidth: 1,
   },
 ]});
@@ -27,7 +27,7 @@ const [priorityD, setPriorityD] = useState({
       label: "Priority",
       data: priorityData.map((data)=>data.count),
       backgroundColor: colors.map((color) =>color),
-      borderColor: "black",
+      borderColor: colors.map((color) =>color),
       borderWidth: 1,
     },
   ]
@@ -40,7 +40,7 @@ const [statusD, setStatusD] = useState({
       label: "Status",
       data: statusData.map((data)=>data.count),
       backgroundColor: colors.map((color) =>color),
-      borderColor: "black",
+      borderColor: colors.map((color) =>color),
       borderWidth: 1,
     },
   ]
@@ -53,11 +53,17 @@ const [ownerD, setOwnerD] = useState({
       label: "Owner",
       data: ownerData.map((data)=>data.count),
       backgroundColor: colors.map((color) =>color),
-      borderColor: "black",
+      borderColor: colors.map((color) =>color),
       borderWidth: 1,
     },
   ]
 });
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth()) //January is 0!
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
 
 const handleChange = (event) =>{
   setSelectStat(event.target.value)
@@ -65,11 +71,15 @@ const handleChange = (event) =>{
   return (
     <>
         <NavBar/>
+        <div className="cal m-3">
+          <div className="month">{monthNames[mm]}</div>
+          <div className="date">{dd}</div>
+        </div>
         <div className="d-flex align-items-center justify-content-evenly mb-5">
-            <DataBox heading={"567,879"} text={"Ticket counts by owner"} color={"#70d8c1"} />
-            <DataBox heading={"23,665"} text={"Ticket counts by product"} color={"#f5d881"} />
-            <DataBox heading={"980,340"} text={"Ticket counts by status"} color={"#ffbd8e"} />
-            <DataBox heading={"567,879"} text={"Ticket counts by priority"} color={"#ff984e"} />
+            <DataBox heading={"567,879"} text={"Ticket counts by owner"} color={"#70d8c1"}/>
+            <DataBox heading={"23,665"} text={"Ticket counts by product"} color={"#f5d881"}  style={{cursor: "pointer"}} onClick={() => setSelectStat("Product  ") } />
+            <DataBox heading={"980,340"} text={"Ticket counts by status"} color={"#ffbd8e"}  style={{cursor: "pointer"}} onClick={() => setSelectStat("Status") } />
+            <DataBox heading={"567,879"} text={"Ticket counts by priority"} color={"#ff984e"}  style={{cursor: "pointer"}} onClick={() => setSelectStat("Priority") } />
         </div>
         <div className="d-flex align-items-start gap-5 justify-content-evenly">
           <div className="charts d-flex flex-column justify-content-center align-items-start">
