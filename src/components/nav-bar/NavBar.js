@@ -23,7 +23,7 @@ export const NavBar = () => {
           <Link to='#' className='menu-bars' onClick={showSidebar}>
             {sidebar ?  <AiIcons.AiOutlineClose /> : <FaIcons.FaBars /> }
           </Link>
-          <span className='logo'>Mark<span className='text-danger logo'>Logic</span></span>
+          <a href="/home" className='logo' >MarkLogic</a>
           <button className='mx-5 logout-btn' onClick={handleLogout}>Logout</button>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>

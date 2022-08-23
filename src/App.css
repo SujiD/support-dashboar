@@ -170,6 +170,22 @@ input[type="password"] {
   line-height: 90px;
 }
 
+.data-box-link{
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+
+}
+
+.data-box-btn{
+  height: 140px;
+  width: 20%;
+  border: solid 1px;
+  border-left: solid 20px;
+  padding: 15px;
+  margin-right: 20px;
+  background-color: #fff;
+}
 
 @media screen and (max-width: 990px) {
 

@@ -8,10 +8,10 @@ export const DataBox = ({heading, text, color}) => {
   });
 
   return (
-    <animated.div style={{styles, borderColor: color}} className="data-box mt-5">
+    <animated.div style={{styles, borderColor: color}} className="data-box">
       <div className='d-flex flex-column justify-content-evenly' >
         <span className='heading '>{heading}</span>
-        <span className='text-end text'>{text}</span>
+        <span className='text-start text'>{text}</span>
       </div>
     </animated.div>
   )
