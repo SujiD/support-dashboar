@@ -1,0 +1,1113 @@
+{
+    "snippet-format": "empty-snippet",
+    "total": 1148,
+    "start": 1,
+    "page-length": 10,
+    "results": [
+        {
+            "id": "6809625850848427186",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "7580513362193234442",
+                "fullName": "Ravi Gunupuram"
+            },
+            "creationtime": "2022-06-06T00:18:04.053666Z",
+            "modifiedtime": "2022-06-06T00:18:04.053666Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "Yes",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "Yes",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "provided",
+                "resolutionWhat": "Clarification",
+                "resolutionComment": "",
+                "functionality": "Administration"
+            },
+            "ticket": {
+                "ticketName": "Ticket-34081",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "Medium",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-05-23T00:04:44Z",
+                "modifiedtime": "2022-06-06T00:20:15Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "8143325381082685731",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "13228506809296481417",
+                "fullName": "Sowmya Pappu"
+            },
+            "creationtime": "2022-07-22T16:30:40.893771Z",
+            "modifiedtime": "2022-07-22T16:30:40.893771Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "Yes",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Customer",
+                "resolutionDid": "discovered",
+                "resolutionWhat": "Problematic input",
+                "resolutionComment": "",
+                "functionality": "Cluster Communication"
+            },
+            "ticket": {
+                "ticketName": "Ticket-34264",
+                "ticketTitle": "Cluster Management",
+                "ticketStatus": "Closed",
+                "ticketPriority": "High",
+                "ticketCreator": {
+                    "userId": "13184429632885098761",
+                    "fullName": "Rob Saunderson"
+                },
+                "ticketCustomer": {
+                    "organizationId": "7093373522488167742",
+                    "organizationName": "Boeing"
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "7093373522488167742",
+                    "organizationName": "Boeing"
+                },
+                "ticketOwner": {
+                    "userId": "13228506809296481417",
+                    "fullName": "Sowmya Pappu"
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-07-11T15:40:23Z",
+                "modifiedtime": "2022-07-25T14:09:18Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "4440247063414221607",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "7580513362193234442",
+                "fullName": "Ravi Gunupuram"
+            },
+            "creationtime": "2022-08-12T01:49:11.848432Z",
+            "modifiedtime": "2022-08-12T01:49:11.848432Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "Yes",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "Yes",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "provided",
+                "resolutionWhat": "Knowledge",
+                "resolutionComment": "",
+                "functionality": "Administration"
+            },
+            "ticket": {
+                "ticketName": "Ticket-34311",
+                "ticketTitle": "Node addition on exiting cluster.",
+                "ticketStatus": "Closed",
+                "ticketPriority": "High",
+                "ticketCreator": {
+                    "userId": "11394284072168493576",
+                    "fullName": "Samarjit Sanjenbam"
+                },
+                "ticketCustomer": {
+                    "organizationId": "5487083266702286690",
+                    "organizationName": "JP Morgan (DCPP, CSI, or RDT)"
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "5487083266702286690",
+                    "organizationName": "JP Morgan (DCPP, CSI, or RDT)"
+                },
+                "ticketOwner": {
+                    "userId": "7580513362193234442",
+                    "fullName": "Ravi Gunupuram"
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-07-25T04:40:15Z",
+                "modifiedtime": "2022-08-12T01:49:37Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "11028786587995481031",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "6959893080493311119",
+                "fullName": "Maithili Kulkarni"
+            },
+            "creationtime": "2019-10-11T20:35:04.296152Z",
+            "modifiedtime": "2019-10-11T20:35:04.281483Z",
+            "survey": {
+                "ticketComplete": "Yes",
+                "collateralAvailable": "No",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "Yes",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "provided",
+                "resolutionWhat": "Bug fix",
+                "resolutionComment": "",
+                "functionality": "Backup / Restore"
+            },
+            "ticket": {
+                "ticketName": "Ticket-27387",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "Medium",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2019-10-11T07:58:59Z",
+                "modifiedtime": "2020-01-21T11:59:46Z",
+                "meta": {
+                    "productline": "Support Tickets"
+                }
+            }
+        },
+        {
+            "id": "4141240643011269688",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "13228506809296481417",
+                "fullName": "Sowmya Pappu"
+            },
+            "creationtime": "2022-07-05T15:00:12.878925Z",
+            "modifiedtime": "2022-07-05T15:00:12.878925Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "Yes",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "referenced",
+                "resolutionWhat": "Bug fix",
+                "resolutionComment": "",
+                "functionality": "Ingest"
+            },
+            "ticket": {
+                "ticketName": "Ticket-34206",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "High",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-06-23T17:22:12Z",
+                "modifiedtime": "2022-07-05T15:02:00Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "12445821550751851695",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "10539778356760817328",
+                "fullName": "Clay Redding"
+            },
+            "creationtime": "2022-04-20T22:29:37.409193Z",
+            "modifiedtime": "2022-04-20T22:29:37.409193Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "No",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Cloud Operation",
+                "resolutionDid": "performed",
+                "resolutionWhat": "Operational task",
+                "resolutionComment": "",
+                "functionality": "Security"
+            },
+            "ticket": {
+                "ticketName": "Ticket-33931",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "High",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-04-20T16:23:26Z",
+                "modifiedtime": "2022-04-21T22:00:16Z",
+                "meta": {
+                    "productline": "Cloud Services"
+                }
+            }
+        },
+        {
+            "id": "2700731481426956993",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "16688164806332096494",
+                "fullName": "Alex Bleasdale"
+            },
+            "creationtime": "2020-10-21T13:01:25.358728Z",
+            "modifiedtime": "2020-10-21T13:01:25.340276Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "No",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "provided",
+                "resolutionWhat": "Investigation",
+                "resolutionComment": "",
+                "functionality": "Data Management"
+            },
+            "ticket": {
+                "ticketName": "Ticket-29900",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "High",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2020-09-21T00:08:13Z",
+                "modifiedtime": "2020-10-21T06:01:37Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "13677321267022163043",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "15887817385527363385",
+                "fullName": "Chunyu Wilson"
+            },
+            "creationtime": "2021-07-01T14:14:07.971844Z",
+            "modifiedtime": "2021-07-01T14:14:07.948536Z",
+            "survey": {
+                "ticketComplete": "Yes",
+                "collateralAvailable": "No",
+                "collateralComment": "56489",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Consulting",
+                "resolutionDid": "authored",
+                "resolutionWhat": "Bug fix",
+                "resolutionComment": "",
+                "functionality": "Installation"
+            },
+            "ticket": {
+                "ticketName": "Ticket-32368",
+                "ticketTitle": "",
+                "ticketStatus": "Bug Filed",
+                "ticketPriority": "Medium",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2021-06-21T07:16:09Z",
+                "modifiedtime": "2021-07-08T14:38:04Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "17187921959933567205",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "13499797382833502051",
+                "fullName": "Anurag Puri"
+            },
+            "creationtime": "2022-03-14T07:04:34.505068Z",
+            "modifiedtime": "2022-03-14T07:04:34.477012Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "Yes",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Support",
+                "resolutionDid": "provided",
+                "resolutionWhat": "Knowledge",
+                "resolutionComment": "",
+                "functionality": "Administration"
+            },
+            "ticket": {
+                "ticketName": "Ticket-33451",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "Low",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-01-20T08:26:24Z",
+                "modifiedtime": "2022-03-15T21:44:03Z",
+                "meta": {
+                    "productline": "MarkLogic Server"
+                }
+            }
+        },
+        {
+            "id": "3918451092306983741",
+            "reportType": "survey",
+            "reportCreator": {
+                "userId": "12177798696242727760",
+                "fullName": "Ajith Kumar Mohanakumaran"
+            },
+            "creationtime": "2022-03-11T16:35:15.324733Z",
+            "modifiedtime": "2022-03-11T16:35:15.304884Z",
+            "survey": {
+                "ticketComplete": "No",
+                "collateralAvailable": "No",
+                "collateralComment": "",
+                "shipmentDetailsComplete": "No",
+                "shipmentDetailsComment": "",
+                "resolutionWho": "Development",
+                "resolutionDid": "discovered",
+                "resolutionWhat": "Procedure",
+                "resolutionComment": "",
+                "functionality": "Infrastructure"
+            },
+            "ticket": {
+                "ticketName": "Ticket-33695",
+                "ticketTitle": "",
+                "ticketStatus": "Closed",
+                "ticketPriority": "Medium",
+                "ticketCreator": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketEndCustomer": {
+                    "organizationId": "",
+                    "organizationName": ""
+                },
+                "ticketOwner": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "ticketLastreplier": {
+                    "userId": "",
+                    "fullName": ""
+                },
+                "creationtime": "2022-03-09T15:19:34Z",
+                "modifiedtime": "2022-03-11T16:51:25Z",
+                "meta": {
+                    "productline": "Cloud Services"
+                }
+            }
+        }
+    ],
+    "facets": {
+        "a9f191afe4b3ddb9f753acddfff84e3d-collateralAvailable": {
+            "facetValues": [
+                {
+                    "name": "No",
+                    "count": 479,
+                    "value": "No"
+                },
+                {
+                    "name": "Yes",
+                    "count": 669,
+                    "value": "Yes"
+                }
+            ]
+        },
+        "652b76d86fcb88d1dcefdc77c3ce46bd-resolutionWho": {
+            "facetValues": [
+                {
+                    "name": "Account Executive",
+                    "count": 3,
+                    "value": "Account Executive"
+                },
+                {
+                    "name": "Christopher Lindblad",
+                    "count": 12,
+                    "value": "Christopher Lindblad"
+                },
+                {
+                    "name": "Cloud Operation",
+                    "count": 110,
+                    "value": "Cloud Operation"
+                },
+                {
+                    "name": "Consulting",
+                    "count": 20,
+                    "value": "Consulting"
+                },
+                {
+                    "name": "Customer",
+                    "count": 44,
+                    "value": "Customer"
+                },
+                {
+                    "name": "Development",
+                    "count": 102,
+                    "value": "Development"
+                },
+                {
+                    "name": "Management",
+                    "count": 1,
+                    "value": "Management"
+                },
+                {
+                    "name": "Performance Engineering",
+                    "count": 8,
+                    "value": "Performance Engineering"
+                },
+                {
+                    "name": "Product Management",
+                    "count": 7,
+                    "value": "Product Management"
+                },
+                {
+                    "name": "Sales Engineering",
+                    "count": 1,
+                    "value": "Sales Engineering"
+                },
+                {
+                    "name": "Support",
+                    "count": 840,
+                    "value": "Support"
+                }
+            ]
+        },
+        "a1ef37e156073017195a56fc74ad0ba0-ticketId": {
+            "facetValues": []
+        },
+        "ecd47e8000a54237e7d5dc42d908aa41-resolutionDid": {
+            "facetValues": [
+                {
+                    "name": "attempted",
+                    "count": 69,
+                    "value": "attempted"
+                },
+                {
+                    "name": "authored",
+                    "count": 23,
+                    "value": "authored"
+                },
+                {
+                    "name": "discovered",
+                    "count": 45,
+                    "value": "discovered"
+                },
+                {
+                    "name": "handed-off",
+                    "count": 36,
+                    "value": "handed-off"
+                },
+                {
+                    "name": "performed",
+                    "count": 171,
+                    "value": "performed"
+                },
+                {
+                    "name": "provided",
+                    "count": 625,
+                    "value": "provided"
+                },
+                {
+                    "name": "referenced",
+                    "count": 105,
+                    "value": "referenced"
+                },
+                {
+                    "name": "reinstalled",
+                    "count": 2,
+                    "value": "reinstalled"
+                },
+                {
+                    "name": "restarted",
+                    "count": 2,
+                    "value": "restarted"
+                },
+                {
+                    "name": "reviewed",
+                    "count": 52,
+                    "value": "reviewed"
+                },
+                {
+                    "name": "tested",
+                    "count": 18,
+                    "value": "tested"
+                }
+            ]
+        },
+        "8a0039a118440baf576106532b226dbe-ticketComplete": {
+            "facetValues": [
+                {
+                    "name": "No",
+                    "count": 940,
+                    "value": "No"
+                },
+                {
+                    "name": "Yes",
+                    "count": 208,
+                    "value": "Yes"
+                }
+            ]
+        },
+        "2e4654a856d161a4017b3c2e09102b16-functionality": {
+            "facetValues": [
+                {
+                    "name": "Administration",
+                    "count": 179,
+                    "value": "Administration"
+                },
+                {
+                    "name": "Application Deployment",
+                    "count": 35,
+                    "value": "Application Deployment"
+                },
+                {
+                    "name": "Application Development",
+                    "count": 101,
+                    "value": "Application Development"
+                },
+                {
+                    "name": "Backup / Restore",
+                    "count": 59,
+                    "value": "Backup / Restore"
+                },
+                {
+                    "name": "Client Communication",
+                    "count": 19,
+                    "value": "Client Communication"
+                },
+                {
+                    "name": "Cluster Communication",
+                    "count": 11,
+                    "value": "Cluster Communication"
+                },
+                {
+                    "name": "Configuration",
+                    "count": 67,
+                    "value": "Configuration"
+                },
+                {
+                    "name": "Data Management",
+                    "count": 39,
+                    "value": "Data Management"
+                },
+                {
+                    "name": "Design",
+                    "count": 9,
+                    "value": "Design"
+                },
+                {
+                    "name": "Disaster Recovery",
+                    "count": 26,
+                    "value": "Disaster Recovery"
+                },
+                {
+                    "name": "Downgrade",
+                    "count": 1,
+                    "value": "Downgrade"
+                },
+                {
+                    "name": "High Availability",
+                    "count": 16,
+                    "value": "High Availability"
+                },
+                {
+                    "name": "Infrastructure",
+                    "count": 75,
+                    "value": "Infrastructure"
+                },
+                {
+                    "name": "Ingest",
+                    "count": 26,
+                    "value": "Ingest"
+                },
+                {
+                    "name": "Installation",
+                    "count": 37,
+                    "value": "Installation"
+                },
+                {
+                    "name": "Monitoring",
+                    "count": 26,
+                    "value": "Monitoring"
+                },
+                {
+                    "name": "Performance",
+                    "count": 113,
+                    "value": "Performance"
+                },
+                {
+                    "name": "Search",
+                    "count": 60,
+                    "value": "Search"
+                },
+                {
+                    "name": "Security",
+                    "count": 108,
+                    "value": "Security"
+                },
+                {
+                    "name": "Sizing",
+                    "count": 14,
+                    "value": "Sizing"
+                },
+                {
+                    "name": "Stability",
+                    "count": 50,
+                    "value": "Stability"
+                },
+                {
+                    "name": "System Management",
+                    "count": 18,
+                    "value": "System Management"
+                },
+                {
+                    "name": "Transform",
+                    "count": 5,
+                    "value": "Transform"
+                },
+                {
+                    "name": "Upgrade",
+                    "count": 54,
+                    "value": "Upgrade"
+                }
+            ]
+        },
+        "595ded9ab10cee30bcd521f812a0938f-organizationName": {
+            "facetValues": []
+        },
+        "ed9d2fca687ff69b02cfab744ab11c7e-shipmentDetailsComplete": {
+            "facetValues": [
+                {
+                    "name": "No",
+                    "count": 814,
+                    "value": "No"
+                },
+                {
+                    "name": "Yes",
+                    "count": 334,
+                    "value": "Yes"
+                }
+            ]
+        },
+        "0ca72f154fc71e0bc6fa75772b925e7c-reportType": {
+            "type": "xs:string",
+            "facetValues": [
+                {
+                    "name": "survey",
+                    "count": 1148,
+                    "value": "survey"
+                }
+            ]
+        },
+        "95b95e68e52403df2eca68e3b02c0a70-fullName": {
+            "facetValues": []
+        },
+        "8573709cd477a85ac23e102d323b98da-resolutionWhat": {
+            "facetValues": [
+                {
+                    "name": "Behavior",
+                    "count": 64,
+                    "value": "Behavior"
+                },
+                {
+                    "name": "Bug fix",
+                    "count": 162,
+                    "value": "Bug fix"
+                },
+                {
+                    "name": "Clarification",
+                    "count": 137,
+                    "value": "Clarification"
+                },
+                {
+                    "name": "Cluster",
+                    "count": 9,
+                    "value": "Cluster"
+                },
+                {
+                    "name": "Code",
+                    "count": 21,
+                    "value": "Code"
+                },
+                {
+                    "name": "Consulting",
+                    "count": 13,
+                    "value": "Consulting"
+                },
+                {
+                    "name": "Documentation",
+                    "count": 72,
+                    "value": "Documentation"
+                },
+                {
+                    "name": "External Collateral",
+                    "count": 17,
+                    "value": "External Collateral"
+                },
+                {
+                    "name": "Infrastructure issue",
+                    "count": 32,
+                    "value": "Infrastructure issue"
+                },
+                {
+                    "name": "Investigation",
+                    "count": 153,
+                    "value": "Investigation"
+                },
+                {
+                    "name": "Knowledge",
+                    "count": 163,
+                    "value": "Knowledge"
+                },
+                {
+                    "name": "Knowledgebase Article",
+                    "count": 59,
+                    "value": "Knowledgebase Article"
+                },
+                {
+                    "name": "License",
+                    "count": 6,
+                    "value": "License"
+                },
+                {
+                    "name": "Logs",
+                    "count": 16,
+                    "value": "Logs"
+                },
+                {
+                    "name": "Mailing List",
+                    "count": 3,
+                    "value": "Mailing List"
+                },
+                {
+                    "name": "Manual surgery",
+                    "count": 33,
+                    "value": "Manual surgery"
+                },
+                {
+                    "name": "Operational error",
+                    "count": 7,
+                    "value": "Operational error"
+                },
+                {
+                    "name": "Operational task",
+                    "count": 40,
+                    "value": "Operational task"
+                },
+                {
+                    "name": "Problematic input",
+                    "count": 20,
+                    "value": "Problematic input"
+                },
+                {
+                    "name": "Procedure",
+                    "count": 42,
+                    "value": "Procedure"
+                },
+                {
+                    "name": "Provisioning advice",
+                    "count": 17,
+                    "value": "Provisioning advice"
+                },
+                {
+                    "name": "Repro",
+                    "count": 7,
+                    "value": "Repro"
+                },
+                {
+                    "name": "Software",
+                    "count": 15,
+                    "value": "Software"
+                },
+                {
+                    "name": "Unpublished Knowledge",
+                    "count": 6,
+                    "value": "Unpublished Knowledge"
+                },
+                {
+                    "name": "Workaround",
+                    "count": 34,
+                    "value": "Workaround"
+                }
+            ]
+        },
+        "ff933dc92f8316da33530a2b95f2150a-organizationName": {
+            "facetValues": []
+        },
+        "a006520f657a093d428195c3e90f88d2-ticketStatus": {
+            "facetValues": [
+                {
+                    "name": "Bug Filed",
+                    "count": 116,
+                    "value": "Bug Filed"
+                },
+                {
+                    "name": "Closed",
+                    "count": 956,
+                    "value": "Closed"
+                },
+                {
+                    "name": "In Progress",
+                    "count": 1,
+                    "value": "In Progress"
+                },
+                {
+                    "name": "Open",
+                    "count": 12,
+                    "value": "Open"
+                },
+                {
+                    "name": "RFE Filed",
+                    "count": 23,
+                    "value": "RFE Filed"
+                },
+                {
+                    "name": "Reopened",
+                    "count": 1,
+                    "value": "Reopened"
+                },
+                {
+                    "name": "Task Filed",
+                    "count": 15,
+                    "value": "Task Filed"
+                },
+                {
+                    "name": "Waiting on Customer",
+                    "count": 12,
+                    "value": "Waiting on Customer"
+                },
+                {
+                    "name": "Waiting on MarkLogic",
+                    "count": 1,
+                    "value": "Waiting on MarkLogic"
+                }
+            ]
+        },
+        "8ca9bd84f5663daf4960508ce574eed3-organizationName": {
+            "facetValues": []
+        },
+        "cc645f85c8dc2082f1f44d412edf0a4c-fullName": {
+            "facetValues": []
+        },
+        "6bbc21960caa425d35022fbd1fbfb848-fullName": {
+            "facetValues": []
+        },
+        "2dcc8c25ce4214e1fc9c3fef0749aff6-organizationName": {
+            "facetValues": []
+        },
+        "c44714ed15e54ff62e577e366d779204-organizationName": {
+            "facetValues": []
+        },
+        "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority": {
+            "facetValues": [
+                {
+                    "name": "High",
+                    "count": 370,
+                    "value": "High"
+                },
+                {
+                    "name": "Low",
+                    "count": 67,
+                    "value": "Low"
+                },
+                {
+                    "name": "Medium",
+                    "count": 688,
+                    "value": "Medium"
+                },
+                {
+                    "name": "Urgent",
+                    "count": 12,
+                    "value": "Urgent"
+                }
+            ]
+        },
+        "4f68ccec4d2a5b0120caab1db8d4ba50-fullName": {
+            "facetValues": []
+        },
+        "f6b4ff81290e4d728fe8116b650f4ee5-organizationName": {
+            "facetValues": []
+        },
+        "d153ac4070bc83550ce78ff700b9ad56-productline": {
+            "facetValues": [
+                {
+                    "name": "Account Requests",
+                    "count": 1,
+                    "value": "Account Requests"
+                },
+                {
+                    "name": "Cloud Services",
+                    "count": 142,
+                    "value": "Cloud Services"
+                },
+                {
+                    "name": "Data Hub Framework",
+                    "count": 56,
+                    "value": "Data Hub Framework"
+                },
+                {
+                    "name": "MarkLogic Server",
+                    "count": 834,
+                    "value": "MarkLogic Server"
+                },
+                {
+                    "name": "Ops Director",
+                    "count": 3,
+                    "value": "Ops Director"
+                },
+                {
+                    "name": "Support Tickets",
+                    "count": 100,
+                    "value": "Support Tickets"
+                },
+                {
+                    "name": "10000602",
+                    "count": 1,
+                    "value": "10000602"
+                }
+            ]
+        }
+    },
+    "metrics": {
+        "query-resolution-time": "PT0.38644S",
+        "facet-resolution-time": "PT0.243619S",
+        "total-time": "PT0.63069S"
+    }
+}

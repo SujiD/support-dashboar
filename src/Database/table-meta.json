@@ -1,0 +1,378 @@
+{
+	"snippet-format": "empty-snippet",
+	"start": 1,
+	"page-length": 10,
+	"total": 1,
+	"results": [
+		{
+			"id": "2278327121300496970",
+			"applicationPageName": "Default",
+			"dataEntity": "support-status-report",
+			"applicationPath": "/report",
+			"active": false,
+			"widgets": [],
+			"creationtime": "1971-01-01T00:00:00Z",
+			"modifiedtime": "1971-01-01T00:00:00Z",
+			"applicationTable": {
+				"id": "2278327121300496970",
+				"applicationTableName": "Default",
+				"applicationPath": "/report",
+				"dataEntity": "support-status-report",
+				"dataFields": [
+					{
+						"label": "Report Type",
+						"name": "0ca72f154fc71e0bc6fa75772b925e7c-reportType",
+						"field": "reportType",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Author Name",
+						"name": "95b95e68e52403df2eca68e3b02c0a70-fullName",
+						"field": "reportCreator.fullName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Ticket",
+						"name": "440dc5388d1707d456abc618725d1133-ticketName",
+						"field": "ticket.ticketName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Subject",
+						"name": "1ff7b00c16c46edc6e6849a85e51eb63-ticketTitle",
+						"field": "ticket.ticketTitle",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Ticket Status",
+						"name": "a006520f657a093d428195c3e90f88d2-ticketStatus",
+						"field": "ticket.ticketStatus",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Ticket Priority",
+						"name": "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority",
+						"field": "ticket.ticketPriority",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Creator Name",
+						"name": "cc645f85c8dc2082f1f44d412edf0a4c-fullName",
+						"field": "ticket.ticketCreator.fullName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Customer Organization",
+						"name": "c44714ed15e54ff62e577e366d779204-organizationName",
+						"field": "ticket.ticketCustomer.organizationName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "End Customer Organization",
+						"name": "f6b4ff81290e4d728fe8116b650f4ee5-organizationName",
+						"field": "ticket.ticketEndCustomer.organizationName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Owner Name",
+						"name": "6bbc21960caa425d35022fbd1fbfb848-fullName",
+						"field": "ticket.ticketOwner.fullName",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Created",
+						"name": "4861299926fb4ac4dcf81ad7323f9680-creationtime",
+						"field": "ticket.creationtime",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Modified",
+						"name": "dbe1e4bed32d3e63d916c101b3cc8aa2-modifiedtime",
+						"field": "ticket.modifiedtime",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Server Version",
+						"name": "052632bc86c4bc4548ee29c805385b7d-serverVersion",
+						"field": "ticket.meta.serverVersion",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Telemetry ClusterID",
+						"name": "b9ef61dc645e39afbd92c90ee4daacc0-clusterId",
+						"field": "ticket.meta.clusterId",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Platform",
+						"name": "ce9f7495423199e20a567ff4ab9a8832-platform",
+						"field": "ticket.meta.platform",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Component",
+						"name": "0ae57ff54c880efbb7068be9ac8a8eef-component",
+						"field": "ticket.meta.component",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Legacy ID",
+						"name": "29066543f9337f7edb764c0d7467b960-legacyId",
+						"field": "ticket.meta.legacyId",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "DHF Version",
+						"name": "17973ba58d215710121d0b0b4614d6ca-dhfVersion",
+						"field": "ticket.meta.dhfVersion",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "OPS Version",
+						"name": "ce6b0a5f03f47b0e1ce018a1ae715d9b-opsVersion",
+						"field": "ticket.meta.opsVersion",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "ML Service ID",
+						"name": "d06c1ddc174e8d8a19f29256d71f9b72-cloudServiceId",
+						"field": "ticket.meta.cloudServiceId",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Service Cluster UUID",
+						"name": "818e9fb94edcb8e1e3db7f2e673b51d5-cloudMlaasId",
+						"field": "ticket.meta.cloudMlaasId",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Platform",
+						"name": "1829ed67adaaf0cf8fcf1e3f92268437-cloudPlatform",
+						"field": "ticket.meta.cloudPlatform",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "DHS Version",
+						"name": "213c12b7f2f5191737a4903686e9b3af-dhsVersion",
+						"field": "ticket.meta.dhsVersion",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Environment",
+						"name": "0e7d6e159254d66b0ca91909af7500c6-environment",
+						"field": "ticket.meta.environment",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Bug Number",
+						"name": "02b7942a4417603293fa289573162874-issueNumber",
+						"field": "ticket.meta.issueNumber",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Product Line",
+						"name": "d153ac4070bc83550ce78ff700b9ad56-productline",
+						"field": "ticket.meta.productline",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "ticket"
+					},
+					{
+						"label": "Created",
+						"name": "93803cbe97e2b0a38b39c3f2016cfef5-creationtime",
+						"field": "creationtime",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Modified",
+						"name": "2af7ff17d413842720b5472d7970e779-modifiedtime",
+						"field": "modifiedtime",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Ticket Complete",
+						"name": "8a0039a118440baf576106532b226dbe-ticketComplete",
+						"field": "survey.ticketComplete",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Collateral",
+						"name": "a9f191afe4b3ddb9f753acddfff84e3d-collateralAvailable",
+						"field": "survey.collateralAvailable",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Ship Details Complete",
+						"name": "ed9d2fca687ff69b02cfab744ab11c7e-shipmentDetailsComplete",
+						"field": "survey.shipmentDetailsComplete",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Who",
+						"name": "652b76d86fcb88d1dcefdc77c3ce46bd-resolutionWho",
+						"field": "survey.resolutionWho",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Did",
+						"name": "ecd47e8000a54237e7d5dc42d908aa41-resolutionDid",
+						"field": "survey.resolutionDid",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "What",
+						"name": "8573709cd477a85ac23e102d323b98da-resolutionWhat",
+						"field": "survey.resolutionWhat",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					},
+					{
+						"label": "Functionality",
+						"name": "2e4654a856d161a4017b3c2e09102b16-functionality",
+						"field": "survey.functionality",
+						"align": "center",
+						"width": "200",
+						"sortable": false,
+						"visible": true,
+						"entity": "supportStatusReport"
+					}
+				],
+				"creationtime": "1971-01-01T00:00:00Z",
+				"modifiedtime": "1971-01-01T00:00:00Z"
+			}
+		}
+	]
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate} from "react-router-dom";
-import {database, errors} from "../Data";
+import {database, errors} from "../Database/Data.js";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

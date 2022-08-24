@@ -61,11 +61,15 @@
   span {
     margin-left: 16px;
   }
-
+  
   .logo{
+    background: linear-gradient(to right, white 0% 2.18em, #E31B23 0% 2.8em, #E31B23 1.9em 100%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     cursor: pointer;
   }
-
+  
   .logout-btn{
     text-align: center;
     max-width:100px;
