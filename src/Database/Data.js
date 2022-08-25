@@ -63,7 +63,7 @@ export const countData = [
   {
     id: 1,
     count: 567879,
-    text: "owner",
+    text: "name",
   },
   {
     id: 2,
@@ -133,32 +133,32 @@ export const ownerData = [
   {
     id: 1,
     count: 4,
-    owner: "Ajith Kumar",
+    name: "Ajith Kumar",
   },
   {
     id: 2,
     count: 8,
-    owner: "Avinash Mistry",
+    name: "Avinash Mistry",
   },
   {
     id: 3,
     count: 9,
-    owner: "Chris Hamlin",
+    name: "Chris Hamlin",
   },
   {
     id: 4,
     count: 3,
-    owner: "Ravi Gunupuram",
+    name: "Ravi Gunupuram",
   },
   {
     id: 5,
     count: 12,
-    owner: "Mayank Srivastava",
+    name: "Mayank Srivastava",
   },
   {
     id: 6,
     count: 10,
-    owner: "Pradeep Biswal",
+    name: "Pradeep Biswal",
   }
 ]
 

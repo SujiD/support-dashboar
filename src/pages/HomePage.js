@@ -1,17 +1,13 @@
 import { DataBox } from "../components/Data-Box/DataBox";
 import { NavBar } from "../components/nav-bar/NavBar";
 import { useState } from "react";
-import { DepartmentData, ownerData, colors, priorityData, statusData } from "../Database/Data";
+import { ownerData, colors } from "../Database/Data";
 import PieChart from "../components/PieChart";
 import DataView from "../components/DataView";
 import { Form } from "react-bootstrap";
-import { pData, sData, dData, plen, slen, dlen } from "../common/filter";
+import { pData, sData, dData, plen, slen, dlen, } from "../common/filter";
 
 export const HomePage = () => {
-
-  
-
- 
 
   const [selectStat, setSelectStat] = useState("owner");
   const [productData, setProductData] = useState({
@@ -54,7 +50,7 @@ export const HomePage = () => {
   });
 
   const [ownerD, setOwnerD] = useState({
-    labels: ownerData.map((d) => d.owner),
+    labels: ownerData.map((d) => d.name),
     datasets: [
       {
         label: "Owner",
@@ -89,7 +85,7 @@ export const HomePage = () => {
     <>
       <NavBar />
       <div className="date-cont">
-        <input type="date" onChange={(e) => handleDate(e)} value={yy + "-" + month.padStart(2, '0') + "-" + day}/>
+        <input type="date" onChange={(e) => handleDate(e)} value={yy + "-" + month.padStart(2, '0') + "-" + day} />
         <div className="cal m-3">
           <div className="month">{monthNames[month]}</div>
           <div className="date">{day}</div>
@@ -97,7 +93,7 @@ export const HomePage = () => {
       </div>
       <div className="d-flex align-items-center justify-content-evenly mb-5">
         <button className="data-box-btn mt-5" style={{ borderColor: "#70d8c1" }} onClick={() => setSelectStat("Owner")}>
-          <DataBox heading={"567,879"} text={"Ticket counts by owner"} />
+          <DataBox heading={"567"} text={"Ticket counts by owner"} />
         </button>
         <button className="data-box-btn mt-5" style={{ borderColor: "#f5d881" }} onClick={() => setSelectStat("Product")}>
           <DataBox heading={String(dlen)} text={"Ticket counts by product"} />
@@ -136,12 +132,12 @@ export const HomePage = () => {
         </div>
 
         {
-          selectStat === "Priority" ? <DataView viewData={priorityData} table={selectStat} />
+          selectStat === "Priority" ? <DataView viewData={pData} table={selectStat} />
             : (selectStat === "Status" ?
-              <DataView viewData={statusData} table={selectStat} />
+              <DataView viewData={sData} table={selectStat} />
               : (
                 selectStat === "Product" ?
-                  <DataView viewData={DepartmentData} table={selectStat} />
+                  <DataView viewData={dData} table={selectStat} />
                   :
                   <DataView viewData={ownerData} table={selectStat} />
               )

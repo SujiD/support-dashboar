@@ -9,7 +9,7 @@ const DataView = (props) => {
         <CSVLink data={props.viewData} target="_blank" filename={props.table + ".csv"} className="download-icon fa-lg">
             <FontAwesomeIcon icon={faDownload} /> 
         </CSVLink>
-        <Table striped bordered hover size="sm">
+        <Table striped bordered hover size="sm" className="table">
             <thead>
             <tr>
                     <th>ID</th>
@@ -23,24 +23,15 @@ const DataView = (props) => {
                     )
                     
                     }
-                    <th>Unresolved</th>
+                    <th>Count</th>
             </tr>
             </thead>
             <tbody>
-                {props.viewData.map((data)=>{
+                {props.viewData.map((data, i=0)=>{
                     return(  
-                    <tr key={data.id}>
-                        <td>{data.id}</td>
-                        {props.table === "Priority" ? <td>{data.priority}</td> 
-                    : (
-                        props.table === "Status" ? <td>{data.status}</td>
-                        : (
-                            props.table === "Product" ? <td>{data.department}</td>
-                            : <td>{data.owner}</td>
-                        )
-                    )
-                    
-                    }
+                    <tr key={i + 1}>
+                        <td>{i + 1}</td>
+                        <td>{data.name}</td>
                         <td>{data.count}</td>
                     </tr>
                     )

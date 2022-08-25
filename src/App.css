@@ -135,6 +135,11 @@ input[type="password"] {
   color: #333;
   float: right;
  }
+ table{
+  overflow-y:scroll;
+  height:200px;
+  display:block;
+}
 
  .table-container{
   position: relative;
@@ -142,7 +147,7 @@ input[type="password"] {
   border-radius: 10px;
   padding: 25px;
   border-top: solid 40px #ccc;
-  width: 700px;
+  width: 500px;
   height: 430px;
  }
 
