@@ -132,32 +132,32 @@ export const statusData = [
 export const ownerData = [
   {
     id: 1,
-    count: 4,
+    count: 140,
     name: "Ajith Kumar",
   },
   {
     id: 2,
-    count: 8,
+    count: 32,
     name: "Avinash Mistry",
   },
   {
     id: 3,
-    count: 9,
+    count: 99,
     name: "Chris Hamlin",
   },
   {
     id: 4,
-    count: 3,
+    count: 111,
     name: "Ravi Gunupuram",
   },
   {
     id: 5,
-    count: 12,
+    count: 47,
     name: "Mayank Srivastava",
   },
   {
     id: 6,
-    count: 10,
+    count: 138,
     name: "Pradeep Biswal",
   }
 ]

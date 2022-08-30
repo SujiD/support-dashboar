@@ -6,6 +6,9 @@ import PieChart from "../components/PieChart";
 import DataView from "../components/DataView";
 import { Form } from "react-bootstrap";
 import { pData, sData, dData, plen, slen, dlen, } from "../common/filter";
+import Calendar from "../components/calendar/Calendar";
+import BarChart from "../components/BarChart";
+import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export const HomePage = () => {
 
@@ -62,21 +65,6 @@ export const HomePage = () => {
     ]
   });
 
-  var today = new Date();
-  const [day, setDay] = useState(String(today.getDate()).padStart(2, '0'));
-  const [month, setMonth] = useState(String(today.getMonth() + 1));
-
-
-  var yy = String(today.getFullYear())
-
-  const handleDate = (event) => {
-    setDay(String((event.target.value).split("-")[2]));
-    setMonth(String((event.target.value).split("-")[1][1]));
-  }
-
-
-  const monthNames = ["", "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
 
   const handleChange = (event) => {
     setSelectStat(event.target.value)
@@ -85,26 +73,45 @@ export const HomePage = () => {
     <>
       <NavBar />
       <div className="date-cont">
-        <input type="date" onChange={(e) => handleDate(e)} value={yy + "-" + month.padStart(2, '0') + "-" + day} />
-        <div className="cal m-3">
-          <div className="month">{monthNames[month]}</div>
-          <div className="date">{day}</div>
-        </div>
+        <Calendar />
       </div>
-      <div className="d-flex align-items-center justify-content-evenly mb-5">
-        <button className="data-box-btn mt-5" style={{ borderColor: "#70d8c1" }} onClick={() => setSelectStat("Owner")}>
-          <DataBox heading={"567"} text={"Ticket counts by owner"} />
-        </button>
-        <button className="data-box-btn mt-5" style={{ borderColor: "#f5d881" }} onClick={() => setSelectStat("Product")}>
-          <DataBox heading={String(dlen)} text={"Ticket counts by product"} />
-        </button>
-        <button className="data-box-btn mt-5" style={{ borderColor: "#ffbd8e" }} onClick={() => setSelectStat("Status")}>
-          <DataBox heading={String(slen)} text={"Ticket counts by status"} />
-        </button>
-        <button className="data-box-btn mt-5" style={{ borderColor: "#ff984e" }} onClick={() => setSelectStat("Priority")}>
-          <DataBox heading={String(plen)} text={"Ticket counts by priority"} />
-        </button>
-
+      <div className="d-flex align-items-c.enter justify-content-evenly mb-5 top-home">
+        <OverlayTrigger placement="right" delay={{ show: 0, hide: 0 }} overlay={
+          <Tooltip>
+            <BarChart chartData={ownerD} className="bar-chart" />
+          </Tooltip>
+        }>
+          <button className="data-box-btn mt-5" style={{ borderColor: "#70d8c1" }} onClick={() => setSelectStat("Owner")}>
+            <DataBox heading={"567"} text={"Ticket counts by owner"} />
+          </button>
+        </OverlayTrigger>
+        <OverlayTrigger placement="right" delay={{ show: 0, hide: 0 }} overlay={
+          <Tooltip>
+            <BarChart chartData={productData} className="bar-chart" />
+          </Tooltip>
+        }>
+          <button className="data-box-btn mt-5" style={{ borderColor: "#f5d881" }} onClick={() => setSelectStat("Product")}>
+            <DataBox heading={String(dlen)} text={"Ticket counts by product"} />
+          </button>
+        </OverlayTrigger>
+        <OverlayTrigger placement="right" delay={{ show: 0, hide: 0 }} overlay={
+          <Tooltip>
+            <BarChart chartData={statusD} className="bar-chart" />
+          </Tooltip>
+        }>
+          <button className="data-box-btn mt-5" style={{ borderColor: "#ffbd8e" }} onClick={() => setSelectStat("Status")}>
+            <DataBox heading={String(slen)} text={"Ticket counts by status"} />
+          </button>
+        </OverlayTrigger>
+        <OverlayTrigger placement="right" delay={{ show: 0, hide: 0 }} overlay={
+          <Tooltip>
+            <BarChart chartData={priorityD} className="bar-chart" />
+          </Tooltip>
+        }>
+          <button className="data-box-btn mt-5" style={{ borderColor: "#ff984e" }} onClick={() => setSelectStat("Priority")}>
+            <DataBox heading={String(plen)} text={"Ticket counts by priority"} />
+          </button>
+        </OverlayTrigger>
       </div>
       <div className="d-flex align-items-start gap-5 justify-content-evenly">
         <div className="charts d-flex flex-column justify-content-center align-items-start">
@@ -148,3 +155,5 @@ export const HomePage = () => {
 
   )
 }
+
+

@@ -151,56 +151,9 @@ input[type="password"] {
   height: 430px;
  }
 
-
- input[type="date"]{
-  background-color: #060b26;
-  padding: 10px;
-  font-family: "Roboto Mono",monospace;
-  color: #ffffff;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-}
-::-webkit-calendar-picker-indicator{
-  background-color: #ffffff;
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
- .date-cont{
-  float: right;
-  margin-top: 25px;
-  margin-right: 10px;
+ .top-home{
+  z-index: 100;
  }
-
- .cal {
-  border: .1px solid #CCCAC5;
-  background-color: #FFF;
-  width: 110px;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-.cal .month {
-  height: 25px;
-  line-height: 25px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  background-color: #E75951;
-  color: #FFF;
-}
-.cal .date {
-  font-size: 4rem;
-  color: #585858;
-  line-height: 90px;
-}
-
-.data-box-link{
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
-
-}
 
 .data-box-btn{
   height: 140px;

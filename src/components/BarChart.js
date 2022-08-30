@@ -49,7 +49,7 @@ const BarChart = ({chartData}) => {
   return (
     <>
       <div className="d-flex align-items-center justify-content-evenly gap-5">
-        <div><Bar data={chartData} ref={chartRef} onClick={generateData} width={500} height={300}/></div>
+        <div><Bar data={chartData} ref={chartRef} onClick={generateData} width={200} height={175}/></div>
       </div>
       {/* <DataView /> */}
     </>
