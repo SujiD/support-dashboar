@@ -1,13 +1,13 @@
 .navbar {
     background-color: #060b26;
     height: 80px;
-    z-index: 10;
   }
   
   .menu-bars {
     margin-left: 1.5rem;
     font-size: 2rem;
     background: none;
+    z-index: 11;
   }
   
   .nav-menu {
@@ -20,6 +20,7 @@
     top: 0;
     left: -100%;
     transition: 850ms;
+    z-index: 10;
   }
   
   .nav-menu.active {
