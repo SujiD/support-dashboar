@@ -9,6 +9,7 @@ import { pData, sData, dData, plen, slen, dlen, } from "../common/filter";
 import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/BarChart";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
+import StaticBox from "../components/static-box/StaticBox";
 
 export const HomePage = () => {
 
@@ -113,43 +114,43 @@ export const HomePage = () => {
           </button>
         </OverlayTrigger>
       </div>
-      <div className="d-flex align-items-start gap-5 justify-content-evenly">
-        <div className="charts d-flex flex-column justify-content-center align-items-start">
-          <span className="chart-text"><b>What's new with entities</b></span>
-          <div className=" d-flex align-items-center justify-content-evenly chart-container">
-            <Form.Select size="sm" onChange={(event) => handleChange(event)} value={selectStat}>
-              <option value="Owner">Owner</option>
-              <option value="Product">Product</option>
-              <option value="Status">Status</option>
-              <option value="Priority">Priority</option>
-            </Form.Select>
-            {
-              selectStat === "Priority" ? <PieChart chartData={priorityD} className="pie-chart" />
-                : (selectStat === "Status" ?
-                  <PieChart chartData={statusD} className="pie-chart" />
-                  : (
-                    selectStat === "Product" ?
-                      <PieChart chartData={productData} className="pie-chart" />
-                      :
-                      <PieChart chartData={ownerD} className="pie-chart" />
+      <div className="d-flex">
+        <StaticBox heading={"What's new with entities"}
+          content={
+            <div className=" d-flex align-items-center chart-container">
+              <Form.Select size="sm" onChange={(event) => handleChange(event)} value={selectStat}>
+                <option value="Owner">Owner</option>
+                <option value="Product">Product</option>
+                <option value="Status">Status</option>
+                <option value="Priority">Priority</option>
+              </Form.Select>
+              {
+                selectStat === "Priority" ? <PieChart chartData={priorityD} className="pie-chart" />
+                  : (selectStat === "Status" ?
+                    <PieChart chartData={statusD} className="pie-chart" />
+                    : (
+                      selectStat === "Product" ?
+                        <PieChart chartData={productData} className="pie-chart" />
+                        :
+                        <PieChart chartData={ownerD} className="pie-chart" />
+                    )
                   )
+              }
+            </div>
+          } />
+          <StaticBox heading={"Entity Table"} 
+          content={
+            selectStat === "Priority" ? <DataView viewData={pData} table={selectStat} />
+              : (selectStat === "Status" ?
+                <DataView viewData={sData} table={selectStat} />
+                : (
+                  selectStat === "Product" ?
+                    <DataView viewData={dData} table={selectStat} />
+                    :
+                    <DataView viewData={ownerData} table={selectStat} />
                 )
-            }
-          </div>
-        </div>
-
-        {
-          selectStat === "Priority" ? <DataView viewData={pData} table={selectStat} />
-            : (selectStat === "Status" ?
-              <DataView viewData={sData} table={selectStat} />
-              : (
-                selectStat === "Product" ?
-                  <DataView viewData={dData} table={selectStat} />
-                  :
-                  <DataView viewData={ownerData} table={selectStat} />
               )
-            )
-        }
+          } />
       </div>
     </>
 

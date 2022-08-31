@@ -110,20 +110,11 @@ input[type="password"] {
   border-top: solid 40px #ccc;
   border-radius: 10px;
 }
+
 .chart-container{
   width: 80%;
   margin: 20px;
   gap: 100px;
-}
-
-.chart-text{
-  margin-top: -30px;
-}
-
-.table-text{
-  position: absolute;
-  top: -30px;
-  left:-5px;
 }
 
 .pie-chart{
@@ -131,30 +122,17 @@ input[type="password"] {
   max-height: 350px;
 }
 
- .download-icon{
-  color: #333;
-  float: right;
- }
- table{
+ /* table{
   overflow-y:scroll;
   height:200px;
   display:block;
-}
+} */
 
- .table-container{
-  position: relative;
-  border: solid 1px #ccc;
-  border-radius: 10px;
-  padding: 25px;
-  border-top: solid 40px #ccc;
-  width: 500px;
-  height: 430px;
- }
-
- .top-home{
+.top-home{
   z-index: 100;
  }
 
+ /* DataBox Button */
 .data-box-btn{
   height: 140px;
   width: 20%;
@@ -165,15 +143,23 @@ input[type="password"] {
   background-color: #fff;
 }
 
+
+/* Download Icon */
+.download-icon{
+  color: #333;
+  float: right;
+ }
+
+
+.tooltip-arrow {
+  display: none !important;
+}
+
 @media screen and (max-width: 990px) {
 
   .text{
     margin-bottom: 5px;
     font-size: 18px;
-  }
-
-  .search{
-    margin-top: 40px;
   }
 
 }

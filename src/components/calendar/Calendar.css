@@ -1,4 +1,4 @@
- /* input[type="date"]{
+ input[type="date"]{
   background-color: #060b26;
   padding: 10px;
   font-family: "Roboto Mono",monospace;
@@ -8,11 +8,11 @@
   border-radius: 5px;
 }
 ::-webkit-calendar-picker-indicator{
-  background-color: #ffffff;
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 3px;
-} */
+ opacity: 0;
+}
+
+
+
 
 
 .date-cont{

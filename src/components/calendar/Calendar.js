@@ -12,6 +12,7 @@ const Calendar = () => {
     var yy = String(today.getFullYear())
 
     const handleDate = (event) => {
+        console.log(event.target)
         setDay(String((event.target.value).split("-")[2]));
         setMonth(String((event.target.value).split("-")[1][1]));
     }
@@ -21,13 +22,13 @@ const Calendar = () => {
         "July", "August", "September", "October", "November", "December"];
 
     return (
-        <>
+        <div>
             {/* <input type="date" value={yy + "-" + month.padStart(2, '0') + "-" + day} onChange={(e) => handleDate(e)} className="calendar" /> */}
-            <div className="cal m-3 mt-4">
-                <div className="month">{monthNames[month]}</div>
-                <div className="date">{day}</div>
-            </div>
-        </>
+                <div className="cal m-3 mt-4">
+                    <div className="month">{monthNames[month]}</div>
+                    <div className="date">{day}</div>
+                </div>
+        </div>
     )
 }
 

@@ -1,0 +1,17 @@
+.static-box{
+    position: relative;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 0 5%;
+    border-top: solid 40px #ccc;
+    width: 40%;
+    height: auto;
+    top:0;
+    z-index: 100;
+}
+
+.static-heading{
+    position: absolute;
+    top: -30px;
+}
