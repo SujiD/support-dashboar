@@ -118,7 +118,7 @@ export const HomePage = () => {
         <StaticBox heading={"What's new with entities"}
           content={
             <div className=" d-flex align-items-center chart-container">
-              <Form.Select size="sm" onChange={(event) => handleChange(event)} value={selectStat}>
+              <Form.Select size="sm" onChange={(event) => handleChange(event)} value={selectStat} className="select-home">
                 <option value="Owner">Owner</option>
                 <option value="Product">Product</option>
                 <option value="Status">Status</option>
