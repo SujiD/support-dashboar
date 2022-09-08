@@ -23,7 +23,7 @@ const Calendar = () => {
 
     return (
         <div>
-            {/* <input type="date" value={yy + "-" + month.padStart(2, '0') + "-" + day} onChange={(e) => handleDate(e)} className="calendar" /> */}
+            <input type="date" value={yy + "-" + month.padStart(2, '0') + "-" + day} onChange={(e) => handleDate(e)} className="calendar" />
                 <div className="cal m-3 mt-4">
                     <div className="month">{monthNames[month]}</div>
                     <div className="date">{day}</div>

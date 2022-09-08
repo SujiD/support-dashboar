@@ -1,5 +1,5 @@
 import "./DataBox.css";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated } from "react-spring";
 export const DataBox = ({heading, text, color}) => {
   const styles = useSpring({
     from:{ opacity: 0},

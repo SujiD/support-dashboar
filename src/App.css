@@ -124,7 +124,9 @@ input[type="password"] {
 
  /* table{
   overflow-y:scroll;
+  overflow-x:scroll;
   height:200px;
+  width: 500px;
   display:block;
 } */
 
@@ -145,7 +147,6 @@ input[type="password"] {
 
  /* DataBox Button */
 .data-box-btn{
-  height: 140px;
   width: 20%;
   border: solid 1px;
   border-left: solid 20px;

@@ -1,10 +1,8 @@
 import React from 'react'
-import {Doughnut, Pie} from "react-chartjs-2";
+import {Doughnut} from "react-chartjs-2";
 import {Chart as ChartJS} from "chart.js/auto";
 import {
-  getDatasetAtEvent,
   getElementAtEvent,
-  getElementsAtEvent,
 } from 'react-chartjs-2';
 import { useRef } from "react";
 const PieChart = ({chartData}) => {

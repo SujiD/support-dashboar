@@ -1,19 +1,29 @@
 import {Bar} from "react-chartjs-2";
-import {Chart as ChartJS, BarElement, CategoryScale, LinearScale} from "chart.js";
 
-
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-// )
 
 const BarChart = ({chartData}) => {
+
+
+   const options = {
+    responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          display: false,
+        },
+      }
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
 
   return (
     <>
       <div className="d-flex align-items-center justify-content-evenly gap-5">
-        <div><Bar data={chartData} width={200} height={175}/></div>
+        <div><Bar data={chartData} width={150} height={100} options={options}/></div>
       </div>
   
     </>
