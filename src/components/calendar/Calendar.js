@@ -50,7 +50,7 @@ const Calendar = () => {
           value={yy + "-" + month.padStart(2, "0") + "-" + day}
           onChange={(e) => handleDate(e)}
           className="calendar position-absolute"
-          max={yy + "-" + String(today.getMonth()).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0")}
+          max={yy + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0")}
         />
       </div>
       {/* ) : null} */}
