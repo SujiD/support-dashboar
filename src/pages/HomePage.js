@@ -1,14 +1,13 @@
-import { DataBox } from "../components/Data-Box/DataBox";
+// import { DataBox } from "../components/Data-Box/DataBox";
 import { NavBar } from "../components/nav-bar/NavBar";
 import { useState } from "react";
 import { ownerData, colors } from "../Database/Data";
-import PieChart from "../components/PieChart";
-import DataView from "../components/DataView";
+import PieChart from "../components/charts/PieChart";
+import DataView from "../table/DataView";
 import { Form } from "react-bootstrap";
-import { pData, sData, dData, plen, slen, dlen } from "../common/filter";
+import { pData, sData, dData } from "../common/filter";
 import Calendar from "../components/calendar/Calendar";
-import BarChart from "../components/BarChart";
-import { Tooltip, OverlayTrigger } from "react-bootstrap";
+import BarChart from "../components/charts/BarChart";
 import StaticBox from "../components/static-box/StaticBox";
 
 export const HomePage = () => {
@@ -74,13 +73,17 @@ export const HomePage = () => {
       <div className="date-cont">
         <Calendar />
       </div>
-      <div className="d-flex align-items-c.enter justify-content-evenly mb-5 top-home">
+      <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
         <button
           className="data-box-btn mt-5"
           style={{ borderColor: "#70d8c1" }}
           onClick={() => setSelectStat("Owner")}
         >
-          <BarChart chartData={ownerD} className="bar-chart" />
+          <BarChart
+            chartData={ownerD}
+            className="bar-chart"
+            title={"Ticket status by Owner"}
+          />
         </button>
 
         <button
@@ -88,7 +91,11 @@ export const HomePage = () => {
           style={{ borderColor: "#f5d881" }}
           onClick={() => setSelectStat("Product")}
         >
-          <BarChart chartData={productData} className="bar-chart" />
+          <BarChart
+            chartData={productData}
+            className="bar-chart"
+            title={"Ticket status by Department"}
+          />
         </button>
 
         <button
@@ -96,7 +103,11 @@ export const HomePage = () => {
           style={{ borderColor: "#ffbd8e" }}
           onClick={() => setSelectStat("Status")}
         >
-          <BarChart chartData={statusD} className="bar-chart" />
+          <BarChart
+            chartData={statusD}
+            className="bar-chart"
+            title={"Ticket status by Status"}
+          />
         </button>
 
         <button
@@ -104,7 +115,11 @@ export const HomePage = () => {
           style={{ borderColor: "#ff984e" }}
           onClick={() => setSelectStat("Priority")}
         >
-          <BarChart chartData={priorityD} className="bar-chart" />
+          <BarChart
+            chartData={priorityD}
+            className="bar-chart"
+            title={"Ticket status by Priority"}
+          />
         </button>
       </div>
       <div className="d-flex">
@@ -116,7 +131,7 @@ export const HomePage = () => {
                 size="sm"
                 onChange={(event) => handleChange(event)}
                 value={selectStat}
-                className="select-home"
+                className="select-btn"
               >
                 <option value="Owner">Owner</option>
                 <option value="Product">Product</option>
