@@ -1,17 +1,28 @@
 // import { DataBox } from "../components/Data-Box/DataBox";
 import { NavBar } from "../components/nav-bar/NavBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ownerData, colors } from "../Database/Data";
 import PieChart from "../components/charts/PieChart";
-import DataView from "../table/DataView";
+import DataView from "../components/table/DataView";
 import { Form } from "react-bootstrap";
 import { pData, sData, dData } from "../common/filter";
 import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
 import StaticBox from "../components/static-box/StaticBox";
+import APIClient from "../api/APIClient";
 
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
+  const [apiClient] = useState(() => new APIClient)
+
+  useEffect(()=>{
+    apiClient.homeService.getAllFacets()
+    .then((res) =>{
+      console.log(res.data)
+    })
+    .catch((err) => console.log(err))
+  }, [])
+
   const [productData, setProductData] = useState({
     labels: dData.map((data) => data.name),
     datasets: [

@@ -22,10 +22,8 @@ export const filter = (tableMeta.results[0].applicationTable.dataFields.map((obj
   var pLength = 0, sLength = 0, dLength = 0; 
   pData.map((d)=> (pLength = pLength + parseInt(d.count)))
   export const plen =  pLength;
-  var pLength = 0; 
   sData.map((d)=> (sLength = sLength + parseInt(d.count)))
   export const dlen =  sLength;
-  var pLength = 0; 
   dData.map((d)=> (dLength = dLength + parseInt(d.count)))
   export const slen =  dLength;
 

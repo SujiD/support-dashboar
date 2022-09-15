@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import Pagination from "../components/pagination/Pagination";
+import Pagination from "../pagination/Pagination";
 import "./DataView.css";
 
 const DataView = (props) => {
