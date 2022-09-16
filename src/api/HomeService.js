@@ -3,9 +3,9 @@ class HomeService {
     this.axios = axiosInstance;
   }
 
-   getAllFacets(){
+   async getAllFacets(){
     try{
-        return this.axios.post(
+        return await this.axios.post(
             "/support-status-report/search",
             {
                 appPath: "Report",
@@ -19,6 +19,18 @@ class HomeService {
         console.log(err);
         throw err;
     }
+  }
+
+  async getAllData(){
+    try{
+      return await this.axios.get(
+          "/support-status-report/",
+      );
+
+  }  catch(err){
+      console.log(err);
+      throw err;
+  }
   }
 }
 

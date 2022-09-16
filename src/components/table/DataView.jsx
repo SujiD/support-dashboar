@@ -36,9 +36,6 @@ const DataView = (props) => {
       >
         Export <FontAwesomeIcon icon={faDownload} />
       </CSVLink>
-      {!currentData && loading ? (
-        "...loading"
-      ) : (
         <Table striped bordered hover size="sm" className="table">
           <thead>
             <tr>
@@ -67,7 +64,6 @@ const DataView = (props) => {
             })}
           </tbody>
         </Table>
-      )}
       <Pagination
         dataperPage={pageSize}
         totalData={paginatedData.length}
