@@ -8,15 +8,11 @@ import "./DataView.css";
 
 const DataView = (props) => {
   const [pageSize, setPageSize] = useState(3);
-
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState(props.viewData);
 
   useEffect(() => {
-    setLoading(true);
     setPaginatedData(props.viewData);
-    setLoading(false);
   }, [props, currentPage]);
 
   const indexOfLastData = currentPage * pageSize;

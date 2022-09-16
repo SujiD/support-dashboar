@@ -15,7 +15,6 @@ import Loading from "../components/loading/Loading";
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
   const [apiClient] = useState(() => new APIClient());
-  const [apistatusDataata, setApiSatData] = useState();
   const [loading, setLoading] = useState(false);
   const [statusData, setStatusData] = useState();
   const [departmentData, setDepartmentData] = useState();
