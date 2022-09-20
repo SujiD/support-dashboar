@@ -1,4 +1,3 @@
-// import { DataBox } from "../components/Data-Box/DataBox";
 import { NavBar } from "../components/nav-bar/NavBar";
 import { useEffect, useState } from "react";
 import { ownerData, colors } from "../Database/Data";
@@ -11,6 +10,7 @@ import BarChart from "../components/charts/BarChart";
 import StaticBox from "../components/static-box/StaticBox";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
+import IDs from "../common/values";
 
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
@@ -23,18 +23,17 @@ export const HomePage = () => {
 
   useEffect(() => {
     setLoading(true);
-    apiClient.homeService
-      .getAllData()
+    apiClient.homeService.getAllFacets()
       .then((res) => {
         setStatusData({
           labels: res.data.facets[
-            "a006520f657a093d428195c3e90f88d2-ticketStatus"
+            IDs.status
           ].facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Status",
               data: res.data.facets[
-                "a006520f657a093d428195c3e90f88d2-ticketStatus"
+                IDs.status
               ].facetValues?.map((data) => data.count),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
@@ -45,13 +44,13 @@ export const HomePage = () => {
 
         setPriorityData({
           labels: res.data.facets[
-            "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority"
+            IDs.priority
           ].facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Priority",
               data: res.data.facets[
-                "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority"
+                IDs.priority
               ].facetValues?.map((data) => data.count),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
@@ -62,13 +61,13 @@ export const HomePage = () => {
 
         setDepartmentData({
           labels: res.data.facets[
-            "d153ac4070bc83550ce78ff700b9ad56-productline"
+            IDs.department
           ].facetValues?.map((data) => data.name),
           datasets: [
             {
               label: "Department",
               data: res.data.facets[
-                "d153ac4070bc83550ce78ff700b9ad56-productline"
+                IDs.department
               ].facetValues?.map((data) => data.count),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
@@ -108,7 +107,7 @@ export const HomePage = () => {
           <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#9A6324" }}
+              style={{ borderColor: "#060b26" }}
               onClick={() => setSelectStat("Owner")}
             >
               <BarChart
@@ -120,8 +119,8 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5 align-center"
-              style={{ borderColor: "#9A6324" }}
-              onClick={() => setSelectStat("Product")}
+              style={{ borderColor: "#060b26" }}
+              onClick={() => setSelectStat("Department")}
             >
               <BarChart
                 chartData={departmentData}
@@ -132,7 +131,7 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#9A6324" }}
+              style={{ borderColor: "#060b26" }}
               onClick={() => setSelectStat("Status")}
             >
               <BarChart
@@ -144,7 +143,7 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#9A6324" }}
+              style={{ borderColor: "#060b26" }}
               onClick={() => setSelectStat("Priority")}
             >
               <BarChart
@@ -166,7 +165,7 @@ export const HomePage = () => {
                     className="select-btn"
                   >
                     <option value="Owner">Owner</option>
-                    <option value="Product">Product</option>
+                    <option value="Department">Department</option>
                     <option value="Status">Status</option>
                     <option value="Priority">Priority</option>
                   </Form.Select>
@@ -174,7 +173,7 @@ export const HomePage = () => {
                     <PieChart chartData={priorityData} className="pie-chart" />
                   ) : selectStat === "Status" ? (
                     <PieChart chartData={statusData} className="pie-chart" />
-                  ) : selectStat === "Product" ? (
+                  ) : selectStat === "Department" ? (
                     <PieChart
                       chartData={departmentData}
                       className="pie-chart"
@@ -192,7 +191,7 @@ export const HomePage = () => {
                   <DataView viewData={pData} table={selectStat} />
                 ) : selectStat === "Status" ? (
                   <DataView viewData={sData} table={selectStat} />
-                ) : selectStat === "Product" ? (
+                ) : selectStat === "Department" ? (
                   <DataView viewData={dData} table={selectStat} />
                 ) : (
                   <DataView viewData={ownerData} table={selectStat} />
@@ -207,3 +206,5 @@ export const HomePage = () => {
     </>
   );
 };
+
+// Todo : Complete the table, use only post request

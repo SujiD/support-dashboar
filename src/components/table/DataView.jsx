@@ -1,19 +1,36 @@
 import { CSVLink } from "react-csv";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import "./DataView.css";
+import APIClient from "../../api/APIClient";
+import IDs from "../../common/values"
 
 const DataView = (props) => {
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(3); // initial value is three
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState(props.viewData);
+  const [loading, setLoading] = useState(false);
+  const [apiClient] = useState(() => new APIClient())
 
   useEffect(() => {
-    setPaginatedData(props.viewData);
-  }, [props, currentPage]);
+    setLoading(true);
+    apiClient.homeService.getAllFacets()
+    .then((res) =>{
+      if(props.table === "status")
+        setPaginatedData(res.data.facets[IDs.status].facetValues);
+      else if(props.table === "priority")
+        setPaginatedData(res.data.facets[IDs.priority].facetValues);
+      else if(props.table === "department")
+        setPaginatedData(res.data.facets[IDs.department].facetValues);
+      else
+        setPaginatedData(props.viewData);
+    })
+    setLoading(false);
+    
+  }, [props, currentPage, apiClient.homeService]);
 
   const indexOfLastData = currentPage * pageSize;
   const indexOfFirstData = indexOfLastData - pageSize;
@@ -23,7 +40,9 @@ const DataView = (props) => {
   const changeSize = (size) => setPageSize(size);
 
   return (
-    <div className="table-container">
+    <>
+    {
+      !loading ? (<div className="table-container">
       <CSVLink
         data={props.viewData}
         target="_blank"
@@ -40,7 +59,7 @@ const DataView = (props) => {
                 <th>Priority</th>
               ) : props.table === "Status" ? (
                 <th>Status</th>
-              ) : props.table === "Product" ? (
+              ) : props.table === "Department" ? (
                 <th>Department</th>
               ) : (
                 <th>Owner</th>
@@ -66,7 +85,10 @@ const DataView = (props) => {
         paginate={paginate}
         paginatePageSize={changeSize}
       />
-    </div>
+    </div>) : null
+    }
+    {loading ? <div className="center"><Spinner animation="border" variant="primary"/></div> : null}
+    </>
   );
 };
 
