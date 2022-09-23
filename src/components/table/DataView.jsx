@@ -6,30 +6,27 @@ import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import "./DataView.css";
 import APIClient from "../../api/APIClient";
-import IDs from "../../common/values"
+import IDs from "../../common/values";
 
 const DataView = (props) => {
   const [pageSize, setPageSize] = useState(3); // initial value is three
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState(props.viewData);
   const [loading, setLoading] = useState(false);
-  const [apiClient] = useState(() => new APIClient())
+  const [apiClient] = useState(() => new APIClient());
 
   useEffect(() => {
     setLoading(true);
-    apiClient.homeService.getAllFacets()
-    .then((res) =>{
-      if(props.table === "status")
+    apiClient.homeService.getAllFacets().then((res) => {
+      if (props.table === "status")
         setPaginatedData(res.data.facets[IDs.status].facetValues);
-      else if(props.table === "priority")
+      else if (props.table === "priority")
         setPaginatedData(res.data.facets[IDs.priority].facetValues);
-      else if(props.table === "department")
+      else if (props.table === "department")
         setPaginatedData(res.data.facets[IDs.department].facetValues);
-      else
-        setPaginatedData(props.viewData);
-    })
-    setLoading(false);
-    
+      else setPaginatedData(props.viewData);
+      setLoading(false);
+    });
   }, [props, currentPage, apiClient.homeService]);
 
   const indexOfLastData = currentPage * pageSize;
@@ -41,53 +38,61 @@ const DataView = (props) => {
 
   return (
     <>
-    {
-      !loading ? (<div className="table-container">
-      <CSVLink
-        data={props.viewData}
-        target="_blank"
-        filename={props.table + ".csv"}
-        className="download-icon fa-lg mb-3 "
-      >
-        Export <FontAwesomeIcon icon={faDownload} />
-      </CSVLink>
-        <Table striped bordered hover size="sm" className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              {props.table === "Priority" ? (
-                <th>Priority</th>
-              ) : props.table === "Status" ? (
-                <th>Status</th>
-              ) : props.table === "Department" ? (
-                <th>Department</th>
-              ) : (
-                <th>Owner</th>
-              )}
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentData?.map((data, i = 0) => {
-              return (
-                <tr key={i + 1}>
-                  <td>{i + 1}</td>
-                  <td>{data.name}</td>
-                  <td>{data.count}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      <Pagination
-        dataperPage={pageSize}
-        totalData={paginatedData.length}
-        paginate={paginate}
-        paginatePageSize={changeSize}
-      />
-    </div>) : null
-    }
-    {loading ? <div className="center"><Spinner animation="border" variant="primary"/></div> : null}
+      {!loading ? (
+        <div className="table-container">
+          <CSVLink
+            data={props.viewData}
+            target="_blank"
+            filename={props.table + ".csv"}
+            className="download-icon fa-lg mb-3 "
+          >
+            Export <FontAwesomeIcon icon={faDownload} />
+          </CSVLink>
+          <Table striped bordered hover size="sm" className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                {props.table === "Priority" ? (
+                  <th>Priority</th>
+                ) : props.table === "Status" ? (
+                  <th>Status</th>
+                ) : props.table === "Department" ? (
+                  <th>Department</th>
+                ) : (
+                  <th>Owner</th>
+                )}
+                <th>Number of Tickets</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentData?.map((data, i = 0) => {
+                return (
+                  <tr key={i + 1}>
+                    <td>{i + 1}</td>
+                    <td>{data.name}</td>
+                    <td>{data.count}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+          <Pagination
+            dataperPage={pageSize}
+            totalData={paginatedData.length}
+            paginate={paginate}
+            paginatePageSize={changeSize}
+          />
+        </div>
+      ) : (
+        <div className="center">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      )}
+      {/* {!loading ? (
+        <div className="center">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      ) : null} */}
     </>
   );
 };
