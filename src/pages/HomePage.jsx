@@ -4,13 +4,17 @@ import { ownerData, colors } from "../Database/Data";
 import PieChart from "../components/charts/PieChart";
 import DataView from "../components/table/DataView";
 import { Form } from "react-bootstrap";
-import { pData, sData, dData } from "../common/filter";
 import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
 import StaticBox from "../components/static-box/StaticBox";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
 import IDs from "../common/values";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchFacetsReq,
+  fetchFacetsSuccess,
+} from "../redux/facet/facetActions";
 
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
@@ -20,38 +24,39 @@ export const HomePage = () => {
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
   const [ownerD, setOwnerD] = useState();
-
+  const facets = useSelector((state) => {
+    return state.facet.facets;
+  });
+  const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    apiClient.homeService.getAllFacets()
+    dispatch(fetchFacetsReq());
+    apiClient.homeService
+      .getAllFacets()
       .then((res) => {
         setStatusData({
-          labels: res.data.facets[
-            IDs.status
-          ].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Status",
-              data: res.data.facets[
-                IDs.status
-              ].facetValues?.map((data) => data.count),
+              data: res.data.facets[IDs.status].facetValues?.map(
+                (data) => data.count
+              ),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
               borderWidth: 1,
             },
           ],
         });
-
+        dispatch(fetchFacetsSuccess(res.data.facets));
         setPriorityData({
-          labels: res.data.facets[
-            IDs.priority
-          ].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.priority].facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Priority",
-              data: res.data.facets[
-                IDs.priority
-              ].facetValues?.map((data) => data.count),
+              data: res.data.facets[IDs.priority].facetValues?.map(
+                (data) => data.count
+              ),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
               borderWidth: 1,
@@ -60,15 +65,15 @@ export const HomePage = () => {
         });
 
         setDepartmentData({
-          labels: res.data.facets[
-            IDs.department
-          ].facetValues?.map((data) => data.name),
+          labels: res.data.facets[IDs.department].facetValues?.map(
+            (data) => data.name
+          ),
           datasets: [
             {
               label: "Department",
-              data: res.data.facets[
-                IDs.department
-              ].facetValues?.map((data) => data.count),
+              data: res.data.facets[IDs.department].facetValues?.map(
+                (data) => data.count
+              ),
               backgroundColor: colors.map((color) => color),
               borderColor: colors.map((color) => color),
               borderWidth: 1,
@@ -87,19 +92,20 @@ export const HomePage = () => {
               borderWidth: 1,
             },
           ],
-        })
+        });
       })
       .catch((err) => console.log(err.response.data));
     setLoading(false);
-  }, [apiClient.homeService]);
+  }, [apiClient.homeService, dispatch]);
 
+  // console.log(statusFacets);
   const handleChange = (event) => {
     setSelectStat(event.target.value);
   };
   return (
     <>
       <NavBar />
-      {!loading && statusData ? (
+      {!loading && statusData && departmentData && priorityData ? (
         <>
           <div className="date-cont">
             <Calendar />
@@ -188,11 +194,20 @@ export const HomePage = () => {
               heading={"Entity Table"}
               content={
                 selectStat === "Priority" ? (
-                  <DataView viewData={pData} table={selectStat} />
+                  <DataView
+                    viewData={facets[IDs.priority].facetValues}
+                    table={selectStat}
+                  />
                 ) : selectStat === "Status" ? (
-                  <DataView viewData={sData} table={selectStat} />
+                  <DataView
+                    viewData={facets[IDs.status].facetValues}
+                    table={selectStat}
+                  />
                 ) : selectStat === "Department" ? (
-                  <DataView viewData={dData} table={selectStat} />
+                  <DataView
+                    viewData={facets[IDs.department].facetValues}
+                    table={selectStat}
+                  />
                 ) : (
                   <DataView viewData={ownerData} table={selectStat} />
                 )

@@ -1,5 +1,4 @@
 import facetTypes from "./facetTypes";
-
 //action creators
 export const fetchFacetsReq = () => {
   return {
@@ -7,13 +6,13 @@ export const fetchFacetsReq = () => {
   };
 };
 
-export const fetchFacetsSuccess = () => {
+export const fetchFacetsSuccess = (facets) => {
   return {
     type: facetTypes.FETCH_FACETS_SUCCESS,
     payload: facets,
   };
 };
-export const fetchFacetsFailure = () => {
+export const fetchFacetsFailure = (error) => {
   return {
     type: facetTypes.FETCH_FACETS_FAILURE,
     payload: error,

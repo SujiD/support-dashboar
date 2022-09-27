@@ -3,6 +3,7 @@ import SignIn from "./pages/SignIn";
 import { HomePage } from "./pages/HomePage";
 import { ToastContainer } from "react-toastify";
 import { useSpring, animated } from "react-spring";
+import { TestPage } from "./pages/TestPage";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<SignIn />} exact />
             <Route path="/home" element={<HomePage />} exact />
             <Route path="*" element={<ErrorPage />} exact />
+            <Route path="/test" element={<TestPage />} exact />
           </Routes>
         </Router>
         <ToastContainer />

@@ -1,6 +1,7 @@
-import { createStore } from "redux";
-import { facetReducer } from "./facet/facetReducer";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./rootReducer";
+import thunk from 'redux-thunk';
 //creation of store
-const store = createStore(facetReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

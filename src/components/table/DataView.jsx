@@ -13,21 +13,12 @@ const DataView = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState(props.viewData);
   const [loading, setLoading] = useState(false);
-  const [apiClient] = useState(() => new APIClient());
-
-  useEffect(() => {
+  
+  useEffect(() =>{
     setLoading(true);
-    apiClient.homeService.getAllFacets().then((res) => {
-      if (props.table === "status")
-        setPaginatedData(res.data.facets[IDs.status].facetValues);
-      else if (props.table === "priority")
-        setPaginatedData(res.data.facets[IDs.priority].facetValues);
-      else if (props.table === "department")
-        setPaginatedData(res.data.facets[IDs.department].facetValues);
-      else setPaginatedData(props.viewData);
-      setLoading(false);
-    });
-  }, [props, currentPage, apiClient.homeService]);
+    setPaginatedData(props.viewData)
+    setLoading(false);
+  }, [props, currentPage])
 
   const indexOfLastData = currentPage * pageSize;
   const indexOfFirstData = indexOfLastData - pageSize;
