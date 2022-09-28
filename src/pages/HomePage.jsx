@@ -1,5 +1,5 @@
 import { NavBar } from "../components/nav-bar/NavBar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { ownerData, colors } from "../Database/Data";
 import PieChart from "../components/charts/PieChart";
 import DataView from "../components/table/DataView";
@@ -10,6 +10,7 @@ import StaticBox from "../components/static-box/StaticBox";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
 import IDs from "../common/values";
+import { ErrorContext } from "../contexts/ErrorContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchFacetsReq,
@@ -24,6 +25,7 @@ export const HomePage = () => {
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
   const [ownerD, setOwnerD] = useState();
+  const { setError } = useContext(ErrorContext);
   const facets = useSelector((state) => {
     return state.facet.facets;
   });
@@ -94,9 +96,13 @@ export const HomePage = () => {
           ],
         });
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => {
+        setLoading(false);
+        setError(err);
+        console.log(err.response.data);
+      });
     setLoading(false);
-  }, [apiClient.homeService, dispatch]);
+  }, [apiClient.homeService, dispatch, setError]);
 
   // console.log(statusFacets);
   const handleChange = (event) => {

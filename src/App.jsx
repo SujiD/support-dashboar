@@ -9,7 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import ErrorPage from "./components/Error/ErrorPage";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store from "./redux/store/store";
+import { ErrorProvider } from "./contexts/ErrorContext";
+import HandleErrors from "./common/HandleError";
 
 function App() {
   const styles = useSpring({
@@ -19,15 +21,18 @@ function App() {
   return (
     <Provider store={store}>
       <animated.div style={styles}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<SignIn />} exact />
-            <Route path="/home" element={<HomePage />} exact />
-            <Route path="*" element={<ErrorPage />} exact />
-            <Route path="/test" element={<TestPage />} exact />
-          </Routes>
-        </Router>
-        <ToastContainer />
+        <ErrorProvider>
+          <Router>
+            <HandleErrors />
+            <Routes>
+              <Route path="/" element={<SignIn />} exact />
+              <Route path="/home" element={<HomePage />} exact />
+              <Route path="*" element={<ErrorPage />} exact />
+              <Route path="/test" element={<TestPage />} exact />
+            </Routes>
+          </Router>
+          <ToastContainer />
+        </ErrorProvider>
       </animated.div>
     </Provider>
   );
