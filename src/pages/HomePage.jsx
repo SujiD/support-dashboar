@@ -16,6 +16,7 @@ import {
   fetchFacetsReq,
   fetchFacetsSuccess,
 } from "../redux/facet/facetActions";
+import CustomizedTable from "../components/table/CustomizedTable";
 
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
@@ -33,7 +34,7 @@ export const HomePage = () => {
   useEffect(() => {
     setLoading(true);
     dispatch(fetchFacetsReq());
-    apiClient.homeService
+    apiClient.entityService
       .getAllFacets()
       .then((res) => {
         setStatusData({
@@ -102,7 +103,7 @@ export const HomePage = () => {
         console.log(err.response.data);
       });
     setLoading(false);
-  }, [apiClient.homeService, dispatch, setError]);
+  }, [apiClient.entityService, dispatch, setError]);
 
   // console.log(statusFacets);
   const handleChange = (event) => {
@@ -196,7 +197,7 @@ export const HomePage = () => {
                 </div>
               }
             />
-            <StaticBox
+            {/* <StaticBox
               heading={"Entity Table"}
               content={
                 selectStat === "Priority" ? (
@@ -218,8 +219,9 @@ export const HomePage = () => {
                   <DataView viewData={ownerData} table={selectStat} />
                 )
               }
-            />
+            /> */}
           </div>
+          <CustomizedTable />
         </>
       ) : (
         <Loading />

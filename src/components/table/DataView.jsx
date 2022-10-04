@@ -5,8 +5,6 @@ import { Spinner, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
 import "./DataView.css";
-import APIClient from "../../api/APIClient";
-import IDs from "../../common/values";
 
 const DataView = (props) => {
   const [pageSize, setPageSize] = useState(3); // initial value is three

@@ -1,15 +1,15 @@
 import axios from "axios";
-import HomeService from "./HomeService";
+import EntityService from "./EntityService";
 
 class APIClient {
-    DEVELOPMENT_BASE_URL = "http://os-ml10.eng.marklogic.com/api";
+  DEVELOPMENT_BASE_URL = "http://os-ml10.eng.marklogic.com/api";
 
-    constructor(){
-        const APIAxiosInstance = axios.create({
-            baseURL: this.DEVELOPMENT_BASE_URL,
-        });
-        this.homeService = new HomeService(APIAxiosInstance);
-    }
+  constructor() {
+    const APIAxiosInstance = axios.create({
+      baseURL: this.DEVELOPMENT_BASE_URL,
+    });
+    this.entityService = new EntityService(APIAxiosInstance);
+  }
 }
 
 export default APIClient;

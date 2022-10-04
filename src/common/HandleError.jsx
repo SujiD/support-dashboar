@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import PopUp from "../components/popup/Popup";
+import PopUp from "../components/popups/Popup";
 import { ErrorContext } from "../contexts/ErrorContext";
 
 function HandleErrors() {

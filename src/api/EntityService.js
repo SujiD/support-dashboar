@@ -1,4 +1,4 @@
-class HomeService {
+class EntityService {
   constructor(axiosInstance) {
     this.axios = axiosInstance;
   }
@@ -34,4 +34,4 @@ class HomeService {
   }
 }
 
-export default HomeService;
+export default EntityService;

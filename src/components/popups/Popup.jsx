@@ -13,12 +13,7 @@ function PopUp({
   loading,
 }) {
   return (
-    <Modal
-      show={showPopup}
-      centered
-      size={size}
-      style={{ fontFamily: "oxygen" }}
-    >
+    <Modal show={showPopup} centered size={size}>
       <Modal.Body>
         <div className="p-5">
           <p className="heading mb-4">{title}</p>
