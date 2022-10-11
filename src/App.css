@@ -101,6 +101,34 @@ input[type="password"] {
   margin: 10px;
 }
 
+/* primary button */
+.main-btn {
+  background-color: #060b26 !important;
+  color: white !important;
+  border: solid 1px white;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  outline: none;
+  box-shadow: none;
+}
+
+.main-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.disable-btn {
+  background-color: #a6b2f1 !important;
+  color: white !important;
+  border: solid 1px white;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  outline: none;
+  box-shadow: none;
+}
+
 /* charts */
 
 .charts {
@@ -147,10 +175,90 @@ input[type="password"] {
   background-color: #fff;
 }
 
+/* Table */
 
+.react-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.react-table td,
+.react-table th {
+  padding: 8px;
+}
+
+.react-table tr {
+  border: 1px solid #a6b2f1;
+  border-bottom: #a6b2f1;
+}
+
+.react-table tbody tr {
+  text-align: center;
+}
+
+.react-table tbody tr:hover {
+  background-color: #a6b2f1;
+}
+
+.react-table thead {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #060b26;
+  color: white;
+}
 
 .tooltip-arrow {
   display: none !important;
+}
+
+/* checkBox */
+.checkbox {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.checkbox input[type="checkbox"] {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.checkbox label {
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox label:before {
+  content: "";
+  --webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #060b26;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.checkbox input[type="checkbox"]:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #060b26;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 @media screen and (max-width: 990px) {

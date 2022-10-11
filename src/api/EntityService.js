@@ -3,7 +3,7 @@ class EntityService {
     this.axios = axiosInstance;
   }
 
-   async getAllFacets(){
+   async getAllSearchData(){
     try{
         return await this.axios.post(
             "/support-status-report/search",

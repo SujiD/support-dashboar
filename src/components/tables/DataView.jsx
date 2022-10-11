@@ -37,7 +37,7 @@ const DataView = (props) => {
           >
             Export <FontAwesomeIcon icon={faDownload} />
           </CSVLink>
-          <Table striped bordered hover size="sm" className="table">
+          <Table size="sm" className="react-table">
             <thead>
               <tr>
                 <th>ID</th>

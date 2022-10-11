@@ -29,7 +29,7 @@ function PopUp({
             </Button>
             {proceedBtnName && (
               <Button
-                className={`main-btn btn-span`}
+                className="main-btn"
                 type="button"
                 onClick={handleProceed}
                 disabled={loading}

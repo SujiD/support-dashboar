@@ -6,20 +6,12 @@
   list-style-type: none;
 }
 
-.active-names {
-  width: 200px;
-  padding: 5px;
-  border: 1px solid #ccc;
+.active-li {
+  border-bottom: 1px solid #060b26;
 }
-
-.available-names {
-  padding: 5px;
-  border: 1px solid #ccc;
-}
-
 .acc {
   width: 300px;
-  height: 200px;
+  height: 500px;
   overflow: auto;
   box-shadow: none !important;
   outline: none !important;

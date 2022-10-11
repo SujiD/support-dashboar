@@ -2,7 +2,7 @@ import { NavBar } from "../components/nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
 import { ownerData, colors } from "../Database/Data";
 import PieChart from "../components/charts/PieChart";
-import DataView from "../components/table/DataView";
+import DataView from "../components/tables/DataView";
 import { Form } from "react-bootstrap";
 import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
@@ -16,7 +16,8 @@ import {
   fetchFacetsReq,
   fetchFacetsSuccess,
 } from "../redux/facet/facetActions";
-import CustomizedTable from "../components/table/CustomizedTable";
+import CustomizedTable from "../components/tables/CustomizedTable";
+import { fetchTableCols } from "../redux/tableMeta/tableAction";
 
 export const HomePage = () => {
   const [selectStat, setSelectStat] = useState("owner");
@@ -35,7 +36,7 @@ export const HomePage = () => {
     setLoading(true);
     dispatch(fetchFacetsReq());
     apiClient.entityService
-      .getAllFacets()
+      .getAllSearchData()
       .then((res) => {
         setStatusData({
           labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
@@ -52,6 +53,7 @@ export const HomePage = () => {
           ],
         });
         dispatch(fetchFacetsSuccess(res.data.facets));
+        dispatch(fetchTableCols(res.data.results));
         setPriorityData({
           labels: res.data.facets[IDs.priority].facetValues?.map((d) => d.name),
           datasets: [
@@ -197,7 +199,7 @@ export const HomePage = () => {
                 </div>
               }
             />
-            {/* <StaticBox
+            <StaticBox
               heading={"Entity Table"}
               content={
                 selectStat === "Priority" ? (
@@ -219,7 +221,7 @@ export const HomePage = () => {
                   <DataView viewData={ownerData} table={selectStat} />
                 )
               }
-            /> */}
+            />
           </div>
           <CustomizedTable />
         </>
@@ -229,5 +231,3 @@ export const HomePage = () => {
     </>
   );
 };
-
-// Todo : Complete the table, use only post request
