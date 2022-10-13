@@ -9,16 +9,15 @@ const Calendar = () => {
   const [isVisible, setisVisible] = useState(false);
 
   var yy = String(today.getFullYear());
-  
+
   const handleDate = (event) => {
     if (event.target.value !== "") {
       setDay(String(event.target.value.split("-")[2]));
-      setMonth(String(event.target.value.split("-")[1][1]));
+      setMonth(String(event.target.value.split("-")[1]));
     }
   };
 
   const monthNames = [
-    "",
     "January",
     "February",
     "March",
@@ -40,7 +39,7 @@ const Calendar = () => {
         onClick={() => setisVisible(!isVisible)}
         style={{ cursor: "pointer" }}
       >
-        <div className="month">{monthNames[month]}</div>
+        <div className="month">{monthNames[month - 1]}</div>
         <div className="date">{day}</div>
       </div>
       {/* {isVisible ? ( */}
@@ -50,7 +49,13 @@ const Calendar = () => {
           value={yy + "-" + month.padStart(2, "0") + "-" + day}
           onChange={(e) => handleDate(e)}
           className="calendar position-absolute"
-          max={yy + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0")}
+          max={
+            yy +
+            "-" +
+            String(today.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(today.getDate()).padStart(2, "0")
+          }
         />
       </div>
     </div>
@@ -58,4 +63,3 @@ const Calendar = () => {
 };
 
 export default Calendar;
-

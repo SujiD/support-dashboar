@@ -11,7 +11,8 @@ class EntityService {
                 appPath: "Report",
                 q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
                 start: "1",
-                view: "all"
+                view: "all",
+                pageLength: "10"
             }
         );
 

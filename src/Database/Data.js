@@ -30,7 +30,7 @@ export const UserData = [
       userLost: 234,
     },
   ];
-export const colors = ["#70d8c1", "#f5d881", "#ff984e", "#3cb44b", "#42d4f4","#ffbd8e",  "#4363d8", "#911eb4", "#f032e6", "#35455d"]
+export const colors = ["#70d8c1", "#f5d881",  "#42d4f4", "#ff984e", "#3cb44b","#ffbd8e",  "#4363d8", "#911eb4", "#f032e6", "#35455d"]
 export const DepartmentData = [
   {
     id: 1,

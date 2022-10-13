@@ -10,6 +10,7 @@ import {
   faSortUp,
   faSortDown,
   faGear,
+  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import GlobalFilter from "../search-filters/GlobalFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,17 +19,27 @@ import ColumnFilter from "../search-filters/ColumnFilter";
 import { Checkbox } from "../checkbox/Checkbox";
 import { useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
-
-const CustomizedTable = () => {
+import { colors } from "../../Database/Data";
+import PieChartPopup from "../popups/PieChartPopup";
+const CustomizedTable = ({ facets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
+  const [facetData, setFacteData] = useState();
+  const [showPopup, setShowPopup] = useState(false);
   const tableFields = useSelector((state) => {
     return state.table.tableCols;
   });
   const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
     (ticketCol) => {
-      return { Header: ticketCol.label, accessor: ticketCol.field };
+      return {
+        Header: ticketCol.name,
+        accessor: ticketCol.field,
+        maxWidth: 600,
+        minWidth: 140,
+        width: 400,
+      };
     }
   );
+
   // eslint-disable-next-line
   const ticketColumns = useMemo(() => ticketCols, []);
 
@@ -102,6 +113,26 @@ const CustomizedTable = () => {
     usePagination
   );
   const { globalFilter, pageIndex, pageSize } = state;
+  const handleFilter = (columnName) => {
+    const facetValues = facets[columnName.Header]?.facetValues;
+    if (facetValues?.length > 0) {
+      setFacteData({
+        labels: facetValues.map((value) => value.name),
+        datasets: [
+          {
+            label: columnName.Header.split("-")[1],
+            data: facetValues.map((value) => value.count),
+            backgroundColor: colors.map((color) => color),
+            borderColor: colors.map((color) => color),
+            borderWidth: 1,
+          },
+        ],
+      });
+      setShowPopup(true);
+    } else {
+      alert(" No facets to show");
+    }
+  };
   return (
     <>
       <div className="d-flex justify-content-between my-3 mt-5 px-2">
@@ -122,43 +153,52 @@ const CustomizedTable = () => {
           />
         </div>
       </div>
-      <table {...getTableProps()} className="react-table">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("Header") + "  "}
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <FontAwesomeIcon icon={faSortUp} />
+      <div style={{ overflow: "auto" }}>
+        <table {...getTableProps()} className="react-table">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render("Header").split("-")[1]}
+                    <FontAwesomeIcon
+                      icon={faFilter}
+                      className="ms-1"
+                      onClick={() => handleFilter(column)}
+                    />
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <FontAwesomeIcon icon={faSortUp} />
+                      ) : (
+                        <FontAwesomeIcon icon={faSortDown} />
+                      )
                     ) : (
-                      <FontAwesomeIcon icon={faSortDown} />
-                    )
-                  ) : (
-                    ""
-                  )}
-                  <div>{column.canFilter ? column.render("Filter") : null}</div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+                      ""
+                    )}
+                    <div>
+                      {/* {column.canFilter ? column.render("Filter") : null} */}
+                    </div>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <div>
         <span>
           Page{" "}
@@ -177,7 +217,7 @@ const CustomizedTable = () => {
                 : 0;
               gotoPage(pageNumber);
             }}
-            min={pageIndex + 1}
+            min={pageIndex > 0 ? pageIndex : pageIndex + 1}
             max={pageOptions.length}
             style={{ width: "50px" }}
           />
@@ -226,6 +266,12 @@ const CustomizedTable = () => {
         allColumns={allColumns}
         showPopup={showTicketPopup}
         setShowPopup={setShowTicketPopup}
+      />
+      <PieChartPopup
+        facetData={facetData}
+        size="md"
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
       />
     </>
   );

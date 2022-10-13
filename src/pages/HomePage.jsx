@@ -1,12 +1,11 @@
 import { NavBar } from "../components/nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
-import { ownerData, colors } from "../Database/Data";
-import PieChart from "../components/charts/PieChart";
-import DataView from "../components/tables/DataView";
-import { Form } from "react-bootstrap";
+import { ownerData } from "../Database/Data";
+// import PieChart from "../components/charts/PieChart";
+// import DataView from "../components/tables/DataView";
+// import StaticBox from "../components/static-box/StaticBox";
 import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
-import StaticBox from "../components/static-box/StaticBox";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
 import IDs from "../common/values";
@@ -20,7 +19,7 @@ import CustomizedTable from "../components/tables/CustomizedTable";
 import { fetchTableCols } from "../redux/tableMeta/tableAction";
 
 export const HomePage = () => {
-  const [selectStat, setSelectStat] = useState("owner");
+  // const [selectStat, setSelectStat] = useState("owner");
   const [apiClient] = useState(() => new APIClient());
   const [loading, setLoading] = useState(false);
   const [statusData, setStatusData] = useState();
@@ -46,8 +45,8 @@ export const HomePage = () => {
               data: res.data.facets[IDs.status].facetValues?.map(
                 (data) => data.count
               ),
-              backgroundColor: colors.map((color) => color),
-              borderColor: colors.map((color) => color),
+              backgroundColor: ["#ff984e"],
+              borderColor: ["#ff984e"],
               borderWidth: 1,
             },
           ],
@@ -62,8 +61,8 @@ export const HomePage = () => {
               data: res.data.facets[IDs.priority].facetValues?.map(
                 (data) => data.count
               ),
-              backgroundColor: colors.map((color) => color),
-              borderColor: colors.map((color) => color),
+              backgroundColor: ["#42d4f4"],
+              borderColor: ["#42d4f4"],
               borderWidth: 1,
             },
           ],
@@ -79,8 +78,8 @@ export const HomePage = () => {
               data: res.data.facets[IDs.department].facetValues?.map(
                 (data) => data.count
               ),
-              backgroundColor: colors.map((color) => color),
-              borderColor: colors.map((color) => color),
+              backgroundColor: ["#f5d881"],
+              borderColor: ["#f5d881"],
               borderWidth: 1,
             },
           ],
@@ -92,8 +91,8 @@ export const HomePage = () => {
             {
               label: "Owner",
               data: ownerData.map((data) => data.count),
-              backgroundColor: colors.map((color) => color),
-              borderColor: colors.map((color) => color),
+              backgroundColor: ["#70d8c1"],
+              borderColor: ["#70d8c1"],
               borderWidth: 1,
             },
           ],
@@ -107,10 +106,10 @@ export const HomePage = () => {
     setLoading(false);
   }, [apiClient.entityService, dispatch, setError]);
 
-  // console.log(statusFacets);
-  const handleChange = (event) => {
-    setSelectStat(event.target.value);
-  };
+  // console.log(facets);
+  // const handleChange = (event) => {
+  //   setSelectStat(event.target.value);
+  // };
   return (
     <>
       <NavBar />
@@ -122,8 +121,8 @@ export const HomePage = () => {
           <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#060b26" }}
-              onClick={() => setSelectStat("Owner")}
+              style={{ borderColor: "#70d8c1" }}
+              // onClick={() => setSelectStat("Owner")}
             >
               <BarChart
                 chartData={ownerD}
@@ -134,8 +133,8 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5 align-center"
-              style={{ borderColor: "#060b26" }}
-              onClick={() => setSelectStat("Department")}
+              style={{ borderColor: "#f5d881" }}
+              // onClick={() => setSelectStat("Department")}
             >
               <BarChart
                 chartData={departmentData}
@@ -146,8 +145,8 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#060b26" }}
-              onClick={() => setSelectStat("Status")}
+              style={{ borderColor: "#ff984e" }}
+              // onClick={() => setSelectStat("Status")}
             >
               <BarChart
                 chartData={statusData}
@@ -158,8 +157,8 @@ export const HomePage = () => {
 
             <button
               className="data-box-btn mt-5"
-              style={{ borderColor: "#060b26" }}
-              onClick={() => setSelectStat("Priority")}
+              style={{ borderColor: "#42d4f4" }}
+              // onClick={() => setSelectStat("Priority")}
             >
               <BarChart
                 chartData={priorityData}
@@ -168,7 +167,7 @@ export const HomePage = () => {
               />
             </button>
           </div>
-          <div className="d-flex">
+          {/* <div className="d-flex">
             <StaticBox
               heading={"What's new with entities"}
               content={
@@ -222,8 +221,8 @@ export const HomePage = () => {
                 )
               }
             />
-          </div>
-          <CustomizedTable />
+          </div> */}
+          <CustomizedTable facets={facets} />
         </>
       ) : (
         <Loading />

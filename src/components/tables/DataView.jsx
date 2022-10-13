@@ -11,12 +11,12 @@ const DataView = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState(props.viewData);
   const [loading, setLoading] = useState(false);
-  
-  useEffect(() =>{
+
+  useEffect(() => {
     setLoading(true);
-    setPaginatedData(props.viewData)
+    setPaginatedData(props.viewData);
     setLoading(false);
-  }, [props, currentPage])
+  }, [props, currentPage]);
 
   const indexOfLastData = currentPage * pageSize;
   const indexOfFirstData = indexOfLastData - pageSize;
@@ -77,11 +77,6 @@ const DataView = (props) => {
           <Spinner animation="border" variant="primary" />
         </div>
       )}
-      {/* {!loading ? (
-        <div className="center">
-          <Spinner animation="border" variant="primary" />
-        </div>
-      ) : null} */}
     </>
   );
 };

@@ -26,7 +26,9 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
                               id={column.id}
                               {...column.getToggleHiddenProps()}
                             />
-                            <label htmlFor={column.id}>{column.Header}</label>
+                            <label htmlFor={column.id}>
+                              {column.Header.split("-")[1]}
+                            </label>
                           </div>
                         </li>
                       );
@@ -51,7 +53,9 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
                               id={column.id}
                               {...column.getToggleHiddenProps()}
                             />
-                            <label htmlFor={column.id}>{column.Header}</label>
+                            <label htmlFor={column.id}>
+                              {column.Header.split("-")[1]}
+                            </label>
                           </div>
                         </li>
                       );
@@ -66,6 +70,7 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
           onClick={() => {
             setShowPopup(false);
           }}
+          style={{ borderColor: "#060b26" }}
         >
           Close
         </Button>
