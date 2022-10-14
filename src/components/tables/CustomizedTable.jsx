@@ -269,7 +269,7 @@ const CustomizedTable = ({ facets }) => {
       />
       <PieChartPopup
         facetData={facetData}
-        size="md"
+        size="lg"
         showPopup={showPopup}
         setShowPopup={setShowPopup}
       />
