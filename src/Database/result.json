@@ -1,0 +1,943 @@
+{
+    "q": "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
+    "facets": {
+        "0ca72f154fc71e0bc6fa75772b925e7c-reportType": {
+            "text": "Report Type",
+            "name": "0ca72f154fc71e0bc6fa75772b925e7c-reportType",
+            "values": {
+                "survey": {
+                    "text": "survey",
+                    "name": "survey",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1148,
+                    "currentCount": 1148
+                }
+            }
+        },
+        "95b95e68e52403df2eca68e3b02c0a70-fullName": {
+            "text": "Author Name",
+            "name": "95b95e68e52403df2eca68e3b02c0a70-fullName",
+            "values": {}
+        },
+        "440dc5388d1707d456abc618725d1133-ticketName": {
+            "text": "Ticket",
+            "name": "440dc5388d1707d456abc618725d1133-ticketName",
+            "values": {}
+        },
+        "1ff7b00c16c46edc6e6849a85e51eb63-ticketTitle": {
+            "text": "Subject",
+            "name": "1ff7b00c16c46edc6e6849a85e51eb63-ticketTitle",
+            "values": {}
+        },
+        "a006520f657a093d428195c3e90f88d2-ticketStatus": {
+            "text": "Ticket Status",
+            "name": "a006520f657a093d428195c3e90f88d2-ticketStatus",
+            "values": {
+                "Bug Filed": {
+                    "text": "Bug Filed",
+                    "name": "Bug Filed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 116,
+                    "currentCount": 116
+                },
+                "Closed": {
+                    "text": "Closed",
+                    "name": "Closed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 956,
+                    "currentCount": 956
+                },
+                "In Progress": {
+                    "text": "In Progress",
+                    "name": "In Progress",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Open": {
+                    "text": "Open",
+                    "name": "Open",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 12,
+                    "currentCount": 12
+                },
+                "RFE Filed": {
+                    "text": "RFE Filed",
+                    "name": "RFE Filed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 23,
+                    "currentCount": 23
+                },
+                "Reopened": {
+                    "text": "Reopened",
+                    "name": "Reopened",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Task Filed": {
+                    "text": "Task Filed",
+                    "name": "Task Filed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 15,
+                    "currentCount": 15
+                },
+                "Waiting on Customer": {
+                    "text": "Waiting on Customer",
+                    "name": "Waiting on Customer",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 12,
+                    "currentCount": 12
+                },
+                "Waiting on MarkLogic": {
+                    "text": "Waiting on MarkLogic",
+                    "name": "Waiting on MarkLogic",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                }
+            }
+        },
+        "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority": {
+            "text": "Ticket Priority",
+            "name": "44afd627f7906b68cf6e73cb5c2f45c2-ticketPriority",
+            "values": {
+                "High": {
+                    "text": "High",
+                    "name": "High",
+                    "selected": true,
+                    "deselected": false,
+                    "totalCount": 370,
+                    "currentCount": 370
+                },
+                "Low": {
+                    "text": "Low",
+                    "name": "Low",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 67,
+                    "currentCount": 67
+                },
+                "Medium": {
+                    "text": "Medium",
+                    "name": "Medium",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 688,
+                    "currentCount": 688
+                },
+                "Urgent": {
+                    "text": "Urgent",
+                    "name": "Urgent",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 12,
+                    "currentCount": 12
+                }
+            }
+        },
+        "cc645f85c8dc2082f1f44d412edf0a4c-fullName": {
+            "text": "Creator Name",
+            "name": "cc645f85c8dc2082f1f44d412edf0a4c-fullName",
+            "values": {}
+        },
+        "c44714ed15e54ff62e577e366d779204-organizationName": {
+            "text": "Customer Organization",
+            "name": "c44714ed15e54ff62e577e366d779204-organizationName",
+            "values": {}
+        },
+        "f6b4ff81290e4d728fe8116b650f4ee5-organizationName": {
+            "text": "End Customer Organization",
+            "name": "f6b4ff81290e4d728fe8116b650f4ee5-organizationName",
+            "values": {}
+        },
+        "6bbc21960caa425d35022fbd1fbfb848-fullName": {
+            "text": "Owner Name",
+            "name": "6bbc21960caa425d35022fbd1fbfb848-fullName",
+            "values": {}
+        },
+        "4861299926fb4ac4dcf81ad7323f9680-creationtime": {
+            "text": "Created",
+            "name": "4861299926fb4ac4dcf81ad7323f9680-creationtime",
+            "values": {}
+        },
+        "dbe1e4bed32d3e63d916c101b3cc8aa2-modifiedtime": {
+            "text": "Modified",
+            "name": "dbe1e4bed32d3e63d916c101b3cc8aa2-modifiedtime",
+            "values": {}
+        },
+        "d153ac4070bc83550ce78ff700b9ad56-productline": {
+            "text": "Product Line",
+            "name": "d153ac4070bc83550ce78ff700b9ad56-productline",
+            "values": {
+                "10000602": {
+                    "text": "10000602",
+                    "name": "10000602",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Account Requests": {
+                    "text": "Account Requests",
+                    "name": "Account Requests",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Cloud Services": {
+                    "text": "Cloud Services",
+                    "name": "Cloud Services",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 142,
+                    "currentCount": 142
+                },
+                "Data Hub Framework": {
+                    "text": "Data Hub Framework",
+                    "name": "Data Hub Framework",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 56,
+                    "currentCount": 56
+                },
+                "MarkLogic Server": {
+                    "text": "MarkLogic Server",
+                    "name": "MarkLogic Server",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 834,
+                    "currentCount": 834
+                },
+                "Ops Director": {
+                    "text": "Ops Director",
+                    "name": "Ops Director",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 3,
+                    "currentCount": 3
+                },
+                "Support Tickets": {
+                    "text": "Support Tickets",
+                    "name": "Support Tickets",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 100,
+                    "currentCount": 100
+                }
+            }
+        },
+        "93803cbe97e2b0a38b39c3f2016cfef5-creationtime": {
+            "text": "Created",
+            "name": "93803cbe97e2b0a38b39c3f2016cfef5-creationtime",
+            "values": {}
+        },
+        "2af7ff17d413842720b5472d7970e779-modifiedtime": {
+            "text": "Modified",
+            "name": "2af7ff17d413842720b5472d7970e779-modifiedtime",
+            "values": {}
+        },
+        "8a0039a118440baf576106532b226dbe-ticketComplete": {
+            "text": "Ticket Complete",
+            "name": "8a0039a118440baf576106532b226dbe-ticketComplete",
+            "values": {
+                "No": {
+                    "text": "No",
+                    "name": "No",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 940,
+                    "currentCount": 940
+                },
+                "Yes": {
+                    "text": "Yes",
+                    "name": "Yes",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 208,
+                    "currentCount": 208
+                }
+            }
+        },
+        "a9f191afe4b3ddb9f753acddfff84e3d-collateralAvailable": {
+            "text": "Collateral",
+            "name": "a9f191afe4b3ddb9f753acddfff84e3d-collateralAvailable",
+            "values": {
+                "No": {
+                    "text": "No",
+                    "name": "No",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 479,
+                    "currentCount": 479
+                },
+                "Yes": {
+                    "text": "Yes",
+                    "name": "Yes",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 669,
+                    "currentCount": 669
+                }
+            }
+        },
+        "ed9d2fca687ff69b02cfab744ab11c7e-shipmentDetailsComplete": {
+            "text": "Ship Details Complete",
+            "name": "ed9d2fca687ff69b02cfab744ab11c7e-shipmentDetailsComplete",
+            "values": {
+                "No": {
+                    "text": "No",
+                    "name": "No",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 814,
+                    "currentCount": 814
+                },
+                "Yes": {
+                    "text": "Yes",
+                    "name": "Yes",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 334,
+                    "currentCount": 334
+                }
+            }
+        },
+        "652b76d86fcb88d1dcefdc77c3ce46bd-resolutionWho": {
+            "text": "Who",
+            "name": "652b76d86fcb88d1dcefdc77c3ce46bd-resolutionWho",
+            "values": {
+                "Account Executive": {
+                    "text": "Account Executive",
+                    "name": "Account Executive",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 3,
+                    "currentCount": 3
+                },
+                "Christopher Lindblad": {
+                    "text": "Christopher Lindblad",
+                    "name": "Christopher Lindblad",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 12,
+                    "currentCount": 12
+                },
+                "Cloud Operation": {
+                    "text": "Cloud Operation",
+                    "name": "Cloud Operation",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 110,
+                    "currentCount": 110
+                },
+                "Consulting": {
+                    "text": "Consulting",
+                    "name": "Consulting",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 20,
+                    "currentCount": 20
+                },
+                "Customer": {
+                    "text": "Customer",
+                    "name": "Customer",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 44,
+                    "currentCount": 44
+                },
+                "Development": {
+                    "text": "Development",
+                    "name": "Development",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 102,
+                    "currentCount": 102
+                },
+                "Management": {
+                    "text": "Management",
+                    "name": "Management",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Performance Engineering": {
+                    "text": "Performance Engineering",
+                    "name": "Performance Engineering",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 8,
+                    "currentCount": 8
+                },
+                "Product Management": {
+                    "text": "Product Management",
+                    "name": "Product Management",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 7,
+                    "currentCount": 7
+                },
+                "Sales Engineering": {
+                    "text": "Sales Engineering",
+                    "name": "Sales Engineering",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "Support": {
+                    "text": "Support",
+                    "name": "Support",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 840,
+                    "currentCount": 840
+                }
+            }
+        },
+        "ecd47e8000a54237e7d5dc42d908aa41-resolutionDid": {
+            "text": "Did",
+            "name": "ecd47e8000a54237e7d5dc42d908aa41-resolutionDid",
+            "values": {
+                "attempted": {
+                    "text": "attempted",
+                    "name": "attempted",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 69,
+                    "currentCount": 69
+                },
+                "authored": {
+                    "text": "authored",
+                    "name": "authored",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 23,
+                    "currentCount": 23
+                },
+                "discovered": {
+                    "text": "discovered",
+                    "name": "discovered",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 45,
+                    "currentCount": 45
+                },
+                "handed-off": {
+                    "text": "handed-off",
+                    "name": "handed-off",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 36,
+                    "currentCount": 36
+                },
+                "performed": {
+                    "text": "performed",
+                    "name": "performed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 171,
+                    "currentCount": 171
+                },
+                "provided": {
+                    "text": "provided",
+                    "name": "provided",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 625,
+                    "currentCount": 625
+                },
+                "referenced": {
+                    "text": "referenced",
+                    "name": "referenced",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 105,
+                    "currentCount": 105
+                },
+                "reinstalled": {
+                    "text": "reinstalled",
+                    "name": "reinstalled",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 2,
+                    "currentCount": 2
+                },
+                "restarted": {
+                    "text": "restarted",
+                    "name": "restarted",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 2,
+                    "currentCount": 2
+                },
+                "reviewed": {
+                    "text": "reviewed",
+                    "name": "reviewed",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 52,
+                    "currentCount": 52
+                },
+                "tested": {
+                    "text": "tested",
+                    "name": "tested",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 18,
+                    "currentCount": 18
+                }
+            }
+        },
+        "8573709cd477a85ac23e102d323b98da-resolutionWhat": {
+            "text": "What",
+            "name": "8573709cd477a85ac23e102d323b98da-resolutionWhat",
+            "values": {
+                "Behavior": {
+                    "text": "Behavior",
+                    "name": "Behavior",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 64,
+                    "currentCount": 64
+                },
+                "Bug fix": {
+                    "text": "Bug fix",
+                    "name": "Bug fix",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 162,
+                    "currentCount": 162
+                },
+                "Clarification": {
+                    "text": "Clarification",
+                    "name": "Clarification",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 137,
+                    "currentCount": 137
+                },
+                "Cluster": {
+                    "text": "Cluster",
+                    "name": "Cluster",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 9,
+                    "currentCount": 9
+                },
+                "Code": {
+                    "text": "Code",
+                    "name": "Code",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 21,
+                    "currentCount": 21
+                },
+                "Consulting": {
+                    "text": "Consulting",
+                    "name": "Consulting",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 13,
+                    "currentCount": 13
+                },
+                "Documentation": {
+                    "text": "Documentation",
+                    "name": "Documentation",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 72,
+                    "currentCount": 72
+                },
+                "External Collateral": {
+                    "text": "External Collateral",
+                    "name": "External Collateral",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 17,
+                    "currentCount": 17
+                },
+                "Infrastructure issue": {
+                    "text": "Infrastructure issue",
+                    "name": "Infrastructure issue",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 32,
+                    "currentCount": 32
+                },
+                "Investigation": {
+                    "text": "Investigation",
+                    "name": "Investigation",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 153,
+                    "currentCount": 153
+                },
+                "Knowledge": {
+                    "text": "Knowledge",
+                    "name": "Knowledge",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 163,
+                    "currentCount": 163
+                },
+                "Knowledgebase Article": {
+                    "text": "Knowledgebase Article",
+                    "name": "Knowledgebase Article",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 59,
+                    "currentCount": 59
+                },
+                "License": {
+                    "text": "License",
+                    "name": "License",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 6,
+                    "currentCount": 6
+                },
+                "Logs": {
+                    "text": "Logs",
+                    "name": "Logs",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 16,
+                    "currentCount": 16
+                },
+                "Mailing List": {
+                    "text": "Mailing List",
+                    "name": "Mailing List",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 3,
+                    "currentCount": 3
+                },
+                "Manual surgery": {
+                    "text": "Manual surgery",
+                    "name": "Manual surgery",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 33,
+                    "currentCount": 33
+                },
+                "Operational error": {
+                    "text": "Operational error",
+                    "name": "Operational error",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 7,
+                    "currentCount": 7
+                },
+                "Operational task": {
+                    "text": "Operational task",
+                    "name": "Operational task",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 40,
+                    "currentCount": 40
+                },
+                "Problematic input": {
+                    "text": "Problematic input",
+                    "name": "Problematic input",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 20,
+                    "currentCount": 20
+                },
+                "Procedure": {
+                    "text": "Procedure",
+                    "name": "Procedure",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 42,
+                    "currentCount": 42
+                },
+                "Provisioning advice": {
+                    "text": "Provisioning advice",
+                    "name": "Provisioning advice",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 17,
+                    "currentCount": 17
+                },
+                "Repro": {
+                    "text": "Repro",
+                    "name": "Repro",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 7,
+                    "currentCount": 7
+                },
+                "Software": {
+                    "text": "Software",
+                    "name": "Software",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 15,
+                    "currentCount": 15
+                },
+                "Unpublished Knowledge": {
+                    "text": "Unpublished Knowledge",
+                    "name": "Unpublished Knowledge",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 6,
+                    "currentCount": 6
+                },
+                "Workaround": {
+                    "text": "Workaround",
+                    "name": "Workaround",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 34,
+                    "currentCount": 34
+                }
+            }
+        },
+        "2e4654a856d161a4017b3c2e09102b16-functionality": {
+            "text": "Functionality",
+            "name": "2e4654a856d161a4017b3c2e09102b16-functionality",
+            "values": {
+                "Administration": {
+                    "text": "Administration",
+                    "name": "Administration",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 179,
+                    "currentCount": 179
+                },
+                "Application Deployment": {
+                    "text": "Application Deployment",
+                    "name": "Application Deployment",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 35,
+                    "currentCount": 35
+                },
+                "Application Development": {
+                    "text": "Application Development",
+                    "name": "Application Development",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 101,
+                    "currentCount": 101
+                },
+                "Backup / Restore": {
+                    "text": "Backup / Restore",
+                    "name": "Backup / Restore",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 59,
+                    "currentCount": 59
+                },
+                "Client Communication": {
+                    "text": "Client Communication",
+                    "name": "Client Communication",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 19,
+                    "currentCount": 19
+                },
+                "Cluster Communication": {
+                    "text": "Cluster Communication",
+                    "name": "Cluster Communication",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 11,
+                    "currentCount": 11
+                },
+                "Configuration": {
+                    "text": "Configuration",
+                    "name": "Configuration",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 67,
+                    "currentCount": 67
+                },
+                "Data Management": {
+                    "text": "Data Management",
+                    "name": "Data Management",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 39,
+                    "currentCount": 39
+                },
+                "Design": {
+                    "text": "Design",
+                    "name": "Design",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 9,
+                    "currentCount": 9
+                },
+                "Disaster Recovery": {
+                    "text": "Disaster Recovery",
+                    "name": "Disaster Recovery",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 26,
+                    "currentCount": 26
+                },
+                "Downgrade": {
+                    "text": "Downgrade",
+                    "name": "Downgrade",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 1,
+                    "currentCount": 1
+                },
+                "High Availability": {
+                    "text": "High Availability",
+                    "name": "High Availability",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 16,
+                    "currentCount": 16
+                },
+                "Infrastructure": {
+                    "text": "Infrastructure",
+                    "name": "Infrastructure",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 75,
+                    "currentCount": 75
+                },
+                "Ingest": {
+                    "text": "Ingest",
+                    "name": "Ingest",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 26,
+                    "currentCount": 26
+                },
+                "Installation": {
+                    "text": "Installation",
+                    "name": "Installation",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 37,
+                    "currentCount": 37
+                },
+                "Monitoring": {
+                    "text": "Monitoring",
+                    "name": "Monitoring",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 26,
+                    "currentCount": 26
+                },
+                "Performance": {
+                    "text": "Performance",
+                    "name": "Performance",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 113,
+                    "currentCount": 113
+                },
+                "Search": {
+                    "text": "Search",
+                    "name": "Search",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 60,
+                    "currentCount": 60
+                },
+                "Security": {
+                    "text": "Security",
+                    "name": "Security",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 108,
+                    "currentCount": 108
+                },
+                "Sizing": {
+                    "text": "Sizing",
+                    "name": "Sizing",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 14,
+                    "currentCount": 14
+                },
+                "Stability": {
+                    "text": "Stability",
+                    "name": "Stability",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 50,
+                    "currentCount": 50
+                },
+                "System Management": {
+                    "text": "System Management",
+                    "name": "System Management",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 18,
+                    "currentCount": 18
+                },
+                "Transform": {
+                    "text": "Transform",
+                    "name": "Transform",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 5,
+                    "currentCount": 5
+                },
+                "Upgrade": {
+                    "text": "Upgrade",
+                    "name": "Upgrade",
+                    "selected": false,
+                    "deselected": false,
+                    "totalCount": 54,
+                    "currentCount": 54
+                }
+            }
+        },
+        "a1ef37e156073017195a56fc74ad0ba0-ticketId": {
+            "text": "a1ef37e156073017195a56fc74ad0ba0-ticketId",
+            "name": "a1ef37e156073017195a56fc74ad0ba0-ticketId",
+            "values": {}
+        },
+        "595ded9ab10cee30bcd521f812a0938f-organizationName": {
+            "text": "595ded9ab10cee30bcd521f812a0938f-organizationName",
+            "name": "595ded9ab10cee30bcd521f812a0938f-organizationName",
+            "values": {}
+        },
+        "ff933dc92f8316da33530a2b95f2150a-organizationName": {
+            "text": "ff933dc92f8316da33530a2b95f2150a-organizationName",
+            "name": "ff933dc92f8316da33530a2b95f2150a-organizationName",
+            "values": {}
+        },
+        "8ca9bd84f5663daf4960508ce574eed3-organizationName": {
+            "text": "8ca9bd84f5663daf4960508ce574eed3-organizationName",
+            "name": "8ca9bd84f5663daf4960508ce574eed3-organizationName",
+            "values": {}
+        },
+        "2dcc8c25ce4214e1fc9c3fef0749aff6-organizationName": {
+            "text": "2dcc8c25ce4214e1fc9c3fef0749aff6-organizationName",
+            "name": "2dcc8c25ce4214e1fc9c3fef0749aff6-organizationName",
+            "values": {}
+        },
+        "4f68ccec4d2a5b0120caab1db8d4ba50-fullName": {
+            "text": "4f68ccec4d2a5b0120caab1db8d4ba50-fullName",
+            "name": "4f68ccec4d2a5b0120caab1db8d4ba50-fullName",
+            "values": {}
+        }
+    },
+    "view": "all",
+    "start": 1,
+    "pageLength": 10,
+    "appPath":"/Report”}

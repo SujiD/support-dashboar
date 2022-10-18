@@ -145,8 +145,8 @@ input[type="password"] {
 }
 
 .pie-chart {
-  max-width: 350px;
-  max-height: 350px;
+  max-width: 600px;
+  max-height: 600px;
 }
 
 /* Select */

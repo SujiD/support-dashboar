@@ -21,10 +21,12 @@ import { useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../Database/Data";
 import PieChartPopup from "../popups/PieChartPopup";
+// import { updateFacets } from "../../common/facetHelper";
 const CustomizedTable = ({ facets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
   const [facetData, setFacteData] = useState();
   const [showPopup, setShowPopup] = useState(false);
+  const [title, setTitle] = useState("");
   const tableFields = useSelector((state) => {
     return state.table.tableCols;
   });
@@ -34,8 +36,6 @@ const CustomizedTable = ({ facets }) => {
         Header: ticketCol.name,
         accessor: ticketCol.field,
         maxWidth: 600,
-        minWidth: 140,
-        width: 400,
       };
     }
   );
@@ -116,6 +116,7 @@ const CustomizedTable = ({ facets }) => {
   const handleFilter = (columnName) => {
     const facetValues = facets[columnName.Header]?.facetValues;
     if (facetValues?.length > 0) {
+      setTitle(columnName.Header.split("-")[1]);
       setFacteData({
         labels: facetValues.map((value) => value.name),
         datasets: [
@@ -125,6 +126,8 @@ const CustomizedTable = ({ facets }) => {
             backgroundColor: colors.map((color) => color),
             borderColor: colors.map((color) => color),
             borderWidth: 1,
+            hoverOffset: 6,
+            hoverBorderColor: "#000"
           },
         ],
       });
@@ -133,6 +136,7 @@ const CustomizedTable = ({ facets }) => {
       alert(" No facets to show");
     }
   };
+
   return (
     <>
       <div className="d-flex justify-content-between my-3 mt-5 px-2">
@@ -160,7 +164,12 @@ const CustomizedTable = ({ facets }) => {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header").split("-")[1]}
+                    {column
+                      .render("Header")
+                      .split("-")[1]
+                      .charAt(0)
+                      .toUpperCase() +
+                      column.render("Header").split("-")[1].slice(1)}
                     <FontAwesomeIcon
                       icon={faFilter}
                       className="ms-1"
@@ -272,6 +281,7 @@ const CustomizedTable = ({ facets }) => {
         size="lg"
         showPopup={showPopup}
         setShowPopup={setShowPopup}
+        title={title}
       />
     </>
   );
