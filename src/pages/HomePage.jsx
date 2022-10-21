@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchFacetsReq,
   fetchFacetsSuccess,
+  fetchFacetsUpdate,
 } from "../redux/facet/facetActions";
 import CustomizedTable from "../components/tables/CustomizedTable";
 import { fetchTableCols } from "../redux/tableMeta/tableAction";
@@ -51,8 +52,6 @@ export const HomePage = () => {
             },
           ],
         });
-        dispatch(fetchFacetsSuccess(res.data.facets));
-        dispatch(fetchTableCols(res.data.results));
         setPriorityData({
           labels: res.data.facets[IDs.priority].facetValues?.map((d) => d.name),
           datasets: [
@@ -84,6 +83,9 @@ export const HomePage = () => {
             },
           ],
         });
+        dispatch(fetchFacetsSuccess(res.data));
+        dispatch(fetchFacetsUpdate(res.data));
+        dispatch(fetchTableCols(res.data.results));
 
         setOwnerD({
           labels: ownerData.map((d) => d.name),
@@ -222,7 +224,7 @@ export const HomePage = () => {
               }
             />
           </div> */}
-          <CustomizedTable facets={facets} />
+          <CustomizedTable facetTableData={facets} />
         </>
       ) : (
         <Loading />

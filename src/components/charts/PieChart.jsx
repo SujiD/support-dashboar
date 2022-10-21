@@ -2,13 +2,18 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useRef } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
-const PieChart = ({ chartData }) => {
+const PieChart = ({ chartData, facetId }) => {
+  console.log(facetId);
+  // const legendClick = (event, legendItem, legend) => {
+  //   console.log(legendItem)
+  // }
+
   const chartRef = useRef();
   const options = {
     plugins: {
       legend: {
         // onClick: (event, legendItem, legend) =>
-        //   legendClick(event, legendItem, legend),
+        // legendClick(event, legendItem, legend),
         labels: {
           usePointStyle: true,
           boxWidth: 400,
@@ -19,26 +24,16 @@ const PieChart = ({ chartData }) => {
       },
     },
     responsive: true,
-    animation: {
-      duration: 0,
-    },
-    hover: {
-      animationDuration: 0,
-    },
-    responsiveAnimationDuration: 0,
   };
   return (
     <>
-      {/* <select>
-      <option>
-        Test
-      </option>
-      {
-        chartData.labels.map((label) => {
-          <option>{label}</option>
-        })
-      }
-    </select> */}
+      {/* <ul>
+        {
+          chartData.labels.map((label, index) => (
+            <li key={index}>{label}</li>
+          ))
+        }
+      </ul> */}
       <Doughnut
         data={chartData}
         className="pie-chart"

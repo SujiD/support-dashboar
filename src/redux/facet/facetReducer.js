@@ -1,7 +1,7 @@
 import facetTypes from "./facetTypes";
 const initialState = {
   loading: false,
-  facets: [],
+  facets: {},
   error: "",
 };
 
@@ -18,14 +18,19 @@ export const facetReducer = (state = initialState, action) => {
         facets: action.payload,
         error: "",
       };
+    case facetTypes.FETCH_FACETS_UPDATE:
+      return {
+        loading: false,
+        facets: action.payload,
+        error: "",
+      };
     case facetTypes.FETCH_FACETS_FAILURE:
       return {
         loading: false,
-        facets: [],
+        facets: {},
         error: action.payload,
       };
     default:
       return state;
   }
 };
-

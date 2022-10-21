@@ -21,10 +21,10 @@ import { useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../Database/Data";
 import PieChartPopup from "../popups/PieChartPopup";
-// import { updateFacets } from "../../common/facetHelper";
-const CustomizedTable = ({ facets }) => {
+
+const CustomizedTable = ({ facetTableData }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
-  const [facetData, setFacteData] = useState();
+  const [facetData, setFacetData] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
   const tableFields = useSelector((state) => {
@@ -39,7 +39,6 @@ const CustomizedTable = ({ facets }) => {
       };
     }
   );
-
   // eslint-disable-next-line
   const ticketColumns = useMemo(() => ticketCols, []);
 
@@ -79,6 +78,7 @@ const CustomizedTable = ({ facets }) => {
       // initialState: {
       //   hiddenColumns:["accesorName"]
       //   }
+      //TODO: TO change this later
       initialState: {
         hiddenColumns: [
           "reportType",
@@ -114,20 +114,20 @@ const CustomizedTable = ({ facets }) => {
   );
   const { globalFilter, pageIndex, pageSize } = state;
   const handleFilter = (columnName) => {
-    const facetValues = facets[columnName.Header]?.facetValues;
-    if (facetValues?.length > 0) {
-      setTitle(columnName.Header.split("-")[1]);
-      setFacteData({
-        labels: facetValues.map((value) => value.name),
+    const facetValues = facetTableData.facets[columnName.Header]?.values;
+    if (Object.keys(facetValues).length > 0) {
+      setTitle(columnName.Header);
+      setFacetData({
+        labels: Object.keys(facetValues).map((key) => key),
         datasets: [
           {
             label: columnName.Header.split("-")[1],
-            data: facetValues.map((value) => value.count),
+            data: Object.values(facetValues).map((value) => value.currentCount),
             backgroundColor: colors.map((color) => color),
             borderColor: colors.map((color) => color),
             borderWidth: 1,
             hoverOffset: 6,
-            hoverBorderColor: "#000"
+            hoverBorderColor: "#000",
           },
         ],
       });
