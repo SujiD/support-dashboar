@@ -24,6 +24,12 @@ export const facetReducer = (state = initialState, action) => {
         facets: action.payload,
         error: "",
       };
+      case facetTypes.TOGGLE_FACETS_SELECT:
+      return {
+        loading: false,
+        facets: action.payload,
+        error: "",
+      };
     case facetTypes.FETCH_FACETS_FAILURE:
       return {
         loading: false,

@@ -1,6 +1,4 @@
 import { Modal, Button, Accordion } from "react-bootstrap";
-// import { useSelector, useDispatch } from "react-redux";
-// import { updateTableCols } from "../../redux/tableMeta/tableAction";
 import "./TicketPopup.css";
 const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
   return (
@@ -70,7 +68,11 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
           onClick={() => {
             setShowPopup(false);
           }}
-          style={{ borderColor: "#060b26" }}
+          style={{
+            backgroundColor: "#060b26",
+            borderColor: "#060b26",
+            float: "right",
+          }}
         >
           Close
         </Button>

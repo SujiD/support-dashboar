@@ -2,7 +2,6 @@ import { Modal, Button } from "react-bootstrap";
 import PieChart from "../charts/PieChart";
 const PieChartPopup = ({ size, facetData, setShowPopup, showPopup, title }) => {
   let heading = title.split("-")[1];
-  let id = title.split("-")[0];
   return (
     <Modal centered size={size} show={showPopup}>
       <Modal.Header>
@@ -12,7 +11,7 @@ const PieChartPopup = ({ size, facetData, setShowPopup, showPopup, title }) => {
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex align-items-center justify-content-center">
-          <PieChart chartData={facetData} facetId={id} />
+          <PieChart chartData={facetData} facetId={title} />
         </div>
         <Button
           onClick={() => setShowPopup(false)}
