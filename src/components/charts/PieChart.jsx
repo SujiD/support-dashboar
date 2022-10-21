@@ -1,21 +1,31 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useRef } from "react";
-import { Chart as ChartJS } from "chart.js/auto";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFacetsSelect } from "../../redux/facet/facetActions";
-const PieChart = ({ chartData, facetId }) => {
+import { Chart as ChartJS } from "chart.js/auto";
+const PieChart = ({ chartData, facetId, setShowUpdate }) => {
   const dispatch = useDispatch();
   const pieChartFacets = useSelector((state) => {
     return state.facet.facets;
   });
   const legendClick = (event, legendItem, legend) => {
+    setShowUpdate(false);
     const legendObject = pieChartFacets.facets[facetId].values[legendItem.text];
-    legendObject.selected = !legendObject.selected;
+    if (!legendObject.selected && !legendObject.deselected) {
+      legendObject.selected = !legendObject.selected;
+    } else {
+      if (legendObject.selected && !legendObject.deselected) {
+        legendObject.selected = false;
+        legendObject.deselected = true;
+      } else {
+        legendObject.selected = true;
+        legendObject.deselected = false;
+      }
+    }
     dispatch(
       toggleFacetsSelect(pieChartFacets, legendItem.text, legendObject, facetId)
     );
-    console.log("updated Facets", pieChartFacets);
   };
 
   const chartRef = useRef();
