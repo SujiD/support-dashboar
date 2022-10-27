@@ -4,11 +4,16 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFacetsSelect } from "../../redux/facet/facetActions";
 import { Chart as ChartJS } from "chart.js/auto";
-const PieChart = ({ chartData, facetId, setShowUpdate }) => {
+const PieChart = ({
+  chartData,
+  facetId,
+  setShowUpdate,
+}) => {
   const dispatch = useDispatch();
   const pieChartFacets = useSelector((state) => {
     return state.facet.facets;
   });
+  
   const legendClick = (event, legendItem, legend) => {
     setShowUpdate(false);
     const legendObject = pieChartFacets.facets[facetId].values[legendItem.text];

@@ -1,13 +1,55 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import PieChart from "../charts/PieChart";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-const PieChartPopup = ({ size, facetData, setShowPopup, showPopup, title }) => {
+import { useDispatch, useSelector } from "react-redux";
+import APIClient from "../../api/APIClient";
+import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
+import { useContext } from "react";
+import { ErrorContext } from "../../contexts/ErrorContext";
+
+const PieChartPopup = ({
+  size,
+  facetData,
+  setShowPopup,
+  showPopup,
+  title,
+  setLoading,
+  loading,
+}) => {
+  const [showUpdate, setShowUpdate] = useState(true);
+  const { setError } = useContext(ErrorContext);
+  const [apiClient] = useState(() => new APIClient());
+
+  const dispatch = useDispatch();
   const facets = useSelector((state) => {
     return state.facet.facets;
   });
   let heading = title.split("-")[1];
-  const [showUpdate, setShowUpdate] = useState(true);
+  let reqBody = {
+    appPath: "Report",
+    q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
+    start: "1",
+    view: "all",
+  };
+
+  const handleUpdate = () => {
+    setLoading(true);
+    // setRefresh(!refresh);
+    setShowUpdate(true);
+    reqBody.facets = facets.facets;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(fetchFacetsUpdate(res.data));
+        setLoading(false);
+        setShowPopup(true);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
+
   return (
     <Modal centered size={size} show={showPopup}>
       <Modal.Header>
@@ -17,14 +59,20 @@ const PieChartPopup = ({ size, facetData, setShowPopup, showPopup, title }) => {
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex align-items-center justify-content-center">
-          <PieChart
-            chartData={facetData}
-            facetId={title}
-            setShowUpdate={setShowUpdate}
-          />
+          {!loading ? (
+            <PieChart
+              chartData={facetData}
+              facetId={title}
+              setShowUpdate={setShowUpdate}
+            />
+          ) : (
+            <Spinner animation="border" variant="primary" />
+          )}
         </div>
         <Button
-          onClick={() => setShowPopup(false)}
+          onClick={() => {
+            setShowPopup(false);
+          }}
           style={{
             backgroundColor: "#060b26",
             borderColor: "#060b26",
@@ -35,11 +83,7 @@ const PieChartPopup = ({ size, facetData, setShowPopup, showPopup, title }) => {
           Close
         </Button>
         <Button
-          onClick={() => {
-            console.log("Updated Data", facets);
-            setShowPopup(false);
-            setShowUpdate(true);
-          }}
+          onClick={() => handleUpdate()}
           disabled={showUpdate}
           style={{
             backgroundColor: "#060b26",

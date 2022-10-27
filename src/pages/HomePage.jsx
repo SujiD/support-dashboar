@@ -10,16 +10,29 @@ import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
 import IDs from "../common/values";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  useDispatch,
+  // useSelector
+} from "react-redux";
 import {
   fetchFacetsReq,
   fetchFacetsSuccess,
   fetchFacetsUpdate,
 } from "../redux/facet/facetActions";
 import CustomizedTable from "../components/tables/CustomizedTable";
-import { fetchTableCols } from "../redux/tableMeta/tableAction";
+import { useMemo } from "react";
+import { fetchPageDataSuccess } from "../redux/page/pageAction";
 
 export const HomePage = () => {
+  const reqBody = useMemo(
+    () => ({
+      appPath: "Report",
+      q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
+      start: "1",
+      view: "all",
+    }),
+    []
+  );
   // const [selectStat, setSelectStat] = useState("owner");
   const [apiClient] = useState(() => new APIClient());
   const [loading, setLoading] = useState(false);
@@ -28,16 +41,18 @@ export const HomePage = () => {
   const [priorityData, setPriorityData] = useState();
   const [ownerD, setOwnerD] = useState();
   const { setError } = useContext(ErrorContext);
-  const facets = useSelector((state) => {
-    return state.facet.facets;
-  });
+  // const facets = useSelector((state) => {
+  //   return state.facet.facets;
+  // });
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
     dispatch(fetchFacetsReq());
     apiClient.entityService
-      .getAllSearchData()
-      .then((res) => {
+    .getAllSearchData(reqBody)
+    .then((res) => {
+      console.log(res.data["page-length"])
+        dispatch(fetchPageDataSuccess(res.data["page-length"]));
         setStatusData({
           labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
           datasets: [
@@ -85,8 +100,6 @@ export const HomePage = () => {
         });
         dispatch(fetchFacetsSuccess(res.data));
         dispatch(fetchFacetsUpdate(res.data));
-        dispatch(fetchTableCols(res.data.results));
-
         setOwnerD({
           labels: ownerData.map((d) => d.name),
           datasets: [
@@ -106,9 +119,8 @@ export const HomePage = () => {
         console.log(err.response.data);
       });
     setLoading(false);
-  }, [apiClient.entityService, dispatch, setError]);
+  }, [apiClient.entityService, dispatch, setError, reqBody]);
 
-  // console.log(facets);
   // const handleChange = (event) => {
   //   setSelectStat(event.target.value);
   // };
@@ -224,7 +236,7 @@ export const HomePage = () => {
               }
             />
           </div> */}
-          <CustomizedTable facetTableData={facets} />
+          <CustomizedTable loading={loading} setLoading={setLoading} />
         </>
       ) : (
         <Loading />

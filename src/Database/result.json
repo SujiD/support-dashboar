@@ -940,4 +940,5 @@
     "view": "all",
     "start": 1,
     "pageLength": 10,
-    "appPath":"/Report”}
+    "appPath":"/Report"
+}

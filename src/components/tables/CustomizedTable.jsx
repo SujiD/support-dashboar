@@ -17,19 +17,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import tableMeta from "../../Database/table-meta.json";
 import ColumnFilter from "../search-filters/ColumnFilter";
 import { Checkbox } from "../checkbox/Checkbox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../Database/Data";
 import PieChartPopup from "../popups/PieChartPopup";
+import APIClient from "../../api/APIClient";
+import { useContext } from "react";
+import { ErrorContext } from "../../contexts/ErrorContext";
+import {
+  fetchFacetsSuccess,
+  fetchFacetsUpdate,
+} from "../../redux/facet/facetActions";
+import { updatePageDataPageSize } from "../../redux/page/pageAction";
 
-const CustomizedTable = ({ facetTableData }) => {
+const CustomizedTable = ({ loading, setLoading }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
   const [facetData, setFacetData] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
-  const tableFields = useSelector((state) => {
-    return state.table.tableCols;
+  const [apiClient] = useState(() => new APIClient());
+  // const [pageSizeValue, setPageSize] = useState(10);
+  const { setError } = useContext(ErrorContext);
+  const dispatch = useDispatch();
+
+  const facetTableData = useSelector((state) => {
+    return state.facet.facets;
   });
+
+  const pageSizeValue = useSelector((state) => {
+    return state.pageData.pageSize;
+  });
+
   const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
     (ticketCol) => {
       return {
@@ -40,10 +58,9 @@ const CustomizedTable = ({ facetTableData }) => {
     }
   );
   // eslint-disable-next-line
-  const ticketColumns = useMemo(() => ticketCols, []);
-
+  const columns = useMemo(() => ticketCols, []);
   // eslint-disable-next-line
-  const ticketData = useMemo(() => tableFields, []);
+  const ticketData = useMemo(() => facetTableData.results, []);
 
   const defaultColumn = useMemo(() => {
     return {
@@ -61,17 +78,17 @@ const CustomizedTable = ({ facetTableData }) => {
     setGlobalFilter,
     nextPage,
     previousPage,
-    canNextPage,
-    canPreviousPage,
+    // canNextPage,
+    // canPreviousPage,
     pageOptions,
     gotoPage,
     pageCount,
-    setPageSize,
+    // setPageSize,
     allColumns,
     getToggleHideAllColumnsProps,
   } = useTable(
     {
-      columns: ticketColumns,
+      columns: columns,
       data: ticketData,
       defaultColumn,
 
@@ -112,10 +129,10 @@ const CustomizedTable = ({ facetTableData }) => {
     useSortBy,
     usePagination
   );
-  const { globalFilter, pageIndex, pageSize } = state;
+  const { globalFilter, pageIndex } = state;
   const handleFilter = (columnName) => {
     const facetValues = facetTableData.facets[columnName.Header]?.values;
-    if (Object.keys(facetValues).length > 0) {
+    if (facetValues && Object.keys(facetValues).length > 0) {
       setTitle(columnName.Header);
       setFacetData({
         labels: Object.keys(facetValues).map((key) => key),
@@ -135,6 +152,31 @@ const CustomizedTable = ({ facetTableData }) => {
     } else {
       alert(" No facets to show");
     }
+  };
+
+  let reqBody = {
+    appPath: "Report",
+    q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
+    start: "1",
+    view: "all",
+  };
+
+  const handlePageSize = (e) => {
+    setLoading(true);
+    reqBody.pageLength = e.target.value;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        console.log(res.data["page-length"]);
+        dispatch(updatePageDataPageSize(res.data["page-length"]));
+        dispatch(fetchFacetsSuccess(res.data));
+        dispatch(fetchFacetsUpdate(res.data));
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -232,41 +274,45 @@ const CustomizedTable = ({ facetTableData }) => {
           />
         </span>
         <select
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
+          value={pageSizeValue}
+          onChange={(e) => handlePageSize(e)}
           className="select-btn mx-2"
         >
-          {[10, 25, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+          {[10, 25, 50].map((size) => (
+            <option key={size} value={size}>
+              Show {size}
             </option>
           ))}
         </select>
         <button
-          className={!canPreviousPage ? "disable-btn" : "main-btn"}
+          // className={!canPreviousPage ? "disable-btn" : "main-btn"}
+          className="main-btn"
           onClick={() => gotoPage(0)}
-          disabled={!canPreviousPage}
+          // disabled={!canPreviousPage}
         >
           {"<<"}
         </button>
         <button
-          className={!canPreviousPage ? "disable-btn" : "main-btn"}
+          // className={!canPreviousPage ? "disable-btn" : "main-btn"}
+          className="main-btn"
           onClick={() => previousPage()}
-          disabled={!canPreviousPage}
+          // disabled={!canPreviousPage}
         >
           Previous
         </button>
         <button
-          className={!canNextPage ? "disable-btn" : "main-btn"}
+          // className={!canNextPage ? "disable-btn" : "main-btn"}
+          className="main-btn"
           onClick={() => nextPage()}
-          disabled={!canNextPage}
+          // disabled={!canNextPage}
         >
           Next
         </button>
         <button
-          className={!canNextPage ? "disable-btn" : "main-btn"}
+          // className={!canNextPage ? "disable-btn" : "main-btn"}
+          className="main-btn"
           onClick={() => gotoPage(pageCount - 1)}
-          disabled={!canNextPage}
+          // disabled={!canNextPage}
         >
           {">>"}
         </button>
@@ -282,6 +328,8 @@ const CustomizedTable = ({ facetTableData }) => {
         showPopup={showPopup}
         setShowPopup={setShowPopup}
         title={title}
+        loading={loading}
+        setLoading={setLoading}
       />
     </>
   );

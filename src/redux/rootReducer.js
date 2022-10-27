@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { facetReducer } from "./facet/facetReducer";
-import { tableReducer } from "./tableMeta/tableReducer";
+import { pageReducer } from "./page/pageReducer";
 const rootReducer = combineReducers({
   facet: facetReducer,
-  table: tableReducer,
+  pageData: pageReducer
 });
 
 export default rootReducer;
