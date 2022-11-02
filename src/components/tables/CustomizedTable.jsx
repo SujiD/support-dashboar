@@ -183,6 +183,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
     } else {
       func = updatePageDataNextPrev;
       reqBody.start = `${start}`;
+      reqBody.pageLength = `${pageStoreData.pageSize}`;
     }
     setLoading(true);
     apiClient.entityService
