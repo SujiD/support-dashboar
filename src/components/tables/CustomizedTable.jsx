@@ -255,29 +255,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
         pageStoreData.prev - 1,
         pageStoreData.start - pageStoreData.pageSize
       );
-      // setLoading(true);
-      // reqBody.start = `${pageStoreData.start - pageStoreData.pageSize}`;
-      // apiClient.entityService
-      //   .getAllSearchData(reqBody)
-      //   .then((res) => {
-      //     dispatch(
-      //       updatePageDataNextPrev({
-      //         pageSize: pageStoreData.pageSize,
-      //         totalLength: res.data.total,
-      //         numOfPages: Math.floor(res.data.total / pageStoreData.pageSize),
-      //         next: pageStoreData.next - 1,
-      //         prev: pageStoreData.prev - 1,
-      //         start: res.data.start,
-      //       })
-      //     );
-      //     dispatch(fetchFacetsSuccess(res.data));
-      //     dispatch(fetchFacetsUpdate(res.data));
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
-      //     setError(err);
-      //     setLoading(false);
-      //   });
     }
   };
   return (
