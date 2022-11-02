@@ -51,8 +51,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
     return state.pageData;
   });
 
-  let pageSizeValue = pageStoreData.pageSize;
-
   const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
     (ticketCol) => {
       return {
@@ -82,13 +80,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
     prepareRow,
     state,
     setGlobalFilter,
-    // nextPage,
-    // previousPage,
-    // canNextPage,
-    // canPreviousPage,
     pageOptions,
     gotoPage,
-    // pageCount,
     setPageSize,
     allColumns,
     getToggleHideAllColumnsProps,
@@ -135,11 +128,11 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
-  const { globalFilter, pageIndex, pageSize } = state;
+  const { globalFilter, pageIndex } = state;
 
   useEffect(() => {
-    setPageSize(pageSizeValue);
-  }, [pageSizeValue, setPageSize]);
+    setPageSize(pageStoreData.pageSize);
+  }, [pageStoreData.pageSize, setPageSize]);
 
   const handleFilter = (columnName) => {
     const facetValues = facetTableData.facets[columnName.Header]?.values;
@@ -173,43 +166,39 @@ const CustomizedTable = ({ loading, setLoading }) => {
   };
 
   const handlePageSize = (e) => {
-    setPageSize(Number(e.target.value));
-    setLoading(true);
-    reqBody.pageLength = e.target.value;
-    apiClient.entityService
-      .getAllSearchData(reqBody)
-      .then((res) => {
-        dispatch(
-          updatePageDataPageSize({
-            pageSize: res.data["page-length"],
-            totalLength: res.data.total,
-            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
-            next: pageStoreData.next,
-            prev: pageStoreData.prev,
-            start: res.data.start,
-          })
-        );
-        dispatch(fetchFacetsSuccess(res.data));
-        dispatch(fetchFacetsUpdate(res.data));
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
+    // setPageSize(Number(e.target.value));
+    paginationHelper(
+      pageStoreData.next,
+      pageStoreData.prev,
+      e.target.value,
+      "pageSize"
+    );
   };
 
-  const paginationHelper = (next, prev, start) => {
+  const paginationHelper = (next, prev, start, type) => {
+    let func;
+    if (type === "pageSize") {
+      func = updatePageDataPageSize;
+      reqBody.pageLength = start;
+    } else {
+      func = updatePageDataNextPrev;
+      reqBody.start = `${start}`;
+    }
     setLoading(true);
-    reqBody.start = `${start}`;
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
         dispatch(
-          updatePageDataNextPrev({
-            pageSize: pageStoreData.pageSize,
+          func({
+            pageSize:
+              type === "pageSize"
+                ? res.data["page-length"]
+                : pageStoreData.pageSize,
             totalLength: res.data.total,
-            numOfPages: Math.floor(res.data.total / pageStoreData.pageSize),
+            numOfPages:
+              type === "pageSize"
+                ? Math.floor(res.data.total / res.data["page-length"])
+                : Math.floor(res.data.total / pageStoreData.pageSize),
             next: next,
             prev: prev,
             start: res.data.start,
@@ -229,7 +218,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
       paginationHelper(
         pageStoreData.next + 1,
         pageStoreData.prev + 1,
-        pageStoreData.start + pageStoreData.pageSize
+        pageStoreData.start + pageStoreData.pageSize,
+        "pagination"
       );
     }
   };
@@ -238,13 +228,14 @@ const CustomizedTable = ({ loading, setLoading }) => {
     paginationHelper(
       pageStoreData.numOfPages,
       pageStoreData.numOfPages,
-      pageStoreData.numOfPages * pageStoreData.pageSize + 1
+      pageStoreData.numOfPages * pageStoreData.pageSize + 1,
+      "pagination"
     );
   };
 
   const gotoStartPage = () => {
     if (pageStoreData.prev !== 0) {
-      paginationHelper(1, 1, 1);
+      paginationHelper(1, 1, 1, "pagination");
     }
   };
 
@@ -253,7 +244,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
       paginationHelper(
         pageStoreData.next - 1,
         pageStoreData.prev - 1,
-        pageStoreData.start - pageStoreData.pageSize
+        pageStoreData.start - pageStoreData.pageSize,
+        "pagination"
       );
     }
   };
@@ -352,7 +344,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
           />
         </span>
         <select
-          value={pageSize}
+          value={pageStoreData.pageSize}
           onChange={(e) => handlePageSize(e)}
           className="select-btn mx-2"
         >
