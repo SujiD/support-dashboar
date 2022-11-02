@@ -49,10 +49,18 @@ export const HomePage = () => {
     setLoading(true);
     dispatch(fetchFacetsReq());
     apiClient.entityService
-    .getAllSearchData(reqBody)
-    .then((res) => {
-      console.log(res.data["page-length"])
-        dispatch(fetchPageDataSuccess(res.data["page-length"]));
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
+            next: 1,
+            prev: 1,
+            start: res.data.start,
+          })
+        );
         setStatusData({
           labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
           datasets: [

@@ -28,7 +28,11 @@ import {
   fetchFacetsSuccess,
   fetchFacetsUpdate,
 } from "../../redux/facet/facetActions";
-import { updatePageDataPageSize } from "../../redux/page/pageAction";
+import {
+  updatePageDataNextPrev,
+  updatePageDataPageSize,
+} from "../../redux/page/pageAction";
+import { useEffect } from "react";
 
 const CustomizedTable = ({ loading, setLoading }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
@@ -36,7 +40,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
   const [apiClient] = useState(() => new APIClient());
-  // const [pageSizeValue, setPageSize] = useState(10);
   const { setError } = useContext(ErrorContext);
   const dispatch = useDispatch();
 
@@ -44,9 +47,11 @@ const CustomizedTable = ({ loading, setLoading }) => {
     return state.facet.facets;
   });
 
-  const pageSizeValue = useSelector((state) => {
-    return state.pageData.pageSize;
+  const pageStoreData = useSelector((state) => {
+    return state.pageData;
   });
+
+  let pageSizeValue = pageStoreData.pageSize;
 
   const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
     (ticketCol) => {
@@ -57,6 +62,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
       };
     }
   );
+
   // eslint-disable-next-line
   const columns = useMemo(() => ticketCols, []);
   // eslint-disable-next-line
@@ -76,14 +82,14 @@ const CustomizedTable = ({ loading, setLoading }) => {
     prepareRow,
     state,
     setGlobalFilter,
-    nextPage,
-    previousPage,
+    // nextPage,
+    // previousPage,
     // canNextPage,
     // canPreviousPage,
     pageOptions,
     gotoPage,
-    pageCount,
-    // setPageSize,
+    // pageCount,
+    setPageSize,
     allColumns,
     getToggleHideAllColumnsProps,
   } = useTable(
@@ -129,7 +135,12 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
-  const { globalFilter, pageIndex } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
+
+  useEffect(() => {
+    setPageSize(pageSizeValue);
+  }, [pageSizeValue, setPageSize]);
+
   const handleFilter = (columnName) => {
     const facetValues = facetTableData.facets[columnName.Header]?.values;
     if (facetValues && Object.keys(facetValues).length > 0) {
@@ -162,13 +173,22 @@ const CustomizedTable = ({ loading, setLoading }) => {
   };
 
   const handlePageSize = (e) => {
+    setPageSize(Number(e.target.value));
     setLoading(true);
     reqBody.pageLength = e.target.value;
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
-        console.log(res.data["page-length"]);
-        dispatch(updatePageDataPageSize(res.data["page-length"]));
+        dispatch(
+          updatePageDataPageSize({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
+            next: pageStoreData.next,
+            prev: pageStoreData.prev,
+            start: res.data.start,
+          })
+        );
         dispatch(fetchFacetsSuccess(res.data));
         dispatch(fetchFacetsUpdate(res.data));
         setLoading(false);
@@ -179,6 +199,87 @@ const CustomizedTable = ({ loading, setLoading }) => {
       });
   };
 
+  const paginationHelper = (next, prev, start) => {
+    setLoading(true);
+    reqBody.start = `${start}`;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(
+          updatePageDataNextPrev({
+            pageSize: pageStoreData.pageSize,
+            totalLength: res.data.total,
+            numOfPages: Math.floor(res.data.total / pageStoreData.pageSize),
+            next: next,
+            prev: prev,
+            start: res.data.start,
+          })
+        );
+        dispatch(fetchFacetsSuccess(res.data));
+        dispatch(fetchFacetsUpdate(res.data));
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
+  const handleNextPage = () => {
+    if (pageStoreData.next !== pageStoreData.numOfPages) {
+      paginationHelper(
+        pageStoreData.next + 1,
+        pageStoreData.prev + 1,
+        pageStoreData.start + pageStoreData.pageSize
+      );
+    }
+  };
+
+  const gotoLastPage = () => {
+    paginationHelper(
+      pageStoreData.numOfPages,
+      pageStoreData.numOfPages,
+      pageStoreData.numOfPages * pageStoreData.pageSize + 1
+    );
+  };
+
+  const gotoStartPage = () => {
+    if (pageStoreData.prev !== 0) {
+      paginationHelper(1, 1, 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pageStoreData.prev !== 1) {
+      paginationHelper(
+        pageStoreData.next - 1,
+        pageStoreData.prev - 1,
+        pageStoreData.start - pageStoreData.pageSize
+      );
+      // setLoading(true);
+      // reqBody.start = `${pageStoreData.start - pageStoreData.pageSize}`;
+      // apiClient.entityService
+      //   .getAllSearchData(reqBody)
+      //   .then((res) => {
+      //     dispatch(
+      //       updatePageDataNextPrev({
+      //         pageSize: pageStoreData.pageSize,
+      //         totalLength: res.data.total,
+      //         numOfPages: Math.floor(res.data.total / pageStoreData.pageSize),
+      //         next: pageStoreData.next - 1,
+      //         prev: pageStoreData.prev - 1,
+      //         start: res.data.start,
+      //       })
+      //     );
+      //     dispatch(fetchFacetsSuccess(res.data));
+      //     dispatch(fetchFacetsUpdate(res.data));
+      //     setLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     setError(err);
+      //     setLoading(false);
+      //   });
+    }
+  };
   return (
     <>
       <div className="d-flex justify-content-between my-3 mt-5 px-2">
@@ -254,7 +355,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
         <span>
           Page{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageStoreData.next} of {pageStoreData.numOfPages}
           </strong>
         </span>
         <span>
@@ -274,7 +375,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
           />
         </span>
         <select
-          value={pageSizeValue}
+          value={pageSize}
           onChange={(e) => handlePageSize(e)}
           className="select-btn mx-2"
         >
@@ -285,34 +386,42 @@ const CustomizedTable = ({ loading, setLoading }) => {
           ))}
         </select>
         <button
-          // className={!canPreviousPage ? "disable-btn" : "main-btn"}
-          className="main-btn"
-          onClick={() => gotoPage(0)}
-          // disabled={!canPreviousPage}
+          className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
+          // className="main-btn"
+          onClick={gotoStartPage}
+          disabled={pageStoreData.prev === 1}
         >
           {"<<"}
         </button>
         <button
-          // className={!canPreviousPage ? "disable-btn" : "main-btn"}
-          className="main-btn"
-          onClick={() => previousPage()}
-          // disabled={!canPreviousPage}
+          className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
+          // className="main-btn"
+          onClick={handlePrevPage}
+          disabled={pageStoreData.prev === 1}
         >
           Previous
         </button>
         <button
-          // className={!canNextPage ? "disable-btn" : "main-btn"}
-          className="main-btn"
-          onClick={() => nextPage()}
-          // disabled={!canNextPage}
+          className={
+            pageStoreData.next === pageStoreData.numOfPages
+              ? "disable-btn"
+              : "main-btn"
+          }
+          // className="main-btn"
+          onClick={handleNextPage}
+          disabled={pageStoreData.next === pageStoreData.numOfPages}
         >
           Next
         </button>
         <button
-          // className={!canNextPage ? "disable-btn" : "main-btn"}
-          className="main-btn"
-          onClick={() => gotoPage(pageCount - 1)}
-          // disabled={!canNextPage}
+          className={
+            pageStoreData.next === pageStoreData.numOfPages
+              ? "disable-btn"
+              : "main-btn"
+          }
+          // className="main-btn"
+          onClick={gotoLastPage}
+          disabled={pageStoreData.next === pageStoreData.numOfPages}
         >
           {">>"}
         </button>
