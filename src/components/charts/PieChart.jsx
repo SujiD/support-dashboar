@@ -2,18 +2,18 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFacetsSelect } from "../../redux/facet/facetActions";
 import { Chart as ChartJS } from "chart.js/auto";
-const PieChart = ({
-  chartData,
-  facetId,
-  setShowUpdate,
-}) => {
+import { toggleRuntimeSelect } from "../../redux/runtime/runtimeActions";
+const PieChart = ({ chartData, facetId, setShowUpdate }) => {
   const dispatch = useDispatch();
   const pieChartFacets = useSelector((state) => {
     return state.facet.facets;
   });
-  
+
+  const runTimeResults = useSelector((state) => {
+    return state.runtime.results;
+  });
+
   const legendClick = (event, legendItem, legend) => {
     setShowUpdate(false);
     const legendObject = pieChartFacets.facets[facetId].values[legendItem.text];
@@ -29,7 +29,12 @@ const PieChart = ({
       }
     }
     dispatch(
-      toggleFacetsSelect(pieChartFacets, legendItem.text, legendObject, facetId)
+      toggleRuntimeSelect(
+        runTimeResults,
+        legendItem.text,
+        legendObject,
+        facetId
+      )
     );
   };
 

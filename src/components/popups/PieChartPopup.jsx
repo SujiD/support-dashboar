@@ -6,6 +6,7 @@ import APIClient from "../../api/APIClient";
 import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
 import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
+import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 
 const PieChartPopup = ({
   size,
@@ -21,8 +22,8 @@ const PieChartPopup = ({
   const [apiClient] = useState(() => new APIClient());
 
   const dispatch = useDispatch();
-  const facets = useSelector((state) => {
-    return state.facet.facets;
+  const runtimeResults = useSelector((state) => {
+    return state.runtime.results;
   });
   let heading = title.split("-")[1];
   let reqBody = {
@@ -31,16 +32,27 @@ const PieChartPopup = ({
     start: "1",
     view: "all",
   };
-
+  const pageData = useSelector((state) => {
+    return state.pageData;
+  });
   const handleUpdate = () => {
     setLoading(true);
-    // setRefresh(!refresh);
     setShowUpdate(true);
-    reqBody.facets = facets.facets;
+    reqBody.facets = runtimeResults.facets;
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
         dispatch(fetchFacetsUpdate(res.data));
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
+            next: pageData.next,
+            prev: pageData.prev,
+            start: res.data.start,
+          })
+        );
         setLoading(false);
         setShowPopup(true);
       })

@@ -17,11 +17,11 @@ import {
 import {
   fetchFacetsReq,
   fetchFacetsSuccess,
-  fetchFacetsUpdate,
 } from "../redux/facet/facetActions";
 import CustomizedTable from "../components/tables/CustomizedTable";
 import { useMemo } from "react";
-import { fetchPageDataSuccess } from "../redux/page/pageAction";
+import { fetchPageDataSuccess } from "../redux/page/pageActions";
+import { fetchRuntimeUpdate } from "../redux/runtime/runtimeActions";
 
 export const HomePage = () => {
   const reqBody = useMemo(
@@ -107,7 +107,7 @@ export const HomePage = () => {
           ],
         });
         dispatch(fetchFacetsSuccess(res.data));
-        dispatch(fetchFacetsUpdate(res.data));
+        dispatch(fetchRuntimeUpdate(res.data));
         setOwnerD({
           labels: ownerData.map((d) => d.name),
           datasets: [

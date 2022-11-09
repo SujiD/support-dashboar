@@ -24,14 +24,6 @@ export const fetchFacetsUpdate = (facets) => {
   };
 };
 
-export const toggleFacetsSelect = (facets, legendName, legendObj, facetId) => {
-  facets.facets[facetId].values[legendName] = legendObj;
-  return {
-    type: facetTypes.FETCH_FACETS_UPDATE,
-    payload: facets,
-  };
-};
-
 export const fetchFacetsFailure = (error) => {
   return {
     type: facetTypes.FETCH_FACETS_FAILURE,

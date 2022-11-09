@@ -31,7 +31,7 @@ import {
 import {
   updatePageDataNextPrev,
   updatePageDataPageSize,
-} from "../../redux/page/pageAction";
+} from "../../redux/page/pageActions";
 import { useEffect } from "react";
 
 const CustomizedTable = ({ loading, setLoading }) => {
@@ -51,6 +51,9 @@ const CustomizedTable = ({ loading, setLoading }) => {
     return state.pageData;
   });
 
+  const runTimeResults = useSelector((state) => {
+    return state.runtime.results;
+  });
   const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
     (ticketCol) => {
       return {
@@ -80,8 +83,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
     prepareRow,
     state,
     setGlobalFilter,
-    pageOptions,
-    gotoPage,
+    // pageOptions,
+    // gotoPage,
     setPageSize,
     allColumns,
     getToggleHideAllColumnsProps,
@@ -128,7 +131,10 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
-  const { globalFilter, pageIndex } = state;
+  const {
+    globalFilter,
+    // pageIndex
+  } = state;
 
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
@@ -165,8 +171,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
     view: "all",
   };
 
+  // console.log("Request", reqBody.facets);
   const handlePageSize = (e) => {
-    // setPageSize(Number(e.target.value));
     paginationHelper(
       pageStoreData.next,
       pageStoreData.prev,
@@ -186,6 +192,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
       reqBody.pageLength = `${pageStoreData.pageSize}`;
     }
     setLoading(true);
+    reqBody.facets = runTimeResults.facets;
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -250,6 +257,20 @@ const CustomizedTable = ({ loading, setLoading }) => {
       );
     }
   };
+
+  // const handleGotoPage = (value) => {
+  //   if (value <= pageStoreData.numOfPages && value > 1) {
+  //     paginationHelper(
+  //       value - 1,
+  //       value - 1,
+  //       1 + pageStoreData.pageSize * value - 1,
+  //       "pagination"
+  //     );
+  //   } else if (value === 1) {
+  //     paginationHelper(1, 1, 1, "pagination");
+  //   }
+  // };
+
   return (
     <>
       <div className="d-flex justify-content-between my-3 mt-5 px-2">
@@ -297,9 +318,9 @@ const CustomizedTable = ({ loading, setLoading }) => {
                     ) : (
                       ""
                     )}
-                    <div>
-                      {/* {column.canFilter ? column.render("Filter") : null} */}
-                    </div>
+                    {/* <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div> */}
                   </th>
                 ))}
               </tr>
@@ -328,22 +349,17 @@ const CustomizedTable = ({ loading, setLoading }) => {
             {pageStoreData.next} of {pageStoreData.numOfPages}
           </strong>
         </span>
-        <span>
+        {/* <span>
           | Go To Page{" "}
           <input
             type="number"
             defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const pageNumber = e.target.value
-                ? Number(e.target.value) - 1
-                : 0;
-              gotoPage(pageNumber);
-            }}
-            min={pageIndex > 0 ? pageIndex : pageIndex + 1}
-            max={pageOptions.length}
+            onChange={(e) => handleGotoPage(e.target.value)}
+            min={pageIndex > 1 ? pageIndex : pageIndex + 1}
+            max={pageStoreData.numOfPages}
             style={{ width: "50px" }}
           />
-        </span>
+        </span> */}
         <select
           value={pageStoreData.pageSize}
           onChange={(e) => handlePageSize(e)}
