@@ -214,6 +214,25 @@ input[type="password"] {
   display: none !important;
 }
 
+/*Download Icon*/
+
+/* Download Icon */
+.download-icon {
+  
+  color: black;
+  float: right;
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.download-icon:hover{
+  color: black;
+  background-color: #ddd;
+  transition: all 0.5s;
+}
+
 /* checkBox */
 .checkbox {
   display: block;

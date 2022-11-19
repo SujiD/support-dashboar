@@ -33,12 +33,14 @@ import {
   updatePageDataPageSize,
 } from "../../redux/page/pageActions";
 import { useEffect } from "react";
+import { CSVLink } from "react-csv";
 
 const CustomizedTable = ({ loading, setLoading }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
   const [facetData, setFacetData] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
+  const [csvData, setCSVData] = useState([]);
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
   const dispatch = useDispatch();
@@ -87,6 +89,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
     // gotoPage,
     setPageSize,
     allColumns,
+    visibleColumns,
     getToggleHideAllColumnsProps,
   } = useTable(
     {
@@ -131,10 +134,31 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
-  const {
-    globalFilter,
-    // pageIndex
-  } = state;
+
+  const csvHelper = () => {
+    let finalArray = [];
+    if (visibleColumns && visibleColumns.length > 0) {
+      visibleColumns[0].filteredRows.forEach((row) => {
+        prepareRow(row);
+        if (row) {
+          let rowObject = {};
+          row.cells.forEach((cell) => {
+            // console.log(cell.value)
+            rowObject[cell.column.Header.split("-")[1]] = cell.value;
+          });
+          finalArray.push(rowObject);
+        }
+      });
+      setCSVData(finalArray);
+    }
+  };
+
+  useEffect(() => {
+    csvHelper();
+    // eslint-disable-next-line
+  }, [visibleColumns]);
+
+  const { globalFilter } = state;
 
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
@@ -142,14 +166,24 @@ const CustomizedTable = ({ loading, setLoading }) => {
 
   const handleFilter = (columnName) => {
     const facetValues = facetTableData.facets[columnName.Header]?.values;
-    if (facetValues && Object.keys(facetValues).length > 0) {
+    const runtimeFacetValues = runTimeResults.facets[columnName.Header]?.values;
+    const x = Object.values(runtimeFacetValues);
+    const y = Object.values(facetValues);
+    const r = x.filter((elem) => !y.find(({ text }) => elem.text === text));
+    if (r.length > 0) {
+      r.forEach((facet) => {
+        facet.currentCount = 0;
+        y.push(facet);
+      });
+    }
+    if (y && Object.keys(y).length > 0) {
       setTitle(columnName.Header);
       setFacetData({
-        labels: Object.keys(facetValues).map((key) => key),
+        labels: Object.values(y).map((value) => value.text), // ['yes', 'no']
         datasets: [
           {
             label: columnName.Header.split("-")[1],
-            data: Object.values(facetValues).map((value) => value.currentCount),
+            data: Object.values(y).map((value) => value.currentCount),
             backgroundColor: colors.map((color) => color),
             borderColor: colors.map((color) => color),
             borderWidth: 1,
@@ -171,7 +205,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
     view: "all",
   };
 
-  // console.log("Request", reqBody.facets);
   const handlePageSize = (e) => {
     paginationHelper(
       pageStoreData.next,
@@ -205,15 +238,17 @@ const CustomizedTable = ({ loading, setLoading }) => {
             totalLength: res.data.total,
             numOfPages:
               type === "pageSize"
-                ? Math.floor(res.data.total / res.data["page-length"])
-                : Math.floor(res.data.total / pageStoreData.pageSize),
+                ? Math.ceil(res.data.total / res.data["page-length"])
+                : Math.ceil(res.data.total / pageStoreData.pageSize),
             next: next,
             prev: prev,
             start: res.data.start,
           })
         );
-        dispatch(fetchFacetsSuccess(res.data));
-        dispatch(fetchFacetsUpdate(res.data));
+        if (Object.keys(res.data.facets).length > 0) {
+          dispatch(fetchFacetsSuccess(res.data));
+          dispatch(fetchFacetsUpdate(res.data));
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -236,7 +271,9 @@ const CustomizedTable = ({ loading, setLoading }) => {
     paginationHelper(
       pageStoreData.numOfPages,
       pageStoreData.numOfPages,
-      pageStoreData.numOfPages * pageStoreData.pageSize + 1,
+      Math.floor(pageStoreData.totalLength / pageStoreData.pageSize) *
+        pageStoreData.pageSize +
+        1,
       "pagination"
     );
   };
@@ -271,15 +308,17 @@ const CustomizedTable = ({ loading, setLoading }) => {
   //   }
   // };
 
+  // console.log(pageStoreData);
+
   return (
     <>
-      <div className="d-flex justify-content-between my-3 mt-5 px-2">
+      <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <div
-          className="d-flex gap-5 justify-content-center"
-          style={{ width: "350px" }}
+          className="d-flex gap-5 justify-content-center align-items-center"
+          style={{ width: "40%" }}
         >
-          <div className="checkbox d-flex">
+          <div className="checkbox d-flex mt-3">
             <Checkbox {...getToggleHideAllColumnsProps()} id="all-hidden" />
             <label htmlFor="all-hidden">Toggle All</label>
           </div>
@@ -289,6 +328,15 @@ const CustomizedTable = ({ loading, setLoading }) => {
             style={{ cursor: "pointer" }}
             className="fa-2x mx-3"
           />
+          {visibleColumns.length > 0 ? (
+            <CSVLink
+              data={csvData}
+              filename={"support-status-report"}
+              className="download-icon"
+            >
+              Export CSV
+            </CSVLink>
+          ) : null}
         </div>
       </div>
       <div style={{ overflow: "auto" }}>
@@ -346,7 +394,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
         <span>
           Page{" "}
           <strong>
-            {pageStoreData.next} of {pageStoreData.numOfPages}
+            {pageStoreData.next} of{" "}
+            {pageStoreData.numOfPages === 0 ? 1 : pageStoreData.numOfPages}
           </strong>
         </span>
         {/* <span>
@@ -366,7 +415,11 @@ const CustomizedTable = ({ loading, setLoading }) => {
           className="select-btn mx-2"
         >
           {[10, 25, 50].map((size) => (
-            <option key={size} value={size}>
+            <option
+              key={size}
+              value={size}
+              disabled={!(pageStoreData.totalLength >= size)}
+            >
               Show {size}
             </option>
           ))}
@@ -389,25 +442,41 @@ const CustomizedTable = ({ loading, setLoading }) => {
         </button>
         <button
           className={
-            pageStoreData.next === pageStoreData.numOfPages
+            pageStoreData.next ===
+            (pageStoreData.numOfPages === 0
+              ? pageStoreData.numOfPages + 1
+              : pageStoreData.numOfPages)
               ? "disable-btn"
               : "main-btn"
           }
           // className="main-btn"
           onClick={handleNextPage}
-          disabled={pageStoreData.next === pageStoreData.numOfPages}
+          disabled={
+            pageStoreData.next ===
+            (pageStoreData.numOfPages === 0
+              ? pageStoreData.numOfPages + 1
+              : pageStoreData.numOfPages)
+          }
         >
           Next
         </button>
         <button
           className={
-            pageStoreData.next === pageStoreData.numOfPages
+            pageStoreData.next ===
+            (pageStoreData.numOfPages === 0
+              ? pageStoreData.numOfPages + 1
+              : pageStoreData.numOfPages)
               ? "disable-btn"
               : "main-btn"
           }
           // className="main-btn"
           onClick={gotoLastPage}
-          disabled={pageStoreData.next === pageStoreData.numOfPages}
+          disabled={
+            pageStoreData.next ===
+            (pageStoreData.numOfPages === 0
+              ? pageStoreData.numOfPages + 1
+              : pageStoreData.numOfPages)
+          }
         >
           {">>"}
         </button>

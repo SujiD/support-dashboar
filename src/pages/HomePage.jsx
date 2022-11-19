@@ -21,7 +21,10 @@ import {
 import CustomizedTable from "../components/tables/CustomizedTable";
 import { useMemo } from "react";
 import { fetchPageDataSuccess } from "../redux/page/pageActions";
-import { fetchRuntimeUpdate } from "../redux/runtime/runtimeActions";
+import {
+  fetchRuntimeSuccess,
+  fetchRuntimeUpdate,
+} from "../redux/runtime/runtimeActions";
 
 export const HomePage = () => {
   const reqBody = useMemo(
@@ -55,7 +58,7 @@ export const HomePage = () => {
           fetchPageDataSuccess({
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
-            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
             next: 1,
             prev: 1,
             start: res.data.start,
@@ -107,6 +110,7 @@ export const HomePage = () => {
           ],
         });
         dispatch(fetchFacetsSuccess(res.data));
+        dispatch(fetchRuntimeSuccess(res.data));
         dispatch(fetchRuntimeUpdate(res.data));
         setOwnerD({
           labels: ownerData.map((d) => d.name),
@@ -132,6 +136,7 @@ export const HomePage = () => {
   // const handleChange = (event) => {
   //   setSelectStat(event.target.value);
   // };
+
   return (
     <>
       <NavBar />

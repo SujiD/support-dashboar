@@ -7,6 +7,7 @@ import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
 import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
+import { useEffect } from "react";
 
 const PieChartPopup = ({
   size,
@@ -18,13 +19,18 @@ const PieChartPopup = ({
   loading,
 }) => {
   const [showUpdate, setShowUpdate] = useState(true);
+  const [hiddenIndices, setHiddenIndices] = useState({});
   const { setError } = useContext(ErrorContext);
   const [apiClient] = useState(() => new APIClient());
-
   const dispatch = useDispatch();
   const runtimeResults = useSelector((state) => {
     return state.runtime.results;
   });
+
+  const runtimeInitialState = useSelector((state) => {
+    return state.runtime.initialResults;
+  });
+
   let heading = title.split("-")[1];
   let reqBody = {
     appPath: "Report",
@@ -47,7 +53,7 @@ const PieChartPopup = ({
           fetchPageDataSuccess({
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
-            numOfPages: Math.floor(res.data.total / res.data["page-length"]),
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
             next: pageData.next,
             prev: pageData.prev,
             start: res.data.start,
@@ -62,12 +68,64 @@ const PieChartPopup = ({
       });
   };
 
+  const handleReset = () => {
+    setLoading(true);
+    setShowUpdate(true);
+    reqBody.facets = runtimeInitialState.facets;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(fetchFacetsUpdate(res.data));
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
+            next: 1,
+            prev: 1,
+            start: res.data.start,
+          })
+        );
+        setLoading(false);
+        setShowPopup(true);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
+
+  const getHiddenIndices = () => {
+    const hiddenIndicesObj = {};
+    if (facetData) {
+      facetData?.datasets[0].data.forEach((element, index) => {
+        if (element === 0) {
+          hiddenIndicesObj[index] = true;
+        }
+      });
+    }
+    setHiddenIndices(hiddenIndicesObj);
+  };
+
+  useEffect(() => {
+    getHiddenIndices();
+    // eslint-disable-next-line
+  }, [facetData]);
   return (
     <Modal centered size={size} show={showPopup}>
-      <Modal.Header>
+      <Modal.Header className="d-flex align-items-center justify-content-center">
         <h1 className="w-100 text-center">
           {heading && heading.charAt(0).toUpperCase() + heading.slice(1)}
         </h1>
+        <Button
+          style={{
+            backgroundColor: "#060b26",
+            borderColor: "#060b26",
+          }}
+          onClick={handleReset}
+        >
+          Reset
+        </Button>
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex align-items-center justify-content-center">
@@ -76,6 +134,7 @@ const PieChartPopup = ({
               chartData={facetData}
               facetId={title}
               setShowUpdate={setShowUpdate}
+              hiddenIndices={hiddenIndices}
             />
           ) : (
             <Spinner animation="border" variant="primary" />

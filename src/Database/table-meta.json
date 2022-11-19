@@ -17,7 +17,7 @@
         "id": "2278327121300496970",
         "applicationTableName": "Default",
         "applicationPath": "/report",
-        "dataEntity": "support-status-report",
+        "dataEntity": "support-status-report", 
         "dataFields": [
           {
             "label": "Report Type",

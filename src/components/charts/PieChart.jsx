@@ -2,21 +2,28 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
 import { toggleRuntimeSelect } from "../../redux/runtime/runtimeActions";
-const PieChart = ({ chartData, facetId, setShowUpdate }) => {
+const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
   const dispatch = useDispatch();
-  const pieChartFacets = useSelector((state) => {
-    return state.facet.facets;
-  });
 
   const runTimeResults = useSelector((state) => {
     return state.runtime.results;
   });
 
   const legendClick = (event, legendItem, legend) => {
+    const index = legendItem.index;
+    if (legend.chart.getDataVisibility(index)) {
+      legend.chart.toggleDataVisibility(index);
+      legendItem.hidden = !legend.chart._hiddenIndices[index];
+    } else {
+      legend.chart.toggleDataVisibility(index);
+      legendItem.hidden = !legend.chart._hiddenIndices[index];
+    }
+    legend.chart.update();
     setShowUpdate(false);
-    const legendObject = pieChartFacets.facets[facetId].values[legendItem.text];
+    const legendObject = runTimeResults.facets[facetId].values[legendItem.text];
     if (!legendObject.selected && !legendObject.deselected) {
       legendObject.selected = !legendObject.selected;
     } else {
@@ -42,8 +49,7 @@ const PieChart = ({ chartData, facetId, setShowUpdate }) => {
   const options = {
     plugins: {
       legend: {
-        onClick: (event, legendItem, legend) =>
-          legendClick(event, legendItem, legend),
+        onClick: legendClick,
         labels: {
           usePointStyle: true,
           boxWidth: 400,
@@ -55,6 +61,16 @@ const PieChart = ({ chartData, facetId, setShowUpdate }) => {
     },
     responsive: true,
   };
+  // if (chartRef.current) {
+  //   console.log(chartRef.current);
+  //   // let keys = Object.keys(hiddenIndices);
+  //   // if (keys > 0) {
+  //   //   keys.forEach((key) => {
+  //   //     chartRef.current.setDataVisibility(key, hiddenIndices[key]);
+  //   //   });
+  //   // }
+  // }
+
   return (
     <>
       {/* <ul>
