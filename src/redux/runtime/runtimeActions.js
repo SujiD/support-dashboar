@@ -24,6 +24,20 @@ export const fetchRuntimeUpdate = (results) => {
   };
 };
 
+export const addRuntimeHiddenCols = (ColId) => {
+  return {
+    type: runtimeTypes.ADD_RUNTIME_HIDDENCOLS,
+    payload: ColId,
+  };
+};
+
+export const removeRuntimeHiddenCols = (ColId) => {
+  return {
+    type: runtimeTypes.REMOVE_RUNTIME_HIDDENCOLS,
+    payload: ColId,
+  };
+};
+
 export const toggleRuntimeSelect = (
   results,
   legendName,

@@ -29,19 +29,15 @@ export function initFacet(facets, key, text) {
 export function updateFacets(output, inputFacets) {
   Object.entries(inputFacets).forEach(([key, val]) => {
     initFacet(output, key, key);
-    // console.log
-
     Object.entries(output[key].values).forEach(([key, val]) => {
       val.currentCount = 0;
     });
 
+    // eslint-disable-next-line
     val.facetValues.map((value) => {
       var fvalues = output[key].values;
-      //        console.log(value.name);
-      //        console.log(fvalues);
       if (!fvalues[value.name]) {
         fvalues[value.name] = initialFacetValue();
-        //                console.log(fvalues[value.name]);
         fvalues[value.name].name = value.name;
         fvalues[value.name].text = value.value;
         fvalues[value.name].totalCount = value.count;
@@ -49,10 +45,8 @@ export function updateFacets(output, inputFacets) {
       if (fvalues[value.name].totalCount < value.count) {
         fvalues[value.name].totalCount = value.count;
       }
-      //                console.log("counter: " + value.count);
       const currentCount = value.count;
       output[key].values[value.name].currentCount = currentCount;
-      //        console.log(facets[key].values[value.name].currentCount);
     });
   });
 

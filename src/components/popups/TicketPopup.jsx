@@ -1,6 +1,20 @@
+// import { useEffect } from "react";
 import { Modal, Button, Accordion } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import {
+  addRuntimeHiddenCols,
+  removeRuntimeHiddenCols,
+} from "../../redux/runtime/runtimeActions";
 import "./TicketPopup.css";
 const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
+  const dispatch = useDispatch();
+  const updateHiddenCols = (e, columnId) => {
+    if (!e.target.checked) {
+      dispatch(addRuntimeHiddenCols(columnId));
+    } else {
+      dispatch(removeRuntimeHiddenCols(columnId));
+    }
+  };
   return (
     <Modal size="lg" centered show={showPopup}>
       <Modal.Header>
@@ -23,10 +37,9 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
                               type="checkbox"
                               id={column.id}
                               {...column.getToggleHiddenProps()}
+                              onClick={(e) => updateHiddenCols(e, column.id)}
                             />
-                            <label htmlFor={column.id}>
-                              {column.Header.split("-")[1]}
-                            </label>
+                            <label htmlFor={column.id}>{column.Header}</label>
                           </div>
                         </li>
                       );
@@ -50,9 +63,17 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
                               type="checkbox"
                               id={column.id}
                               {...column.getToggleHiddenProps()}
+                              onClick={(e) => updateHiddenCols(e, column.id)}
                             />
-                            <label htmlFor={column.id}>
-                              {column.Header.split("-")[1]}
+                            <label
+                              htmlFor={column.id}
+                              // onClick={() =>
+                              //   dispatch(
+                              //     updateRuntimeHiddenCols(getCurrentHiddenCols())
+                              //   )
+                              // }
+                            >
+                              {column.Header}
                             </label>
                           </div>
                         </li>

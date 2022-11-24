@@ -1,6 +1,6 @@
 import { NavBar } from "../components/nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
-import { ownerData } from "../Database/Data";
+// import { ownerData } from "../Database/Data";
 // import PieChart from "../components/charts/PieChart";
 // import DataView from "../components/tables/DataView";
 // import StaticBox from "../components/static-box/StaticBox";
@@ -8,7 +8,7 @@ import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
-import IDs from "../common/values";
+import IDs from "../common/values"; 
 import { ErrorContext } from "../contexts/ErrorContext";
 import {
   useDispatch,
@@ -109,21 +109,25 @@ export const HomePage = () => {
             },
           ],
         });
-        dispatch(fetchFacetsSuccess(res.data));
-        dispatch(fetchRuntimeSuccess(res.data));
-        dispatch(fetchRuntimeUpdate(res.data));
         setOwnerD({
-          labels: ownerData.map((d) => d.name),
+          labels: res.data.facets[IDs.owner].facetValues?.map(
+            (data) => data.name
+          ),
           datasets: [
             {
               label: "Owner",
-              data: ownerData.map((data) => data.count),
+              data: res.data.facets[IDs.owner].facetValues?.map(
+                (data) => data.count
+              ),
               backgroundColor: ["#70d8c1"],
               borderColor: ["#70d8c1"],
               borderWidth: 1,
             },
           ],
         });
+        dispatch(fetchFacetsSuccess(res.data));
+        dispatch(fetchRuntimeSuccess(res.data));
+        dispatch(fetchRuntimeUpdate(res.data));
       })
       .catch((err) => {
         setLoading(false);

@@ -11,10 +11,10 @@ import {
   faSortDown,
   faGear,
   faFilter,
+  faAsterisk,
 } from "@fortawesome/free-solid-svg-icons";
 import GlobalFilter from "../search-filters/GlobalFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import tableMeta from "../../Database/table-meta.json";
 import ColumnFilter from "../search-filters/ColumnFilter";
 import { Checkbox } from "../checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,13 +34,16 @@ import {
 } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { CSVLink } from "react-csv";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const CustomizedTable = ({ loading, setLoading }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
   const [facetData, setFacetData] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
+  const [facetId, setFacetId] = useState("");
   const [csvData, setCSVData] = useState([]);
+  const [tableFields, setTableFields] = useState([]);
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
   const dispatch = useDispatch();
@@ -53,21 +56,44 @@ const CustomizedTable = ({ loading, setLoading }) => {
     return state.pageData;
   });
 
+  const runtimeHiddenCols = useSelector((state) => {
+    return state.runtime.tableHiddenCols;
+  });
+
   const runTimeResults = useSelector((state) => {
     return state.runtime.results;
   });
-  const ticketCols = tableMeta.results[0].applicationTable.dataFields.map(
-    (ticketCol) => {
-      return {
-        Header: ticketCol.name,
-        accessor: ticketCol.field,
-        maxWidth: 600,
-      };
-    }
-  );
+
+  const columnChanges = useSelector((state) => {
+    return state.column.columns;
+  });
+
+  useEffect(() => {
+    setLoading(true);
+    apiClient.entityService
+      .getTableFields()
+      .then((res) => {
+        setTableFields(res.data.data.dataFields);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+    setLoading(false);
+  }, [apiClient.entityService, setError, setLoading]);
+
+  const ticketCols = tableFields.map((ticketCol) => {
+    return {
+      Header: ticketCol.label,
+      name: ticketCol.name,
+      accessor: ticketCol.field,
+      disableSortBy: true,
+      maxWidth: 600,
+    };
+  });
 
   // eslint-disable-next-line
-  const columns = useMemo(() => ticketCols, []);
+  const columns = useMemo(() => ticketCols, [tableFields]);
   // eslint-disable-next-line
   const ticketData = useMemo(() => facetTableData.results, []);
 
@@ -85,8 +111,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
     prepareRow,
     state,
     setGlobalFilter,
-    // pageOptions,
-    // gotoPage,
     setPageSize,
     allColumns,
     visibleColumns,
@@ -96,37 +120,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
       columns: columns,
       data: ticketData,
       defaultColumn,
-
-      // initialState: {
-      //   hiddenColumns:["accesorName"]
-      //   }
-      //TODO: TO change this later
       initialState: {
-        hiddenColumns: [
-          "reportType",
-          "ticket.modifiedtime",
-          "ticket.creationtime",
-          "ticket.ticketTitle",
-          "creationtime",
-          "modifiedtime",
-          "ticket.ticketCreator.fullName",
-          "ticket.ticketCustomer.organizationName",
-          "ticket.ticketEndCustomer.organizationName",
-          "ticket.ticketOwner.fullName",
-          "ticket.meta.serverVersion",
-          "ticket.meta.clusterId",
-          "ticket.meta.platform",
-          "ticket.meta.component",
-          "ticket.meta.legacyId",
-          "ticket.meta.dhfVersion",
-          "ticket.meta.opsVersion",
-          "ticket.meta.cloudServiceId",
-          "ticket.meta.cloudMlaasId",
-          "ticket.meta.cloudPlatform",
-          "ticket.meta.dhsVersion",
-          "ticket.meta.environment",
-          "ticket.meta.issueNumber",
-        ],
+        hiddenColumns: runtimeHiddenCols,
       },
     },
     useFilters,
@@ -134,7 +129,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
-
   const csvHelper = () => {
     let finalArray = [];
     if (visibleColumns && visibleColumns.length > 0) {
@@ -143,8 +137,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
         if (row) {
           let rowObject = {};
           row.cells.forEach((cell) => {
-            // console.log(cell.value)
-            rowObject[cell.column.Header.split("-")[1]] = cell.value;
+            rowObject[cell.column.Header] = cell.value;
           });
           finalArray.push(rowObject);
         }
@@ -158,41 +151,46 @@ const CustomizedTable = ({ loading, setLoading }) => {
     // eslint-disable-next-line
   }, [visibleColumns]);
 
-  const { globalFilter } = state;
-
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
   }, [pageStoreData.pageSize, setPageSize]);
 
+  const { globalFilter } = state;
+
   const handleFilter = (columnName) => {
-    const facetValues = facetTableData.facets[columnName.Header]?.values;
-    const runtimeFacetValues = runTimeResults.facets[columnName.Header]?.values;
-    const x = Object.values(runtimeFacetValues);
-    const y = Object.values(facetValues);
-    const r = x.filter((elem) => !y.find(({ text }) => elem.text === text));
-    if (r.length > 0) {
-      r.forEach((facet) => {
-        facet.currentCount = 0;
-        y.push(facet);
-      });
-    }
-    if (y && Object.keys(y).length > 0) {
-      setTitle(columnName.Header);
-      setFacetData({
-        labels: Object.values(y).map((value) => value.text), // ['yes', 'no']
-        datasets: [
-          {
-            label: columnName.Header.split("-")[1],
-            data: Object.values(y).map((value) => value.currentCount),
-            backgroundColor: colors.map((color) => color),
-            borderColor: colors.map((color) => color),
-            borderWidth: 1,
-            hoverOffset: 6,
-            hoverBorderColor: "#000",
-          },
-        ],
-      });
-      setShowPopup(true);
+    const facetValues = facetTableData.facets[columnName.name]?.values;
+    const runtimeFacetValues = runTimeResults.facets[columnName.name]?.values;
+    if (facetValues && runtimeFacetValues) {
+      const x = Object.values(runtimeFacetValues);
+      const y = Object.values(facetValues);
+      const r = x.filter((elem) => !y.find(({ text }) => elem.text === text));
+      if (r.length > 0) {
+        r.forEach((facet) => {
+          facet.currentCount = 0;
+          y.push(facet);
+        });
+      }
+      if (y && Object.keys(y).length > 0) {
+        setTitle(columnName.Header);
+        setFacetId(columnName.name);
+        setFacetData({
+          labels: Object.values(y).map((value) => value.text), // ['yes', 'no']
+          datasets: [
+            {
+              label: columnName.Header,
+              data: Object.values(y).map((value) => value.currentCount),
+              backgroundColor: colors.map((color) => color),
+              borderColor: colors.map((color) => color),
+              borderWidth: 1,
+              hoverOffset: 6,
+              hoverBorderColor: "#000",
+            },
+          ],
+        });
+        setShowPopup(true);
+      } else {
+        alert(" No facets to show");
+      }
     } else {
       alert(" No facets to show");
     }
@@ -295,21 +293,26 @@ const CustomizedTable = ({ loading, setLoading }) => {
     }
   };
 
-  // const handleGotoPage = (value) => {
-  //   if (value <= pageStoreData.numOfPages && value > 1) {
-  //     paginationHelper(
-  //       value - 1,
-  //       value - 1,
-  //       1 + pageStoreData.pageSize * value - 1,
-  //       "pagination"
-  //     );
-  //   } else if (value === 1) {
-  //     paginationHelper(1, 1, 1, "pagination");
-  //   }
+  // const handleSorting = (columnId) => {
+  //   setLoading(true);
+  //   let obj = {};
+  //   obj[`${columnId}`] = "asc";
+  //   reqBody.sort = obj;
+  //   console.log(reqBody);
+  //   apiClient.entityService
+  //     .getAllSearchData(reqBody)
+  //     .then((res) => {
+  //       if (Object.keys(res.data.facets).length > 0) {
+  //         dispatch(fetchFacetsSuccess(res.data));
+  //         dispatch(fetchFacetsUpdate(res.data));
+  //       }
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       setError(err);
+  //       setLoading(false);
+  //     });
   // };
-
-  // console.log(pageStoreData);
-
   return (
     <>
       <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
@@ -345,18 +348,65 @@ const CustomizedTable = ({ loading, setLoading }) => {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column
-                      .render("Header")
-                      .split("-")[1]
-                      .charAt(0)
-                      .toUpperCase() +
-                      column.render("Header").split("-")[1].slice(1)}
+                  <th
+                    {...column.getHeaderProps(
+                      column.getSortByToggleProps({ title: undefined })
+                    )}
+                    className="position-relative"
+                    style={{ cursor: "pointer" }}
+                    // onClick={() => handleSorting(column.id)}
+                  >
+                    {columnChanges &&
+                      columnChanges.map((cols, index) => {
+                        if (
+                          cols.id === column.name &&
+                          cols.changes.length > 0
+                        ) {
+                          return (
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={(props) => (
+                                <Tooltip className="my-tooltip" {...props}>
+                                  {cols.changes}
+                                </Tooltip>
+                              )}
+                              key={index}
+                            >
+                              <span
+                                style={{
+                                  opacity: 0,
+                                  position: "absolute",
+                                  left: 0,
+                                }}
+                              >
+                                {column.render("Header")}
+                              </span>
+                            </OverlayTrigger>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    {column.render("Header")}
                     <FontAwesomeIcon
                       icon={faFilter}
                       className="ms-1"
                       onClick={() => handleFilter(column)}
                     />
+                    {columnChanges.map((cols, index) => {
+                      if (cols.id === column.name && cols.changes.length > 0) {
+                        // set
+                        return (
+                          <FontAwesomeIcon
+                            icon={faAsterisk}
+                            key={index}
+                            className="ms-1 fa-1x"
+                          />
+                        );
+                      } else {
+                        return null;
+                      }
+                    })}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
                         <FontAwesomeIcon icon={faSortUp} />
@@ -366,121 +416,117 @@ const CustomizedTable = ({ loading, setLoading }) => {
                     ) : (
                       ""
                     )}
-                    {/* <div>
-                      {column.canFilter ? column.render("Filter") : null}
-                    </div> */}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
+            {page.length > 0 &&
+              page.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
+        {page.length > 0 && visibleColumns.length !== 0 ? null : (
+          <span>Sorry no results found!!</span>
+        )}
       </div>
-      <div>
-        <span>
-          Page{" "}
-          <strong>
-            {pageStoreData.next} of{" "}
-            {pageStoreData.numOfPages === 0 ? 1 : pageStoreData.numOfPages}
-          </strong>
-        </span>
-        {/* <span>
-          | Go To Page{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => handleGotoPage(e.target.value)}
-            min={pageIndex > 1 ? pageIndex : pageIndex + 1}
-            max={pageStoreData.numOfPages}
-            style={{ width: "50px" }}
-          />
-        </span> */}
-        <select
-          value={pageStoreData.pageSize}
-          onChange={(e) => handlePageSize(e)}
-          className="select-btn mx-2"
-        >
-          {[10, 25, 50].map((size) => (
-            <option
-              key={size}
-              value={size}
-              disabled={!(pageStoreData.totalLength >= size)}
-            >
-              Show {size}
-            </option>
-          ))}
-        </select>
-        <button
-          className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
-          // className="main-btn"
-          onClick={gotoStartPage}
-          disabled={pageStoreData.prev === 1}
-        >
-          {"<<"}
-        </button>
-        <button
-          className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
-          // className="main-btn"
-          onClick={handlePrevPage}
-          disabled={pageStoreData.prev === 1}
-        >
-          Previous
-        </button>
-        <button
-          className={
-            pageStoreData.next ===
-            (pageStoreData.numOfPages === 0
-              ? pageStoreData.numOfPages + 1
-              : pageStoreData.numOfPages)
-              ? "disable-btn"
-              : "main-btn"
-          }
-          // className="main-btn"
-          onClick={handleNextPage}
-          disabled={
-            pageStoreData.next ===
-            (pageStoreData.numOfPages === 0
-              ? pageStoreData.numOfPages + 1
-              : pageStoreData.numOfPages)
-          }
-        >
-          Next
-        </button>
-        <button
-          className={
-            pageStoreData.next ===
-            (pageStoreData.numOfPages === 0
-              ? pageStoreData.numOfPages + 1
-              : pageStoreData.numOfPages)
-              ? "disable-btn"
-              : "main-btn"
-          }
-          // className="main-btn"
-          onClick={gotoLastPage}
-          disabled={
-            pageStoreData.next ===
-            (pageStoreData.numOfPages === 0
-              ? pageStoreData.numOfPages + 1
-              : pageStoreData.numOfPages)
-          }
-        >
-          {">>"}
-        </button>
-      </div>
+      {page.length > 0 && visibleColumns.length !== 0 && (
+        <div>
+          <span>
+            Page{" "}
+            <strong>
+              {pageStoreData.next} of{" "}
+              {pageStoreData.numOfPages === 0
+                ? 1
+                : isNaN(pageStoreData.numOfPages)
+                ? 0
+                : pageStoreData.numOfPages}
+            </strong>
+          </span>
+          <select
+            value={pageStoreData.pageSize}
+            onChange={(e) => handlePageSize(e)}
+            className="select-btn mx-2"
+          >
+            {[10, 25, 50].map((size) => (
+              <option
+                key={size}
+                value={size}
+                disabled={!(pageStoreData.totalLength >= size)}
+              >
+                Show {size}
+              </option>
+            ))}
+          </select>
+          <button
+            className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
+            // className="main-btn"
+            onClick={gotoStartPage}
+            disabled={pageStoreData.prev === 1}
+          >
+            {"<<"}
+          </button>
+          <button
+            className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
+            // className="main-btn"
+            onClick={handlePrevPage}
+            disabled={pageStoreData.prev === 1}
+          >
+            Previous
+          </button>
+          <button
+            className={
+              pageStoreData.next ===
+              (pageStoreData.numOfPages === 0
+                ? pageStoreData.numOfPages + 1
+                : pageStoreData.numOfPages)
+                ? "disable-btn"
+                : "main-btn"
+            }
+            // className="main-btn"
+            onClick={handleNextPage}
+            disabled={
+              pageStoreData.next ===
+              (pageStoreData.numOfPages === 0
+                ? pageStoreData.numOfPages + 1
+                : pageStoreData.numOfPages)
+            }
+          >
+            Next
+          </button>
+          <button
+            className={
+              pageStoreData.next ===
+              (pageStoreData.numOfPages === 0
+                ? pageStoreData.numOfPages + 1
+                : pageStoreData.numOfPages)
+                ? "disable-btn"
+                : "main-btn"
+            }
+            // className="main-btn"
+            onClick={gotoLastPage}
+            disabled={
+              pageStoreData.next ===
+              (pageStoreData.numOfPages === 0
+                ? pageStoreData.numOfPages + 1
+                : pageStoreData.numOfPages)
+            }
+          >
+            {">>"}
+          </button>
+        </div>
+      )}
       <TicketPopup
         allColumns={allColumns}
         showPopup={showTicketPopup}
@@ -492,6 +538,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
         showPopup={showPopup}
         setShowPopup={setShowPopup}
         title={title}
+        id={facetId}
         loading={loading}
         setLoading={setLoading}
       />

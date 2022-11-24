@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect } from "react";
+import { clearCols } from "../../redux/column/columnAction";
 
 const PieChartPopup = ({
   size,
@@ -15,6 +16,7 @@ const PieChartPopup = ({
   setShowPopup,
   showPopup,
   title,
+  id,
   setLoading,
   loading,
 }) => {
@@ -31,7 +33,8 @@ const PieChartPopup = ({
     return state.runtime.initialResults;
   });
 
-  let heading = title.split("-")[1];
+  
+  let heading = title;
   let reqBody = {
     appPath: "Report",
     q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
@@ -71,6 +74,7 @@ const PieChartPopup = ({
   const handleReset = () => {
     setLoading(true);
     setShowUpdate(true);
+    dispatch(clearCols());
     reqBody.facets = runtimeInitialState.facets;
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -94,6 +98,7 @@ const PieChartPopup = ({
         setLoading(false);
       });
   };
+
 
   const getHiddenIndices = () => {
     const hiddenIndicesObj = {};
@@ -132,7 +137,7 @@ const PieChartPopup = ({
           {!loading ? (
             <PieChart
               chartData={facetData}
-              facetId={title}
+              facetId={id}
               setShowUpdate={setShowUpdate}
               hiddenIndices={hiddenIndices}
             />

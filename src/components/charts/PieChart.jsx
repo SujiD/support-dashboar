@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
 import { toggleRuntimeSelect } from "../../redux/runtime/runtimeActions";
+import { addCols, updateCols } from "../../redux/column/columnAction";
+// import { UpdateCols } from "../../redux/column/columnAction";
 const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
   const dispatch = useDispatch();
 
@@ -12,7 +14,40 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
     return state.runtime.results;
   });
 
+  const colResults = useSelector((state) => {
+    return state.column;
+  });
+
   const legendClick = (event, legendItem, legend) => {
+    if (colResults.columns.filter((col) => col.id === facetId).length === 0) {
+      dispatch(addCols({ id: facetId, changes: [legendItem.text] }));
+    } else if (
+      colResults.columns.filter((col) => col.id === facetId).length === 1
+    ) {
+      colResults.columns.forEach((cols) => {
+        if (cols.id === facetId) {
+          const newlegendObj =
+            runTimeResults.facets[facetId].values[legendItem.text];
+          if (!newlegendObj.selected) {
+            dispatch(
+              updateCols({
+                id: cols.id,
+                changes: [...cols.changes, legendItem.text],
+              })
+            );
+          } else {
+            dispatch(
+              updateCols({
+                id: cols.id,
+                changes: cols.changes.filter(
+                  (item) => item !== legendItem.text
+                ),
+              })
+            );
+          }
+        }
+      });
+    }
     const index = legendItem.index;
     if (legend.chart.getDataVisibility(index)) {
       legend.chart.toggleDataVisibility(index);
@@ -44,7 +79,6 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
       )
     );
   };
-
   const chartRef = useRef();
   const options = {
     plugins: {
@@ -61,15 +95,15 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
     },
     responsive: true,
   };
-  // if (chartRef.current) {
-  //   console.log(chartRef.current);
-  //   // let keys = Object.keys(hiddenIndices);
-  //   // if (keys > 0) {
-  //   //   keys.forEach((key) => {
-  //   //     chartRef.current.setDataVisibility(key, hiddenIndices[key]);
-  //   //   });
-  //   // }
-  // }
+  if (chartRef.current) {
+    // let keys = Object.keys(hiddenIndices);
+    // if (keys > 0) {
+    //   keys.forEach((key) => {
+    //     chartRef.current._hiddenIndices = hiddenIndices
+    //   });
+    // }
+    chartRef.current._hiddenIndices = hiddenIndices
+  }
 
   return (
     <>
