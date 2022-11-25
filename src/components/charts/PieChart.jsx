@@ -50,12 +50,16 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
     }
     const index = legendItem.index;
     if (legend.chart.getDataVisibility(index)) {
-      legend.chart.toggleDataVisibility(index);
-      legendItem.hidden = !legend.chart._hiddenIndices[index];
+      legend.chart.legend.legendItems.forEach((finalItem) => {
+        if (finalItem.index !== index) {
+          legend.chart.toggleDataVisibility(finalItem.index);
+        }
+      });
     } else {
       legend.chart.toggleDataVisibility(index);
       legendItem.hidden = !legend.chart._hiddenIndices[index];
     }
+
     legend.chart.update();
     setShowUpdate(false);
     const legendObject = runTimeResults.facets[facetId].values[legendItem.text];
@@ -102,7 +106,7 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
     //     chartRef.current._hiddenIndices = hiddenIndices
     //   });
     // }
-    chartRef.current._hiddenIndices = hiddenIndices
+    chartRef.current._hiddenIndices = hiddenIndices;
   }
 
   return (

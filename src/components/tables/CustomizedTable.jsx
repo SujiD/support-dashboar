@@ -189,10 +189,10 @@ const CustomizedTable = ({ loading, setLoading }) => {
         });
         setShowPopup(true);
       } else {
-        alert(" No facets to show");
+        alert("No facets to show");
       }
     } else {
-      alert(" No facets to show");
+      alert("No facets to show");
     }
   };
 
