@@ -42,7 +42,7 @@ export const HomePage = () => {
   const [statusData, setStatusData] = useState();
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
-  const [ownerD, setOwnerD] = useState();
+  const [ownerData, setOwnerData] = useState();
   const { setError } = useContext(ErrorContext);
   // const facets = useSelector((state) => {
   //   return state.facet.facets;
@@ -52,24 +52,14 @@ export const HomePage = () => {
     setLoading(true);
     dispatch(fetchFacetsReq());
     apiClient.entityService
-      .getAllSearchData(reqBody)
-      .then((res) => {
-        dispatch(
-          fetchPageDataSuccess({
-            pageSize: res.data["page-length"],
-            totalLength: res.data.total,
-            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
-            next: 1,
-            prev: 1,
-            start: res.data.start,
-          })
-        );
+    .getAllSearchData(reqBody)
+    .then((res) => {
         setStatusData({
-          labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.status]?.facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Status",
-              data: res.data.facets[IDs.status].facetValues?.map(
+              data: res.data.facets[IDs.status]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#ff984e"],
@@ -79,11 +69,11 @@ export const HomePage = () => {
           ],
         });
         setPriorityData({
-          labels: res.data.facets[IDs.priority].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.priority]?.facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Priority",
-              data: res.data.facets[IDs.priority].facetValues?.map(
+              data: res.data.facets[IDs.priority]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#42d4f4"],
@@ -94,13 +84,13 @@ export const HomePage = () => {
         });
 
         setDepartmentData({
-          labels: res.data.facets[IDs.department].facetValues?.map(
+          labels: res.data.facets[IDs.department]?.facetValues?.map(
             (data) => data.name
           ),
           datasets: [
             {
               label: "Department",
-              data: res.data.facets[IDs.department].facetValues?.map(
+              data: res.data.facets[IDs.department]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#f5d881"],
@@ -109,22 +99,32 @@ export const HomePage = () => {
             },
           ],
         });
-        setOwnerD({
-          labels: res.data.facets[IDs.owner].facetValues?.map(
-            (data) => data.name
-          ),
-          datasets: [
-            {
-              label: "Owner",
-              data: res.data.facets[IDs.owner].facetValues?.map(
-                (data) => data.count
-              ),
-              backgroundColor: ["#70d8c1"],
-              borderColor: ["#70d8c1"],
-              borderWidth: 1,
-            },
-          ],
-        });
+        // setOwnerData({
+        //   labels: res.data.facets[IDs.owner].facetValues?.map(
+        //     (data) => data.name
+        //   ),
+        //   datasets: [
+        //     {
+        //       label: "Owner",
+        //       data: res.data.facets[IDs.owner].facetValues?.map(
+        //         (data) => data.count
+        //       ),
+        //       backgroundColor: ["#70d8c1"],
+        //       borderColor: ["#70d8c1"],
+        //       borderWidth: 1,
+        //     },
+        //   ],
+        // });
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
+            next: 1,
+            prev: 1,
+            start: res.data.start,
+          })
+        );
         dispatch(fetchFacetsSuccess(res.data));
         dispatch(fetchRuntimeSuccess(res.data));
         dispatch(fetchRuntimeUpdate(res.data));
@@ -137,10 +137,6 @@ export const HomePage = () => {
     setLoading(false);
   }, [apiClient.entityService, dispatch, setError, reqBody]);
 
-  // const handleChange = (event) => {
-  //   setSelectStat(event.target.value);
-  // };
-
   return (
     <>
       <NavBar />
@@ -150,17 +146,17 @@ export const HomePage = () => {
             <Calendar />
           </div>
           <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
-            <button
+            {/* <button
               className="data-box-btn mt-5"
               style={{ borderColor: "#70d8c1" }}
               // onClick={() => setSelectStat("Owner")}
             >
               <BarChart
-                chartData={ownerD}
+                chartData={ownerData}
                 className="bar-chart"
                 title={"Ticket status by Owner"}
               />
-            </button>
+            </button> */}
 
             <button
               className="data-box-btn mt-5 align-center"
@@ -224,7 +220,7 @@ export const HomePage = () => {
                       className="pie-chart"
                     />
                   ) : (
-                    <PieChart chartData={ownerD} className="pie-chart" />
+                    <PieChart chartData={ownerData} className="pie-chart" />
                   )}
                 </div>
               }

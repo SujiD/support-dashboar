@@ -27,6 +27,9 @@ const initialState = {
     "ticket.meta.dhsVersion",
     "ticket.meta.environment",
     "ticket.meta.issueNumber",
+    "survey.collateralComment",
+    "survey.shipmentDetailsComment",
+
   ],
   columnsort: {},
   initialResults: {},
