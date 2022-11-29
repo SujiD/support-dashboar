@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
+// import AuthenticateTest from "./pages/AuthenticateTest";
 
 function App() {
   const styles = useSpring({
@@ -25,6 +26,11 @@ function App() {
             <HandleErrors />
             <Routes>
               <Route path="/" element={<SignIn />} exact />
+              {/* <Route
+                path="/authenticate"
+                element={<AuthenticateTest />}
+                exact
+              /> */}
               <Route path="/home" element={<HomePage />} exact />
               <Route path="*" element={<ErrorPage />} exact />
             </Routes>

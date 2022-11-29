@@ -8,7 +8,7 @@ import Calendar from "../components/calendar/Calendar";
 import BarChart from "../components/charts/BarChart";
 import APIClient from "../api/APIClient";
 import Loading from "../components/loading/Loading";
-import IDs from "../common/values"; 
+import IDs from "../common/values";
 import { ErrorContext } from "../contexts/ErrorContext";
 import {
   useDispatch,
