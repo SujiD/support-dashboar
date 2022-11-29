@@ -51,6 +51,20 @@ export const toggleRuntimeSelect = (
   };
 };
 
+export const initializeColumnSort = (initialCols) => {
+  return {
+    type: runtimeTypes.INITIALIZE_COLUMN_SORT,
+    payload: initialCols,
+  };
+};
+
+export const changeColSortRuntime = (changedCols) => {
+  return {
+    type: runtimeTypes.CHANGE_COLUMN_SORT,
+    payload: changedCols,
+  };
+};
+
 export const fetchRuntimeFailure = (error) => {
   return {
     type: runtimeTypes.FETCH_RUNTIME_FAILURE,

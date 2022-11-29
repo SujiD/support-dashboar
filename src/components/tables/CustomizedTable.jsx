@@ -35,6 +35,10 @@ import {
 import { useEffect } from "react";
 import { CSVLink } from "react-csv";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  changeColSortRuntime,
+  initializeColumnSort,
+} from "../../redux/runtime/runtimeActions";
 
 const CustomizedTable = ({ loading, setLoading }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
@@ -68,6 +72,10 @@ const CustomizedTable = ({ loading, setLoading }) => {
     return state.column.columns;
   });
 
+  const columnSorting = useSelector((state) => {
+    return state.runtime.columnsort;
+  });
+
   useEffect(() => {
     setLoading(true);
     apiClient.entityService
@@ -89,6 +97,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
       accessor: ticketCol.field,
       disableSortBy: true,
       maxWidth: 600,
+      sort: "default",
     };
   });
 
@@ -148,6 +157,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
 
   useEffect(() => {
     csvHelper();
+    initiateColumnSort(visibleColumns);
+    // console.log(columnSorting)
     // eslint-disable-next-line
   }, [visibleColumns]);
 
@@ -293,26 +304,60 @@ const CustomizedTable = ({ loading, setLoading }) => {
     }
   };
 
-  // const handleSorting = (columnId) => {
-  //   setLoading(true);
-  //   let obj = {};
-  //   obj[`${columnId}`] = "asc";
-  //   reqBody.sort = obj;
-  //   console.log(reqBody);
-  //   apiClient.entityService
-  //     .getAllSearchData(reqBody)
-  //     .then((res) => {
-  //       if (Object.keys(res.data.facets).length > 0) {
-  //         dispatch(fetchFacetsSuccess(res.data));
-  //         dispatch(fetchFacetsUpdate(res.data));
-  //       }
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       setError(err);
-  //       setLoading(false);
-  //     });
-  // };
+  const initiateColumnSort = (visibleCols) => {
+    let initialObj = {};
+    visibleCols.forEach((cols) => {
+      initialObj[cols.name] = "default";
+    });
+    dispatch(initializeColumnSort(initialObj));
+  };
+
+  const changeColumnSort = (columnName) => {
+    if (columnSorting[columnName] === "default") {
+      columnSorting[columnName] = "asc";
+      dispatch(changeColSortRuntime(columnSorting));
+      return "asc";
+    } else if (columnSorting[columnName] === "asc") {
+      columnSorting[columnName] = "desc";
+      dispatch(changeColSortRuntime(columnSorting));
+      return "desc";
+    } else {
+      columnSorting[columnName] = "default";
+      dispatch(changeColSortRuntime(columnSorting));
+      return "default";
+    }
+  };
+
+  const handleSorting = (column) => {
+    setLoading(true);
+    // if (column.sort === "default") {
+    //   changeColumnSort(column.name, "asc");
+    //   obj[`${column.name}`] = "asc";
+    //   column.sort = "asc";
+    // } else if (column.sort === "asc") {
+    //   obj[`${column.name}`] = "desc";
+    //   column.sort = "desc";
+    // } else {
+    //   obj[`${column.name}`] = "default";
+    //   column.sort = "default";
+    // }
+    let obj = {};
+    obj[column.name] = changeColumnSort(column.name);
+    reqBody.sort = obj;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        if (Object.keys(res.data.facets).length > 0) {
+          dispatch(fetchFacetsSuccess(res.data));
+          dispatch(fetchFacetsUpdate(res.data));
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
   return (
     <>
       <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
@@ -354,7 +399,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
                     )}
                     className="position-relative"
                     style={{ cursor: "pointer" }}
-                    // onClick={() => handleSorting(column.id)}
                   >
                     {columnChanges &&
                       columnChanges.map((cols, index) => {
@@ -387,7 +431,9 @@ const CustomizedTable = ({ loading, setLoading }) => {
                           return null;
                         }
                       })}
-                    {column.render("Header")}
+                    <span key={column.id} onClick={() => handleSorting(column)}>
+                      {column.render("Header")}
+                    </span>
                     <FontAwesomeIcon
                       icon={faFilter}
                       className="ms-1"
@@ -395,7 +441,6 @@ const CustomizedTable = ({ loading, setLoading }) => {
                     />
                     {columnChanges.map((cols, index) => {
                       if (cols.id === column.name && cols.changes.length > 0) {
-                        // set
                         return (
                           <FontAwesomeIcon
                             icon={faAsterisk}

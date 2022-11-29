@@ -28,6 +28,7 @@ const initialState = {
     "ticket.meta.environment",
     "ticket.meta.issueNumber",
   ],
+  columnsort: {},
   initialResults: {},
   results: {},
   error: "",
@@ -72,6 +73,18 @@ export const runtimeReducer = (state = initialState, action) => {
       return {
         ...state,
         results: action.payload,
+        error: "",
+      };
+    case runtimeTypes.INITIALIZE_COLUMN_SORT:
+      return {
+        ...state,
+        columnsort: action.payload,
+        error: "",
+      };
+    case runtimeTypes.CHANGE_COLUMN_SORT:
+      return {
+        ...state,
+        columnsort: action.payload,
         error: "",
       };
     case runtimeTypes.FETCH_RUNTIME_FAILURE:
