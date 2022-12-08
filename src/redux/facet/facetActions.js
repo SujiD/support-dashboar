@@ -1,5 +1,5 @@
 import facetTypes from "./facetTypes";
-import { updateFacets } from "../../common/facetHelper";
+import { updateFacets } from "../../common/FacetHelper";
 //action creators
 export const fetchFacetsReq = () => {
   return {

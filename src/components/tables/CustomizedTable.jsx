@@ -19,7 +19,7 @@ import ColumnFilter from "../search-filters/ColumnFilter";
 import { Checkbox } from "../checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
-import { colors } from "../../Database/Data";
+import { colors } from "../../database/Data";
 import PieChartPopup from "../popups/PieChartPopup";
 import APIClient from "../../api/APIClient";
 import { useContext } from "react";
@@ -75,6 +75,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
   const columnSorting = useSelector((state) => {
     return state.runtime.columnsort;
   });
+
 
   useEffect(() => {
     setLoading(true);
@@ -138,6 +139,8 @@ const CustomizedTable = ({ loading, setLoading }) => {
     useSortBy,
     usePagination
   );
+
+ 
   const csvHelper = () => {
     let finalArray = [];
     if (visibleColumns && visibleColumns.length > 0) {
@@ -161,7 +164,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
     // console.log(columnSorting)
     // eslint-disable-next-line
   }, [visibleColumns]);
-
+  // console.log(visibleColumns)
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
   }, [pageStoreData.pageSize, setPageSize]);

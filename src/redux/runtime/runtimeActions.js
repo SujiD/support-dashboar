@@ -1,5 +1,5 @@
 import { runtimeTypes } from "./runtimeTypes";
-import { updateFacets } from "../../common/facetHelper";
+import { updateFacets } from "../../common/FacetHelper";
 
 export const fetchRuntimeReq = () => {
   return {

@@ -16,6 +16,7 @@ function HandleErrors() {
         } else if (error.response.status === 401) {
           console.log("Unauthorised");
           localStorage.clear();
+          setErrorMsg("Unauthorised")
         } else if (error.response.status === 404) {
           setErrorMsg(
             "Unable to connect to the network. Please try again later"

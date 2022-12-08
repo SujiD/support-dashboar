@@ -1,3 +1,4 @@
+import { headerConfig } from "../api/TokenHelpers";
 class EntityService {
   constructor(axiosInstance) {
     this.axios = axiosInstance;
@@ -5,7 +6,11 @@ class EntityService {
 
   async getAllSearchData(reqBody) {
     try {
-      return await this.axios.post("/support-status-report/search", reqBody, );
+      return await this.axios.post(
+        "/search",
+        reqBody,
+        // headerConfig(sessionStorage.getItem("token"))
+      );
     } catch (err) {
       console.log(err);
       throw err;
@@ -14,8 +19,10 @@ class EntityService {
 
   async getTableFields() {
     try {
-      return await this.axios.get(
-        "http://os-ml10.eng.marklogic.com:8005/api/support-status-report/describe"
+      return await this.axios.post(
+        "/describe",
+        {},
+        headerConfig(sessionStorage.getItem("token"))
       );
     } catch (err) {
       console.log(err);

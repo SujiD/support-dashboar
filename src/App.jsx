@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignIn from "./pages/SignIn";
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from "./components/home/HomePage";
 import { ToastContainer } from "react-toastify";
 import { useSpring, animated } from "react-spring";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import ErrorPage from "./components/Error/ErrorPage";
+import ErrorPage from "./components/error/ErrorPage";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
-// import AuthenticateTest from "./pages/AuthenticateTest";
+import Authenticate from "./auth/Authenticate";
+import Authentication from "./auth/Authentication";
 
 function App() {
   const styles = useSpring({
@@ -25,12 +25,8 @@ function App() {
           <Router>
             <HandleErrors />
             <Routes>
-              <Route path="/" element={<SignIn />} exact />
-              {/* <Route
-                path="/authenticate"
-                element={<AuthenticateTest />}
-                exact
-              /> */}
+              <Route path="/" element={<Authenticate />} exact />
+              <Route path="authentication" element={<Authentication />} exact />
               <Route path="/home" element={<HomePage />} exact />
               <Route path="*" element={<ErrorPage />} exact />
             </Routes>

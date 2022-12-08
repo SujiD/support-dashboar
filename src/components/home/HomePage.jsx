@@ -1,15 +1,15 @@
-import { NavBar } from "../components/nav-bar/NavBar";
+import { NavBar } from "../nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
 // import { ownerData } from "../Database/Data";
 // import PieChart from "../components/charts/PieChart";
 // import DataView from "../components/tables/DataView";
 // import StaticBox from "../components/static-box/StaticBox";
-import Calendar from "../components/calendar/Calendar";
-import BarChart from "../components/charts/BarChart";
-import APIClient from "../api/APIClient";
-import Loading from "../components/loading/Loading";
-import IDs from "../common/values";
-import { ErrorContext } from "../contexts/ErrorContext";
+import Calendar from "../calendar/Calendar";
+import BarChart from "../charts/BarChart";
+import APIClient from "../../api/APIClient";
+import Loading from "../loading/Loading";
+import IDs from "../../common/Values";
+import { ErrorContext } from "../../contexts/ErrorContext";
 import {
   useDispatch,
   // useSelector
@@ -17,14 +17,14 @@ import {
 import {
   fetchFacetsReq,
   fetchFacetsSuccess,
-} from "../redux/facet/facetActions";
-import CustomizedTable from "../components/tables/CustomizedTable";
+} from "../../redux/facet/facetActions";
+import CustomizedTable from "../tables/CustomizedTable";
 import { useMemo } from "react";
-import { fetchPageDataSuccess } from "../redux/page/pageActions";
+import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import {
   fetchRuntimeSuccess,
   fetchRuntimeUpdate,
-} from "../redux/runtime/runtimeActions";
+} from "../../redux/runtime/runtimeActions";
 
 export const HomePage = () => {
   const reqBody = useMemo(
@@ -42,7 +42,7 @@ export const HomePage = () => {
   const [statusData, setStatusData] = useState();
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
-  const [ownerD, setOwnerD] = useState();
+  // const [ownerD, setOwnerD] = useState();
   const { setError } = useContext(ErrorContext);
   // const facets = useSelector((state) => {
   //   return state.facet.facets;
@@ -109,22 +109,22 @@ export const HomePage = () => {
             },
           ],
         });
-        setOwnerD({
-          labels: res.data.facets[IDs.owner].facetValues?.map(
-            (data) => data.name
-          ),
-          datasets: [
-            {
-              label: "Owner",
-              data: res.data.facets[IDs.owner].facetValues?.map(
-                (data) => data.count
-              ),
-              backgroundColor: ["#70d8c1"],
-              borderColor: ["#70d8c1"],
-              borderWidth: 1,
-            },
-          ],
-        });
+        // setOwnerD({
+        //   labels: res.data.facets[IDs.owner].facetValues?.map(
+        //     (data) => data.name
+        //   ),
+        //   datasets: [
+        //     {
+        //       label: "Owner",
+        //       data: res.data.facets[IDs.owner].facetValues?.map(
+        //         (data) => data.count
+        //       ),
+        //       backgroundColor: ["#70d8c1"],
+        //       borderColor: ["#70d8c1"],
+        //       borderWidth: 1,
+        //     },
+        //   ],
+        // });
         dispatch(fetchFacetsSuccess(res.data));
         dispatch(fetchRuntimeSuccess(res.data));
         dispatch(fetchRuntimeUpdate(res.data));
@@ -150,7 +150,7 @@ export const HomePage = () => {
             <Calendar />
           </div>
           <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
-            <button
+            {/* <button
               className="data-box-btn mt-5"
               style={{ borderColor: "#70d8c1" }}
               // onClick={() => setSelectStat("Owner")}
@@ -160,7 +160,7 @@ export const HomePage = () => {
                 className="bar-chart"
                 title={"Ticket status by Owner"}
               />
-            </button>
+            </button> */}
 
             <button
               className="data-box-btn mt-5 align-center"
@@ -227,29 +227,6 @@ export const HomePage = () => {
                     <PieChart chartData={ownerD} className="pie-chart" />
                   )}
                 </div>
-              }
-            />
-            <StaticBox
-              heading={"Entity Table"}
-              content={
-                selectStat === "Priority" ? (
-                  <DataView
-                    viewData={facets[IDs.priority].facetValues}
-                    table={selectStat}
-                  />
-                ) : selectStat === "Status" ? (
-                  <DataView
-                    viewData={facets[IDs.status].facetValues}
-                    table={selectStat}
-                  />
-                ) : selectStat === "Department" ? (
-                  <DataView
-                    viewData={facets[IDs.department].facetValues}
-                    table={selectStat}
-                  />
-                ) : (
-                  <DataView viewData={ownerData} table={selectStat} />
-                )
               }
             />
           </div> */}
