@@ -15,7 +15,6 @@ import {
   // useSelector
 } from "react-redux";
 import {
-  fetchFacetsReq,
   fetchFacetsSuccess,
 } from "../../redux/facet/facetActions";
 import CustomizedTable from "../tables/CustomizedTable";
@@ -42,6 +41,7 @@ export const HomePage = () => {
   const [statusData, setStatusData] = useState();
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
+  const [initialFacets, setInitialFacets] = useState([]);
   // const [ownerD, setOwnerD] = useState();
   const { setError } = useContext(ErrorContext);
   // const facets = useSelector((state) => {
@@ -50,7 +50,6 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    dispatch(fetchFacetsReq());
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -64,6 +63,7 @@ export const HomePage = () => {
             start: res.data.start,
           })
         );
+        setInitialFacets(res.data.facets)
         setStatusData({
           labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
           datasets: [
@@ -92,7 +92,6 @@ export const HomePage = () => {
             },
           ],
         });
-
         setDepartmentData({
           labels: res.data.facets[IDs.department].facetValues?.map(
             (data) => data.name
@@ -230,7 +229,7 @@ export const HomePage = () => {
               }
             />
           </div> */}
-          <CustomizedTable loading={loading} setLoading={setLoading} />
+          <CustomizedTable loading={loading} setLoading={setLoading} initialFacets={initialFacets}/>
         </>
       ) : (
         <Loading />

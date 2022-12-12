@@ -8,11 +8,6 @@ const initialState = {
 
 export const facetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case facetTypes.FETCH_FACETS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
     case facetTypes.FETCH_FACETS_SUCCESS:
       return {
         loading: false,

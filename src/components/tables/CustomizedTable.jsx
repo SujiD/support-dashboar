@@ -40,7 +40,7 @@ import {
   initializeColumnSort,
 } from "../../redux/runtime/runtimeActions";
 
-const CustomizedTable = ({ loading, setLoading }) => {
+const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
   const [facetData, setFacetData] = useState();
   const [showPopup, setShowPopup] = useState(false);
@@ -589,6 +589,7 @@ const CustomizedTable = ({ loading, setLoading }) => {
         id={facetId}
         loading={loading}
         setLoading={setLoading}
+        initialFacets={initialFacets}
       />
     </>
   );

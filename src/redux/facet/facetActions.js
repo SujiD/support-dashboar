@@ -1,11 +1,6 @@
 import facetTypes from "./facetTypes";
 import { updateFacets } from "../../common/FacetHelper";
 //action creators
-export const fetchFacetsReq = () => {
-  return {
-    type: facetTypes.FETCH_FACETS_REQUEST,
-  };
-};
 
 export const fetchFacetsSuccess = (facets) => {
   return {

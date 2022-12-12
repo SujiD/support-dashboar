@@ -19,19 +19,21 @@ const PieChartPopup = ({
   id,
   setLoading,
   loading,
+  initialFacets
 }) => {
   const [showUpdate, setShowUpdate] = useState(true);
   const [hiddenIndices, setHiddenIndices] = useState({});
   const { setError } = useContext(ErrorContext);
   const [apiClient] = useState(() => new APIClient());
   const dispatch = useDispatch();
+
   const runtimeResults = useSelector((state) => {
     return state.runtime.results;
   });
 
-  const runtimeInitialState = useSelector((state) => {
-    return state.runtime.initialResults;
-  });
+  // const runtimeInitialState = useSelector((state) => {
+  //   return state.runtime.initialResults;
+  // });
 
   
   let heading = title;
@@ -75,7 +77,7 @@ const PieChartPopup = ({
     setLoading(true);
     setShowUpdate(true);
     dispatch(clearCols());
-    reqBody.facets = runtimeInitialState.facets;
+    reqBody.facets = initialFacets;
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
