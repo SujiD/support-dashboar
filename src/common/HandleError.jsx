@@ -19,7 +19,7 @@ function HandleErrors() {
           setErrorMsg("Unauthorised")
         } else if (error.response.status === 404) {
           setErrorMsg(
-            "Unable to connect to the network. Please try again later"
+            "Opps 404 Error, Unable to connect to the network. Please try again later"
           );
           setShowErrorPopup(true);
         } else if (error.response.status === 500) {
@@ -30,7 +30,8 @@ function HandleErrors() {
           setShowErrorPopup(true);
         }
       } else if (error.message) {
-        setErrorMsg("Unable to connect to the network. Please try again later");
+        console.log(error.message)
+        setErrorMsg("Opps, Unable to connect to the network. Please try again later");
         setShowErrorPopup(true);
       }
       setError(undefined);

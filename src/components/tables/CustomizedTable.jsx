@@ -157,7 +157,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       setCSVData(finalArray);
     }
   };
-
   useEffect(() => {
     csvHelper();
     initiateColumnSort(visibleColumns);

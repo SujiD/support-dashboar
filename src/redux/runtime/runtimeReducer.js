@@ -28,7 +28,12 @@ const initialState = {
     "ticket.meta.environment",
     "ticket.meta.issueNumber",
     "survey.collateralComment",
+<<<<<<< HEAD
     "survey.shipmentDetailsComment"
+=======
+    "survey.shipmentDetailsComment",
+
+>>>>>>> origin/develop
   ],
   columnsort: {},
   initialResults: {},

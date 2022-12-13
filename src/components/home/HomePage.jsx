@@ -65,11 +65,11 @@ export const HomePage = () => {
         );
         setInitialFacets(res.data.facets)
         setStatusData({
-          labels: res.data.facets[IDs.status].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.status]?.facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Status",
-              data: res.data.facets[IDs.status].facetValues?.map(
+              data: res.data.facets[IDs.status]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#ff984e"],
@@ -79,11 +79,11 @@ export const HomePage = () => {
           ],
         });
         setPriorityData({
-          labels: res.data.facets[IDs.priority].facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.priority]?.facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Priority",
-              data: res.data.facets[IDs.priority].facetValues?.map(
+              data: res.data.facets[IDs.priority]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#42d4f4"],
@@ -93,13 +93,13 @@ export const HomePage = () => {
           ],
         });
         setDepartmentData({
-          labels: res.data.facets[IDs.department].facetValues?.map(
+          labels: res.data.facets[IDs.department]?.facetValues?.map(
             (data) => data.name
           ),
           datasets: [
             {
               label: "Department",
-              data: res.data.facets[IDs.department].facetValues?.map(
+              data: res.data.facets[IDs.department]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#f5d881"],
@@ -136,10 +136,6 @@ export const HomePage = () => {
     setLoading(false);
   }, [apiClient.entityService, dispatch, setError, reqBody]);
 
-  // const handleChange = (event) => {
-  //   setSelectStat(event.target.value);
-  // };
-
   return (
     <>
       <NavBar />
@@ -155,7 +151,7 @@ export const HomePage = () => {
               // onClick={() => setSelectStat("Owner")}
             >
               <BarChart
-                chartData={ownerD}
+                chartData={ownerData}
                 className="bar-chart"
                 title={"Ticket status by Owner"}
               />
@@ -223,7 +219,7 @@ export const HomePage = () => {
                       className="pie-chart"
                     />
                   ) : (
-                    <PieChart chartData={ownerD} className="pie-chart" />
+                    <PieChart chartData={ownerData} className="pie-chart" />
                   )}
                 </div>
               }
