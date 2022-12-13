@@ -51,7 +51,10 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
     const index = legendItem.index;
     if (legend.chart.getDataVisibility(index)) {
       legend.chart.legend.legendItems.forEach((finalItem) => {
-        if (finalItem.index !== index) {
+        if (
+          finalItem.index !== index &&
+          legend.chart.getDataVisibility(finalItem.index)
+        ) {
           legend.chart.toggleDataVisibility(finalItem.index);
         }
       });
