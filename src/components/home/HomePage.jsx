@@ -10,13 +10,8 @@ import APIClient from "../../api/APIClient";
 import Loading from "../loading/Loading";
 import IDs from "../../common/Values";
 import { ErrorContext } from "../../contexts/ErrorContext";
-import {
-  useDispatch,
-  // useSelector
-} from "react-redux";
-import {
-  fetchFacetsSuccess,
-} from "../../redux/facet/facetActions";
+import { useDispatch } from "react-redux";
+import { fetchFacetsSuccess } from "../../redux/facet/facetActions";
 import CustomizedTable from "../tables/CustomizedTable";
 import { useMemo } from "react";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
@@ -53,6 +48,7 @@ export const HomePage = () => {
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
+        sessionStorage.setItem("count", 1);
         dispatch(
           fetchPageDataSuccess({
             pageSize: res.data["page-length"],
@@ -63,7 +59,7 @@ export const HomePage = () => {
             start: res.data.start,
           })
         );
-        setInitialFacets(res.data.facets)
+        setInitialFacets(res.data.facets);
         setStatusData({
           labels: res.data.facets[IDs.status]?.facetValues?.map((d) => d.name),
           datasets: [
@@ -79,7 +75,9 @@ export const HomePage = () => {
           ],
         });
         setPriorityData({
-          labels: res.data.facets[IDs.priority]?.facetValues?.map((d) => d.name),
+          labels: res.data.facets[IDs.priority]?.facetValues?.map(
+            (d) => d.name
+          ),
           datasets: [
             {
               label: "Priority",
@@ -225,7 +223,11 @@ export const HomePage = () => {
               }
             />
           </div> */}
-          <CustomizedTable loading={loading} setLoading={setLoading} initialFacets={initialFacets}/>
+          <CustomizedTable
+            loading={loading}
+            setLoading={setLoading}
+            initialFacets={initialFacets}
+          />
         </>
       ) : (
         <Loading />

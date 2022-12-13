@@ -76,21 +76,24 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     return state.runtime.columnsort;
   });
 
-
   useEffect(() => {
     setLoading(true);
     apiClient.entityService
       .getTableFields()
       .then((res) => {
         setTableFields(res.data.data.dataFields);
+        if (parseInt(sessionStorage.getItem("count")) === 1) {
+          sessionStorage.setItem("count", 2);
+          dispatch(initializeColumnSort({}));
+        }
       })
       .catch((err) => {
         setError(err);
         setLoading(false);
       });
     setLoading(false);
-  }, [apiClient.entityService, setError, setLoading]);
-
+  }, [apiClient.entityService, setError, setLoading, dispatch]);
+  
   const ticketCols = tableFields.map((ticketCol) => {
     return {
       Header: ticketCol.label,
@@ -140,7 +143,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     usePagination
   );
 
- 
   const csvHelper = () => {
     let finalArray = [];
     if (visibleColumns && visibleColumns.length > 0) {
@@ -159,7 +161,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   };
   useEffect(() => {
     csvHelper();
-    initiateColumnSort(visibleColumns);
+    // initiateColumnSort(visibleColumns);
     // console.log(columnSorting)
     // eslint-disable-next-line
   }, [visibleColumns]);
@@ -306,28 +308,20 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
   };
 
-  const initiateColumnSort = (visibleCols) => {
-    let initialObj = {};
-    visibleCols.forEach((cols) => {
-      initialObj[cols.name] = "default";
-    });
-    dispatch(initializeColumnSort(initialObj));
-  };
+  // const initiateColumnSort = (visibleCols) => {};
 
   const changeColumnSort = (columnName) => {
-    if (columnSorting[columnName] === "default") {
+    if (columnSorting[columnName] === undefined) {
       columnSorting[columnName] = "asc";
       dispatch(changeColSortRuntime(columnSorting));
-      return "asc";
     } else if (columnSorting[columnName] === "asc") {
       columnSorting[columnName] = "desc";
       dispatch(changeColSortRuntime(columnSorting));
-      return "desc";
     } else {
-      columnSorting[columnName] = "default";
+      delete columnSorting[columnName];
       dispatch(changeColSortRuntime(columnSorting));
-      return "default";
     }
+    return columnSorting;
   };
 
   const handleSorting = (column) => {
@@ -343,9 +337,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     //   obj[`${column.name}`] = "default";
     //   column.sort = "default";
     // }
-    let obj = {};
-    obj[column.name] = changeColumnSort(column.name);
-    reqBody.sort = obj;
+    reqBody.sort = changeColumnSort(column.name);
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -454,12 +446,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                         return null;
                       }
                     })}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <FontAwesomeIcon icon={faSortUp} />
-                      ) : (
-                        <FontAwesomeIcon icon={faSortDown} />
-                      )
+                    {columnSorting[column.name] === "asc" ? (
+                      <FontAwesomeIcon icon={faSortDown} />
+                    ) : columnSorting[column.name] === "desc" ? (
+                      <FontAwesomeIcon icon={faSortUp} />
                     ) : (
                       ""
                     )}
