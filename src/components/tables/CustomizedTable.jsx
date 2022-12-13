@@ -34,7 +34,7 @@ import {
 } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { CSVLink } from "react-csv";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import {
   changeColSortRuntime,
   initializeColumnSort,
@@ -93,7 +93,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       });
     setLoading(false);
   }, [apiClient.entityService, setError, setLoading, dispatch]);
-  
+
   const ticketCols = tableFields.map((ticketCol) => {
     return {
       Header: ticketCol.label,
@@ -161,11 +161,9 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   };
   useEffect(() => {
     csvHelper();
-    // initiateColumnSort(visibleColumns);
-    // console.log(columnSorting)
     // eslint-disable-next-line
   }, [visibleColumns]);
-  // console.log(visibleColumns)
+
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
   }, [pageStoreData.pageSize, setPageSize]);
@@ -354,215 +352,233 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   };
   return (
     <>
-      <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        <div
-          className="d-flex gap-5 justify-content-center align-items-center"
-          style={{ width: "40%" }}
-        >
-          <div className="checkbox d-flex mt-3">
-            <Checkbox {...getToggleHideAllColumnsProps()} id="all-hidden" />
-            <label htmlFor="all-hidden">Toggle All</label>
-          </div>
-          <FontAwesomeIcon
-            icon={faGear}
-            onClick={() => setShowTicketPopup(true)}
-            style={{ cursor: "pointer" }}
-            className="fa-2x mx-3"
-          />
-          {visibleColumns.length > 0 ? (
-            <CSVLink
-              data={csvData}
-              filename={"support-status-report"}
-              className="download-icon"
+      {visibleColumns.length > 0 ? (
+        <>
+          <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
+            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+            <div
+              className="d-flex gap-5 justify-content-center align-items-center"
+              style={{ width: "40%" }}
             >
-              Export CSV
-            </CSVLink>
-          ) : null}
-        </div>
-      </div>
-      <div style={{ overflow: "auto" }}>
-        <table {...getTableProps()} className="react-table">
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps(
-                      column.getSortByToggleProps({ title: undefined })
-                    )}
-                    className="position-relative"
-                    style={{ cursor: "pointer" }}
-                  >
-                    {columnChanges &&
-                      columnChanges.map((cols, index) => {
-                        if (
-                          cols.id === column.name &&
-                          cols.changes.length > 0
-                        ) {
-                          return (
-                            <OverlayTrigger
-                              placement="top"
-                              overlay={(props) => (
-                                <Tooltip className="my-tooltip" {...props}>
-                                  {cols.changes}
-                                </Tooltip>
-                              )}
-                              key={index}
-                            >
-                              <span
-                                style={{
-                                  opacity: 0,
-                                  position: "absolute",
-                                  left: 0,
-                                }}
-                              >
-                                {column.render("Header")}
-                              </span>
-                            </OverlayTrigger>
-                          );
-                        } else {
-                          return null;
-                        }
-                      })}
-                    <span key={column.id} onClick={() => handleSorting(column)}>
-                      {column.render("Header")}
-                    </span>
-                    <FontAwesomeIcon
-                      icon={faFilter}
-                      className="ms-1"
-                      onClick={() => handleFilter(column)}
-                    />
-                    {columnChanges.map((cols, index) => {
-                      if (cols.id === column.name && cols.changes.length > 0) {
-                        return (
-                          <FontAwesomeIcon
-                            icon={faAsterisk}
-                            key={index}
-                            className="ms-1 fa-1x"
-                          />
-                        );
-                      } else {
-                        return null;
-                      }
-                    })}
-                    {columnSorting[column.name] === "asc" ? (
-                      <FontAwesomeIcon icon={faSortDown} />
-                    ) : columnSorting[column.name] === "desc" ? (
-                      <FontAwesomeIcon icon={faSortUp} />
-                    ) : (
-                      ""
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.length > 0 &&
-              page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-                    })}
+              <div className="checkbox d-flex mt-3">
+                <Checkbox {...getToggleHideAllColumnsProps()} id="all-hidden" />
+                <label htmlFor="all-hidden">Toggle All</label>
+              </div>
+              <FontAwesomeIcon
+                icon={faGear}
+                onClick={() => setShowTicketPopup(true)}
+                style={{ cursor: "pointer" }}
+                className="fa-2x mx-3"
+              />
+              {visibleColumns.length > 0 ? (
+                <CSVLink
+                  data={csvData}
+                  filename={"support-status-report"}
+                  className="download-icon"
+                >
+                  Export CSV
+                </CSVLink>
+              ) : null}
+            </div>
+          </div>
+          <div style={{ overflow: "auto" }}>
+            <table {...getTableProps()} className="react-table">
+              <thead>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps({ title: undefined })
+                        )}
+                        className="position-relative"
+                        style={{ cursor: "pointer" }}
+                      >
+                        {columnChanges &&
+                          columnChanges.map((cols, index) => {
+                            if (
+                              cols.id === column.name &&
+                              cols.changes.length > 0
+                            ) {
+                              return (
+                                <OverlayTrigger
+                                  placement="top"
+                                  overlay={(props) => (
+                                    <Tooltip className="my-tooltip" {...props}>
+                                      {cols.changes}
+                                    </Tooltip>
+                                  )}
+                                  key={index}
+                                >
+                                  <span
+                                    style={{
+                                      opacity: 0,
+                                      position: "absolute",
+                                      left: 0,
+                                    }}
+                                  >
+                                    {column.render("Header")}
+                                  </span>
+                                </OverlayTrigger>
+                              );
+                            } else {
+                              return null;
+                            }
+                          })}
+                        <span
+                          key={column.id}
+                          onClick={() => handleSorting(column)}
+                        >
+                          {column.render("Header")}
+                        </span>
+                        <FontAwesomeIcon
+                          icon={faFilter}
+                          className="ms-1"
+                          onClick={() => handleFilter(column)}
+                        />
+                        {columnChanges.map((cols, index) => {
+                          if (
+                            cols.id === column.name &&
+                            cols.changes.length > 0
+                          ) {
+                            return (
+                              <FontAwesomeIcon
+                                icon={faAsterisk}
+                                key={index}
+                                className="ms-1 fa-1x"
+                              />
+                            );
+                          } else {
+                            return null;
+                          }
+                        })}
+                        {columnSorting[column.name] === "asc" ? (
+                          <FontAwesomeIcon icon={faSortDown} />
+                        ) : columnSorting[column.name] === "desc" ? (
+                          <FontAwesomeIcon icon={faSortUp} />
+                        ) : (
+                          ""
+                        )}
+                      </th>
+                    ))}
                   </tr>
-                );
-              })}
-          </tbody>
-        </table>
-        {page.length > 0 && visibleColumns.length !== 0 ? null : (
-          <span>Sorry no results found!!</span>
-        )}
-      </div>
-      {page.length > 0 && visibleColumns.length !== 0 && (
-        <div>
-          <span>
-            Page{" "}
-            <strong>
-              {pageStoreData.next} of{" "}
-              {pageStoreData.numOfPages === 0
-                ? 1
-                : isNaN(pageStoreData.numOfPages)
-                ? 0
-                : pageStoreData.numOfPages}
-            </strong>
-          </span>
-          <select
-            value={pageStoreData.pageSize}
-            onChange={(e) => handlePageSize(e)}
-            className="select-btn mx-2"
-          >
-            {[10, 25, 50].map((size) => (
-              <option
-                key={size}
-                value={size}
-                disabled={!(pageStoreData.totalLength >= size)}
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {page.length > 0 &&
+                  page.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => {
+                          return (
+                            <td {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+            {page.length > 0 && visibleColumns.length !== 0 ? null : (
+              <span>Sorry no results found!!</span>
+            )}
+          </div>
+          {page.length > 0 && visibleColumns.length !== 0 && (
+            <div>
+              <span>
+                Page{" "}
+                <strong>
+                  {pageStoreData.next} of{" "}
+                  {pageStoreData.numOfPages === 0
+                    ? 1
+                    : isNaN(pageStoreData.numOfPages)
+                    ? 0
+                    : pageStoreData.numOfPages}
+                </strong>
+              </span>
+              <select
+                value={pageStoreData.pageSize}
+                onChange={(e) => handlePageSize(e)}
+                className="select-btn mx-2"
               >
-                Show {size}
-              </option>
-            ))}
-          </select>
-          <button
-            className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
-            // className="main-btn"
-            onClick={gotoStartPage}
-            disabled={pageStoreData.prev === 1}
-          >
-            {"<<"}
-          </button>
-          <button
-            className={pageStoreData.prev === 1 ? "disable-btn" : "main-btn"}
-            // className="main-btn"
-            onClick={handlePrevPage}
-            disabled={pageStoreData.prev === 1}
-          >
-            Previous
-          </button>
-          <button
-            className={
-              pageStoreData.next ===
-              (pageStoreData.numOfPages === 0
-                ? pageStoreData.numOfPages + 1
-                : pageStoreData.numOfPages)
-                ? "disable-btn"
-                : "main-btn"
-            }
-            // className="main-btn"
-            onClick={handleNextPage}
-            disabled={
-              pageStoreData.next ===
-              (pageStoreData.numOfPages === 0
-                ? pageStoreData.numOfPages + 1
-                : pageStoreData.numOfPages)
-            }
-          >
-            Next
-          </button>
-          <button
-            className={
-              pageStoreData.next ===
-              (pageStoreData.numOfPages === 0
-                ? pageStoreData.numOfPages + 1
-                : pageStoreData.numOfPages)
-                ? "disable-btn"
-                : "main-btn"
-            }
-            // className="main-btn"
-            onClick={gotoLastPage}
-            disabled={
-              pageStoreData.next ===
-              (pageStoreData.numOfPages === 0
-                ? pageStoreData.numOfPages + 1
-                : pageStoreData.numOfPages)
-            }
-          >
-            {">>"}
-          </button>
-        </div>
+                {[10, 25, 50].map((size) => (
+                  <option
+                    key={size}
+                    value={size}
+                    disabled={!(pageStoreData.totalLength >= size)}
+                  >
+                    Show {size}
+                  </option>
+                ))}
+              </select>
+              <button
+                className={
+                  pageStoreData.prev === 1 ? "disable-btn" : "main-btn"
+                }
+                // className="main-btn"
+                onClick={gotoStartPage}
+                disabled={pageStoreData.prev === 1}
+              >
+                {"<<"}
+              </button>
+              <button
+                className={
+                  pageStoreData.prev === 1 ? "disable-btn" : "main-btn"
+                }
+                // className="main-btn"
+                onClick={handlePrevPage}
+                disabled={pageStoreData.prev === 1}
+              >
+                Previous
+              </button>
+              <button
+                className={
+                  pageStoreData.next ===
+                  (pageStoreData.numOfPages === 0
+                    ? pageStoreData.numOfPages + 1
+                    : pageStoreData.numOfPages)
+                    ? "disable-btn"
+                    : "main-btn"
+                }
+                // className="main-btn"
+                onClick={handleNextPage}
+                disabled={
+                  pageStoreData.next ===
+                  (pageStoreData.numOfPages === 0
+                    ? pageStoreData.numOfPages + 1
+                    : pageStoreData.numOfPages)
+                }
+              >
+                Next
+              </button>
+              <button
+                className={
+                  pageStoreData.next ===
+                  (pageStoreData.numOfPages === 0
+                    ? pageStoreData.numOfPages + 1
+                    : pageStoreData.numOfPages)
+                    ? "disable-btn"
+                    : "main-btn"
+                }
+                // className="main-btn"
+                onClick={gotoLastPage}
+                disabled={
+                  pageStoreData.next ===
+                  (pageStoreData.numOfPages === 0
+                    ? pageStoreData.numOfPages + 1
+                    : pageStoreData.numOfPages)
+                }
+              >
+                {">>"}
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
+        <Spinner animation="border" style={{color: '#060b26'}} />
       )}
       <TicketPopup
         allColumns={allColumns}
