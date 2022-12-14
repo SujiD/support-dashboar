@@ -29,16 +29,18 @@ import {
   fetchFacetsUpdate,
 } from "../../redux/facet/facetActions";
 import {
+  fetchPageDataSuccess,
   updatePageDataNextPrev,
   updatePageDataPageSize,
 } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { CSVLink } from "react-csv";
-import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Spinner, Tooltip, Button } from "react-bootstrap";
 import {
   changeColSortRuntime,
   initializeColumnSort,
 } from "../../redux/runtime/runtimeActions";
+import { clearCols } from "../../redux/column/columnAction";
 
 const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
@@ -306,8 +308,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
   };
 
-  // const initiateColumnSort = (visibleCols) => {};
-
   const changeColumnSort = (columnName) => {
     if (columnSorting[columnName] === undefined) {
       columnSorting[columnName] = "asc";
@@ -324,17 +324,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
 
   const handleSorting = (column) => {
     setLoading(true);
-    // if (column.sort === "default") {
-    //   changeColumnSort(column.name, "asc");
-    //   obj[`${column.name}`] = "asc";
-    //   column.sort = "asc";
-    // } else if (column.sort === "asc") {
-    //   obj[`${column.name}`] = "desc";
-    //   column.sort = "desc";
-    // } else {
-    //   obj[`${column.name}`] = "default";
-    //   column.sort = "default";
-    // }
     reqBody.sort = changeColumnSort(column.name);
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -350,12 +339,41 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
         setLoading(false);
       });
   };
+
+
+    const handleTotalReset = () => {
+    setLoading(true);
+    dispatch(clearCols());
+    reqBody.facets = initialFacets;
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(fetchFacetsUpdate(res.data));
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
+            next: 1,
+            prev: 1,
+            start: res.data.start,
+          })
+        );
+        setLoading(false);
+        setShowPopup(true);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  };
+  
   return (
     <>
       {visibleColumns.length > 0 ? (
         <>
           <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
-            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+            <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
             <div
               className="d-flex gap-5 justify-content-center align-items-center"
               style={{ width: "40%" }}
@@ -371,6 +389,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                 className="fa-2x mx-3"
               />
               {visibleColumns.length > 0 ? (
+                <>
                 <CSVLink
                   data={csvData}
                   filename={"support-status-report"}
@@ -378,6 +397,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                 >
                   Export CSV
                 </CSVLink>
+                <Button onClick={() => handleTotalReset()} className='main-btn'>Reset All</Button>
+                </>
               ) : null}
             </div>
           </div>

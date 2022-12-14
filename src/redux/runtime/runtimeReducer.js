@@ -43,18 +43,15 @@ export const runtimeReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case runtimeTypes.FETCH_INITIALFACETS:
+    case runtimeTypes.UPDATE_RESET_FACET:
       return {
-        initialFacets: action.payload
+        ...state,
+        results: {...state.results, facets: action.payload}
       };
     case runtimeTypes.FETCH_RUNTIME_SUCCESS:
       return {
         ...state,
         results: action.payload,
-        // initialResults:
-        //   Object.keys(state.initialResults).length > 0
-        //     ? state.initialResults
-        //     : action.payload,
         error: "",
       };
     case runtimeTypes.FETCH_RUNTIME_UPDATE:

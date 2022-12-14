@@ -15,14 +15,20 @@ export const fetchRuntimeSuccess = (results) => {
 };
 
 export const fetchRuntimeUpdate = (results) => {
-  const outputFacetsData = {};
-  const updatedResults = updateFacets(outputFacetsData, results.facets);
+  const updatedResults = updateFacets({}, results.facets);
   results.facets = updatedResults;
   return {
     type: runtimeTypes.FETCH_RUNTIME_UPDATE,
     payload: results,
   };
 };
+
+export const updateResetFacet = (facets) =>{
+  return {
+    type: runtimeTypes.UPDATE_RESET_FACET,
+    payload: facets,
+  };
+}
 
 export const addRuntimeHiddenCols = (ColId) => {
   return {

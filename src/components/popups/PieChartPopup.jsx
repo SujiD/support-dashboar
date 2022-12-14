@@ -8,7 +8,8 @@ import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect } from "react";
-import { clearCols } from "../../redux/column/columnAction";
+import { updateFacets } from "../../common/FacetHelper";
+import {updateResetFacet } from "../../redux/runtime/runtimeActions";
 
 const PieChartPopup = ({
   size,
@@ -19,7 +20,7 @@ const PieChartPopup = ({
   id,
   setLoading,
   loading,
-  initialFacets
+  initialFacets,
 }) => {
   const [showUpdate, setShowUpdate] = useState(true);
   const [hiddenIndices, setHiddenIndices] = useState({});
@@ -31,11 +32,11 @@ const PieChartPopup = ({
     return state.runtime.results;
   });
 
-  // const runtimeInitialState = useSelector((state) => {
-  //   return state.runtime.initialResults;
-  // });
+  // const test = useSelector((state) => {
+  //   return state.runtime
+  // })
+// working to check columnSort in runtime
 
-  
   let heading = title;
   let reqBody = {
     appPath: "Report",
@@ -46,6 +47,9 @@ const PieChartPopup = ({
   const pageData = useSelector((state) => {
     return state.pageData;
   });
+
+
+
   const handleUpdate = () => {
     setLoading(true);
     setShowUpdate(true);
@@ -76,9 +80,11 @@ const PieChartPopup = ({
   const handleReset = () => {
     setLoading(true);
     setShowUpdate(true);
-    dispatch(clearCols());
-    reqBody.facets = initialFacets;
-    apiClient.entityService
+    const updatedInitialFacets = updateFacets({}, initialFacets);
+    runtimeResults.facets[id] = updatedInitialFacets[id];
+    dispatch(updateResetFacet(runtimeResults.facets))
+    reqBody.facets = runtimeResults.facets;
+       apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
         dispatch(fetchFacetsUpdate(res.data));
@@ -99,8 +105,7 @@ const PieChartPopup = ({
         setError(err);
         setLoading(false);
       });
-  };
-
+  }
 
   const getHiddenIndices = () => {
     const hiddenIndicesObj = {};
@@ -129,7 +134,7 @@ const PieChartPopup = ({
             backgroundColor: "#060b26",
             borderColor: "#060b26",
           }}
-          onClick={handleReset}
+          onClick={() => handleReset()}
         >
           Reset
         </Button>

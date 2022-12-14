@@ -1,13 +1,14 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./SearchFilters.css";
-const GlobalFilter = ({ filter, setFilter }) => {
+const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
+  
   return (
     <div className="search-box ms-3">
       <input
         type="text"
-        value={filter || " "}
-        onChange={(event) => setFilter(event.target.value)}
+        value={globalFilter || ""}
+        onChange={(event) => setGlobalFilter(event.target.value)}
         className="searchInput ms-1"
       />
       <FontAwesomeIcon icon={faSearch} className="SearchButton" />
