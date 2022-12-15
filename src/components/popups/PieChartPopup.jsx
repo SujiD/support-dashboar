@@ -8,9 +8,15 @@ import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect } from "react";
+import { faUndo } from "@fortawesome/free-solid-svg-icons";
 import { updateFacets } from "../../common/FacetHelper";
-import { changeColSortRuntime, updateResetFacet } from "../../redux/runtime/runtimeActions";
+import {
+  changeColSortRuntime,
+  updateResetFacet,
+} from "../../redux/runtime/runtimeActions";
 import { resetColumn } from "../../redux/column/columnAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const PieChartPopup = ({
   size,
@@ -87,12 +93,11 @@ const PieChartPopup = ({
   };
 
   const handleColumnSortingReset = () => {
-    if(runtimeColumnSorting[id])
-    {
-      delete runtimeColumnSorting[id]
-      dispatch(changeColSortRuntime(runtimeColumnSorting))
+    if (runtimeColumnSorting[id]) {
+      delete runtimeColumnSorting[id];
+      dispatch(changeColSortRuntime(runtimeColumnSorting));
     }
-  }
+  };
 
   const handleReset = () => {
     setLoading(true);
@@ -152,9 +157,11 @@ const PieChartPopup = ({
           style={{
             backgroundColor: "#060b26",
             borderColor: "#060b26",
+            width: '120px'
           }}
           onClick={() => handleReset()}
         >
+          <FontAwesomeIcon icon={faUndo} className='me-2'/>
           Reset
         </Button>
       </Modal.Header>

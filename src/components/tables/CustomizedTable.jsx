@@ -12,6 +12,7 @@ import {
   faGear,
   faFilter,
   faAsterisk,
+  faRefresh,
 } from "@fortawesome/free-solid-svg-icons";
 import GlobalFilter from "../search-filters/GlobalFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -77,7 +78,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const runtimeColumnSorting = useSelector((state) => {
     return state.runtime.columnsort;
   });
-
 
   useEffect(() => {
     setLoading(true);
@@ -227,7 +227,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       "pageSize"
     );
   };
-  
+
   // console.log(runtimeColumnSorting)
   const paginationHelper = (next, prev, start, type) => {
     let func;
@@ -241,9 +241,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
     setLoading(true);
     reqBody.facets = runTimeResults.facets;
-    if(Object.keys(runtimeColumnSorting).length > 0) 
-    {
-      reqBody.sort = runtimeColumnSorting
+    if (Object.keys(runtimeColumnSorting).length > 0) {
+      reqBody.sort = runtimeColumnSorting;
     }
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -346,8 +345,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       });
   };
 
-
-    const handleTotalReset = () => {
+  const handleTotalReset = () => {
     setLoading(true);
     dispatch(clearCols());
     dispatch(initializeColumnSort({}));
@@ -374,13 +372,16 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
         setLoading(false);
       });
   };
-  
+
   return (
     <>
       {visibleColumns.length > 0 ? (
         <>
           <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
-            <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
+            <GlobalFilter
+              globalFilter={globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
             <div
               className="d-flex gap-5 justify-content-center align-items-center"
               style={{ width: "40%" }}
@@ -397,14 +398,20 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
               />
               {visibleColumns.length > 0 ? (
                 <>
-                <CSVLink
-                  data={csvData}
-                  filename={"support-status-report"}
-                  className="download-icon"
-                >
-                  Export CSV
-                </CSVLink>
-                <Button onClick={() => handleTotalReset()} className='main-btn'>Reset All</Button>
+                  <CSVLink
+                    data={csvData}
+                    filename={"support-status-report"}
+                    className="download-icon"
+                  >
+                    Export CSV
+                  </CSVLink>
+                  <Button
+                    onClick={() => handleTotalReset()}
+                    className="main-btn"
+                  >
+                    {" "}
+                    <FontAwesomeIcon icon={faRefresh} /> Reset All
+                  </Button>
                 </>
               ) : null}
             </div>
@@ -430,7 +437,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                             ) {
                               return (
                                 <OverlayTrigger
-                                trigger={['hover', 'focus']}
+                                  trigger={["hover", "focus"]}
                                   placement="right"
                                   overlay={(props) => (
                                     <Tooltip className="my-tooltip" {...props}>
@@ -607,7 +614,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
           )}
         </>
       ) : (
-        <Spinner animation="border" style={{color: '#060b26'}} />
+        <Spinner animation="border" style={{ color: "#060b26" }} />
       )}
       <TicketPopup
         allColumns={allColumns}
