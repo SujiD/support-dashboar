@@ -97,6 +97,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setLoading(false);
   }, [apiClient.entityService, setError, setLoading, dispatch]);
 
+
   const ticketCols = tableFields.map((ticketCol) => {
     return {
       Header: ticketCol.label,
@@ -508,7 +509,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                       <tr {...row.getRowProps()}>
                         {row.cells.map((cell) => {
                           return (
-                            <td {...cell.getCellProps()}>
+                            <td {...cell.getCellProps()} onClick={(cell) => console.log(cell)}>
                               {cell.render("Cell")}
                             </td>
                           );

@@ -9,7 +9,7 @@ class EntityService {
       return await this.axios.post(
         "/search",
         reqBody,
-        // headerConfig(sessionStorage.getItem("token"))
+        headerConfig(sessionStorage.getItem("token"))
       );
     } catch (err) {
       console.log(err);
