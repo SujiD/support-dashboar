@@ -74,9 +74,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     return state.column.columns;
   });
 
-  const columnSorting = useSelector((state) => {
+  const runtimeColumnSorting = useSelector((state) => {
     return state.runtime.columnsort;
   });
+
 
   useEffect(() => {
     setLoading(true);
@@ -226,7 +227,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       "pageSize"
     );
   };
-
+  
+  // console.log(runtimeColumnSorting)
   const paginationHelper = (next, prev, start, type) => {
     let func;
     if (type === "pageSize") {
@@ -239,6 +241,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
     setLoading(true);
     reqBody.facets = runTimeResults.facets;
+    if(Object.keys(runtimeColumnSorting).length > 0) 
+    {
+      reqBody.sort = runtimeColumnSorting
+    }
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -309,17 +315,17 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   };
 
   const changeColumnSort = (columnName) => {
-    if (columnSorting[columnName] === undefined) {
-      columnSorting[columnName] = "asc";
-      dispatch(changeColSortRuntime(columnSorting));
-    } else if (columnSorting[columnName] === "asc") {
-      columnSorting[columnName] = "desc";
-      dispatch(changeColSortRuntime(columnSorting));
+    if (runtimeColumnSorting[columnName] === undefined) {
+      runtimeColumnSorting[columnName] = "asc";
+      dispatch(changeColSortRuntime(runtimeColumnSorting));
+    } else if (runtimeColumnSorting[columnName] === "asc") {
+      runtimeColumnSorting[columnName] = "desc";
+      dispatch(changeColSortRuntime(runtimeColumnSorting));
     } else {
-      delete columnSorting[columnName];
-      dispatch(changeColSortRuntime(columnSorting));
+      delete runtimeColumnSorting[columnName];
+      dispatch(changeColSortRuntime(runtimeColumnSorting));
     }
-    return columnSorting;
+    return runtimeColumnSorting;
   };
 
   const handleSorting = (column) => {
@@ -344,6 +350,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     const handleTotalReset = () => {
     setLoading(true);
     dispatch(clearCols());
+    dispatch(initializeColumnSort({}));
     reqBody.facets = initialFacets;
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -423,10 +430,11 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                             ) {
                               return (
                                 <OverlayTrigger
-                                  placement="top"
+                                trigger={['hover', 'focus']}
+                                  placement="right"
                                   overlay={(props) => (
                                     <Tooltip className="my-tooltip" {...props}>
-                                      {cols.changes}
+                                      {cols.changes.map((col) => col + "  ")}
                                     </Tooltip>
                                   )}
                                   key={index}
@@ -473,9 +481,9 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                             return null;
                           }
                         })}
-                        {columnSorting[column.name] === "asc" ? (
+                        {runtimeColumnSorting[column.name] === "asc" ? (
                           <FontAwesomeIcon icon={faSortDown} />
-                        ) : columnSorting[column.name] === "desc" ? (
+                        ) : runtimeColumnSorting[column.name] === "desc" ? (
                           <FontAwesomeIcon icon={faSortUp} />
                         ) : (
                           ""

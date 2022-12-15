@@ -2,6 +2,7 @@
 const columnTypes = {
     ADDCOLS: "ADDCOLS",
     UPDATECOLS: "UPDATECOLS",
+    RESETCOL: "RESETCOL",
     CLEARCOLS: "CLEARCOLS",
   };
   

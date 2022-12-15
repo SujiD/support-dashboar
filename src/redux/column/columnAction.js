@@ -15,8 +15,15 @@ export const updateCols = (columns) => {
   };
 };
 
+export const resetColumn = (columns) => {
+  return {
+    type: columnTypes.RESETCOL,
+    payload: columns,
+  };
+};
+
 export const clearCols = () => {
-  return{
+  return {
     type: columnTypes.CLEARCOLS,
-  }
-}
+  };
+};

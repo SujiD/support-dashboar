@@ -12,6 +12,7 @@ import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
 import Authenticate from "./auth/Authenticate";
 import Authentication from "./auth/Authentication";
+import LoginButton from "./components/LoginButton";
 
 function App() {
   const styles = useSpring({
@@ -25,7 +26,8 @@ function App() {
           <Router>
             <HandleErrors />
             <Routes>
-              <Route path="/" element={<Authenticate />} exact />
+              <Route path='/' element={<LoginButton />} exact />
+              <Route path="/authenticate" element={<Authenticate />} exact />
               <Route path="authentication" element={<Authentication />} exact />
               <Route path="/home" element={<HomePage />} exact />
               <Route path="*" element={<ErrorPage />} exact />

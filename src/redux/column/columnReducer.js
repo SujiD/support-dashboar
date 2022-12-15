@@ -21,6 +21,11 @@ export const columnReducer = (state = initialState, action) => {
         ...state,
         columns: newArray,
       };
+    case columnTypes.RESETCOL:
+      return {
+        ...state,
+        columns: action.payload,
+      };
     case columnTypes.CLEARCOLS:
       return initialState;
     default:

@@ -9,7 +9,8 @@ import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { updateFacets } from "../../common/FacetHelper";
-import {updateResetFacet } from "../../redux/runtime/runtimeActions";
+import { changeColSortRuntime, updateResetFacet } from "../../redux/runtime/runtimeActions";
+import { resetColumn } from "../../redux/column/columnAction";
 
 const PieChartPopup = ({
   size,
@@ -32,10 +33,13 @@ const PieChartPopup = ({
     return state.runtime.results;
   });
 
-  // const test = useSelector((state) => {
-  //   return state.runtime
-  // })
-// working to check columnSort in runtime
+  const columnChanges = useSelector((state) => {
+    return state.column.columns;
+  });
+
+  const runtimeColumnSorting = useSelector((state) => {
+    return state.runtime.columnsort;
+  });
 
   let heading = title;
   let reqBody = {
@@ -47,8 +51,6 @@ const PieChartPopup = ({
   const pageData = useSelector((state) => {
     return state.pageData;
   });
-
-
 
   const handleUpdate = () => {
     setLoading(true);
@@ -77,14 +79,31 @@ const PieChartPopup = ({
       });
   };
 
+  const handleColumnChangeReset = () => {
+    const newColumnsAfterReset = columnChanges.filter(
+      (column) => column.id !== id
+    );
+    dispatch(resetColumn(newColumnsAfterReset));
+  };
+
+  const handleColumnSortingReset = () => {
+    if(runtimeColumnSorting[id])
+    {
+      delete runtimeColumnSorting[id]
+      dispatch(changeColSortRuntime(runtimeColumnSorting))
+    }
+  }
+
   const handleReset = () => {
     setLoading(true);
     setShowUpdate(true);
+    handleColumnChangeReset();
+    handleColumnSortingReset();
     const updatedInitialFacets = updateFacets({}, initialFacets);
     runtimeResults.facets[id] = updatedInitialFacets[id];
-    dispatch(updateResetFacet(runtimeResults.facets))
+    dispatch(updateResetFacet(runtimeResults.facets));
     reqBody.facets = runtimeResults.facets;
-       apiClient.entityService
+    apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
         dispatch(fetchFacetsUpdate(res.data));
@@ -105,7 +124,7 @@ const PieChartPopup = ({
         setError(err);
         setLoading(false);
       });
-  }
+  };
 
   const getHiddenIndices = () => {
     const hiddenIndicesObj = {};
