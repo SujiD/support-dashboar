@@ -8,8 +8,8 @@ const Authenticate = () => {
   const { setError } = useContext(ErrorContext);
   const [prepareData, setPrepareData] = useState({ endpoint: "", payload: {} });
   useEffect(() => {
-    const getPreparedData = async () => {
-      return await apiClient.authenticateService
+    const getPreparedData = () => {
+      return apiClient.authenticateService
         .initializeReq({
           redirect_uri: "http://localhost:3000/authentication",
           client_id: "12197290340244569131",
