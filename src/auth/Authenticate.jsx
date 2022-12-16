@@ -29,8 +29,6 @@ const Authenticate = () => {
         });
     };
     getPreparedData();
-    // Side Effect Cleanup
-    return () => {};
   }, [apiClient.authenticateService, setError]);
 
   useEffect(() => {
