@@ -11,9 +11,9 @@ const Authenticate = () => {
     const getPreparedData = () => {
       return apiClient.authenticateService
         .initializeReq({
-          redirect_uri: "http://localhost:3000/authentication",
-          client_id: "12197290340244569131",
-          state: "svgnhTsbv&8sNu",
+          redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
+          client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+          state: `${process.env.REACT_APP_STATE}`,
           response_mode: "query",
         })
         .then((res) => {

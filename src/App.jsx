@@ -19,6 +19,7 @@ function App() {
     from: { opacity: 0 },
     to: { opacity: 1 },
   });
+
   return (
     <Provider store={store}>
       <animated.div style={styles}>

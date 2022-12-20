@@ -60,8 +60,7 @@ const Authentication = () => {
           console.log(err.response.data);
         });
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [apiClient.authenticateService, code, description, message, navigate, setError, state]);
 
   return showLogin && code == null ? (
     <SignIn formData={formData} />
