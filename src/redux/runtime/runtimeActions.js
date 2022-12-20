@@ -71,6 +71,13 @@ export const changeColSortRuntime = (changedCols) => {
   };
 };
 
+export const updateSearch = (searchValue) => {
+  return {
+    type: runtimeTypes.UPDATE_SEARCH,
+    payload: searchValue
+  }
+}
+
 export const fetchRuntimeFailure = (error) => {
   return {
     type: runtimeTypes.FETCH_RUNTIME_FAILURE,

@@ -29,8 +29,8 @@ const initialState = {
     "ticket.meta.issueNumber",
     "survey.collateralComment",
     "survey.shipmentDetailsComment",
-
   ],
+  search: "",
   columnsort: {},
   initialResults: {},
   results: {},
@@ -46,7 +46,7 @@ export const runtimeReducer = (state = initialState, action) => {
     case runtimeTypes.UPDATE_RESET_FACET:
       return {
         ...state,
-        results: {...state.results, facets: action.payload}
+        results: { ...state.results, facets: action.payload },
       };
     case runtimeTypes.FETCH_RUNTIME_SUCCESS:
       return {
@@ -89,6 +89,12 @@ export const runtimeReducer = (state = initialState, action) => {
       return {
         ...state,
         columnsort: action.payload,
+        error: "",
+      };
+    case runtimeTypes.UPDATE_SEARCH:
+      return {
+        ...state,
+        search: action.payload,
         error: "",
       };
     case runtimeTypes.FETCH_RUNTIME_FAILURE:

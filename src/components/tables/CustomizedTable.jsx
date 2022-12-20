@@ -40,6 +40,7 @@ import { OverlayTrigger, Spinner, Tooltip, Button } from "react-bootstrap";
 import {
   changeColSortRuntime,
   initializeColumnSort,
+  updateSearch,
 } from "../../redux/runtime/runtimeActions";
 import { clearCols } from "../../redux/column/columnAction";
 
@@ -71,6 +72,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     return state.runtime.results;
   });
 
+  const runtimeSearch = useSelector((state) => {
+    return state.runtime.search;
+  });
+
   const columnChanges = useSelector((state) => {
     return state.column.columns;
   });
@@ -96,7 +101,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       });
     setLoading(false);
   }, [apiClient.entityService, setError, setLoading, dispatch]);
-
 
   const ticketCols = tableFields.map((ticketCol) => {
     return {
@@ -126,8 +130,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     headerGroups,
     page,
     prepareRow,
-    state,
-    setGlobalFilter,
+    // state,
+    // setGlobalFilter,
     setPageSize,
     allColumns,
     visibleColumns,
@@ -172,7 +176,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setPageSize(pageStoreData.pageSize);
   }, [pageStoreData.pageSize, setPageSize]);
 
-  const { globalFilter } = state;
+  // const { globalFilter } = state;
 
   const handleFilter = (columnName) => {
     const facetValues = facetTableData.facets[columnName.name]?.values;
@@ -229,7 +233,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     );
   };
 
-  // console.log(runtimeColumnSorting)
   const paginationHelper = (next, prev, start, type) => {
     let func;
     if (type === "pageSize") {
@@ -242,6 +245,9 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
     setLoading(true);
     reqBody.facets = runTimeResults.facets;
+    if (runtimeSearch !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    }
     if (Object.keys(runtimeColumnSorting).length > 0) {
       reqBody.sort = runtimeColumnSorting;
     }
@@ -374,15 +380,39 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       });
   };
 
+  const handleSearch = (filterValue) => {
+    setLoading(true);
+    let newQuery = `${reqBody.q} AND ${filterValue}`;
+    reqBody.q = newQuery;
+    dispatch(updateSearch(filterValue));
+    apiClient.entityService
+      .getAllSearchData(reqBody)
+      .then((res) => {
+        dispatch(fetchFacetsUpdate(res.data));
+        dispatch(
+          fetchPageDataSuccess({
+            pageSize: res.data["page-length"],
+            totalLength: res.data.total,
+            numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
+            next: pageStoreData.next,
+            prev: pageStoreData.prev,
+            start: res.data.start,
+          })
+        );
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err);
+      });
+  };
+
   return (
     <>
       {visibleColumns.length > 0 ? (
         <>
           <div className="d-flex justify-content-evenly my-3 mt-5 px-2">
-            <GlobalFilter
-              globalFilter={globalFilter}
-              setGlobalFilter={setGlobalFilter}
-            />
+            <GlobalFilter handleSearch={handleSearch} />
             <div
               className="d-flex gap-5 justify-content-center align-items-center"
               style={{ width: "40%" }}
@@ -509,7 +539,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                       <tr {...row.getRowProps()}>
                         {row.cells.map((cell) => {
                           return (
-                            <td {...cell.getCellProps()} onClick={(cell) => console.log(cell)}>
+                            <td
+                              {...cell.getCellProps()}
+                              onClick={(cell) => console.log(cell)}
+                            >
                               {cell.render("Cell")}
                             </td>
                           );

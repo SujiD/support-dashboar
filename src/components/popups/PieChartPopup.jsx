@@ -7,7 +7,7 @@ import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
 import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { faUndo } from "@fortawesome/free-solid-svg-icons";
 import { updateFacets } from "../../common/FacetHelper";
 import {
@@ -16,7 +16,6 @@ import {
 } from "../../redux/runtime/runtimeActions";
 import { resetColumn } from "../../redux/column/columnAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 const PieChartPopup = ({
   size,
@@ -47,6 +46,10 @@ const PieChartPopup = ({
     return state.runtime.columnsort;
   });
 
+  const runtimeSearch = useSelector((state) => {
+    return state.runtime.search;
+  });
+
   let heading = title;
   let reqBody = {
     appPath: "Report",
@@ -54,7 +57,7 @@ const PieChartPopup = ({
     start: "1",
     view: "all",
   };
-  const pageData = useSelector((state) => {
+  const pageStoreData = useSelector((state) => {
     return state.pageData;
   });
 
@@ -62,6 +65,9 @@ const PieChartPopup = ({
     setLoading(true);
     setShowUpdate(true);
     reqBody.facets = runtimeResults.facets;
+    if (runtimeSearch !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    }
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -71,8 +77,8 @@ const PieChartPopup = ({
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
             numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
-            next: pageData.next,
-            prev: pageData.prev,
+            next: pageStoreData.next,
+            prev: pageStoreData.prev,
             start: res.data.start,
           })
         );
@@ -108,6 +114,9 @@ const PieChartPopup = ({
     runtimeResults.facets[id] = updatedInitialFacets[id];
     dispatch(updateResetFacet(runtimeResults.facets));
     reqBody.facets = runtimeResults.facets;
+    if (runtimeSearch !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    }
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -131,8 +140,9 @@ const PieChartPopup = ({
       });
   };
 
-  const getHiddenIndices = () => {
-    const hiddenIndicesObj = {};
+  const getHiddenIndices = useCallback(
+    () => {
+      const hiddenIndicesObj = {};
     if (facetData) {
       facetData?.datasets[0].data.forEach((element, index) => {
         if (element === 0) {
@@ -141,12 +151,26 @@ const PieChartPopup = ({
       });
     }
     setHiddenIndices(hiddenIndicesObj);
-  };
+    },
+    [facetData],
+  )
+  
+  // const getHiddenIndices = () => {
+  //   const hiddenIndicesObj = {};
+  //   if (facetData) {
+  //     facetData?.datasets[0].data.forEach((element, index) => {
+  //       if (element === 0) {
+  //         hiddenIndicesObj[index] = true;
+  //       }
+  //     });
+  //   }
+  //   setHiddenIndices(hiddenIndicesObj);
+  // };
 
   useEffect(() => {
+    console.log('check')
     getHiddenIndices();
-    // eslint-disable-next-line
-  }, [facetData]);
+  }, [getHiddenIndices]);
   return (
     <Modal centered size={size} show={showPopup}>
       <Modal.Header className="d-flex align-items-center justify-content-center">
@@ -157,11 +181,11 @@ const PieChartPopup = ({
           style={{
             backgroundColor: "#060b26",
             borderColor: "#060b26",
-            width: '120px'
+            width: "120px",
           }}
           onClick={() => handleReset()}
         >
-          <FontAwesomeIcon icon={faUndo} className='me-2'/>
+          <FontAwesomeIcon icon={faUndo} className="me-2" />
           Reset
         </Button>
       </Modal.Header>
