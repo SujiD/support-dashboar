@@ -28,7 +28,6 @@ const Authentication = () => {
             response_mode: "query",
           })
           .then((res) => {
-            
             setFormData({
               endpoint: res.data.endpoint,
               payload: res.data.payload,
@@ -52,7 +51,7 @@ const Authentication = () => {
           console.log(res.data);
           sessionStorage.setItem("token", res.data.token);
           sessionStorage.setItem("state", state);
-          sessionStorage.setItem("expiry", res.data.expires)
+          sessionStorage.setItem("expiry", res.data.expires);
           navigate("/home");
         })
         .catch((err) => {
@@ -60,7 +59,15 @@ const Authentication = () => {
           console.log(err.response.data);
         });
     }
-  }, [apiClient.authenticateService, code, description, message, navigate, setError, state]);
+  }, [
+    apiClient.authenticateService,
+    code,
+    description,
+    message,
+    navigate,
+    setError,
+    state,
+  ]);
 
   return showLogin && code == null ? (
     <SignIn formData={formData} />

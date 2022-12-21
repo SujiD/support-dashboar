@@ -12,7 +12,7 @@ import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
 import Authenticate from "./auth/Authenticate";
 import Authentication from "./auth/Authentication";
-import LandingPage from "./components/LandingPage";
+import LandingPage from '../src/landing-page/LandingPage'
 
 function App() {
   const styles = useSpring({

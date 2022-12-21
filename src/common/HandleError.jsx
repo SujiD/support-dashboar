@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import PopUp from "../components/popups/Popup";
 import { ErrorContext } from "../contexts/ErrorContext";
+import { useNavigate } from "react-router-dom";
 
 function HandleErrors() {
   const { error, setError } = useContext(ErrorContext);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [title, setTitle] = useState("Error");
   const [errorMsg, setErrorMsg] = useState("");
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (error !== undefined) {
@@ -65,6 +67,7 @@ function HandleErrors() {
         title={title}
         body={errorMsg}
         closeBtnName="Close"
+        handleClose={() => navigate("/pagenotfound")}
       />
     </>
   );

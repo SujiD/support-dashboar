@@ -39,9 +39,9 @@ const ErrorPage = () => {
         <Button
           variant="danger"
           className="goHome"
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         >
-          Go Home
+          Go Back to get Started
         </Button>
       </div>
     </>
