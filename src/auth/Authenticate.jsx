@@ -13,7 +13,7 @@ const Authenticate = () => {
         .initializeReq({
           redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
           client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-          state: `${process.env.REACT_APP_STATE}`,
+          state: 'svgnhTsbv&8sNu',
           response_mode: "query",
         })
         .then((res) => {

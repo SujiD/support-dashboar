@@ -8,7 +8,7 @@ import Calendar from "../calendar/Calendar";
 import BarChart from "../charts/BarChart";
 import APIClient from "../../api/APIClient";
 import Loading from "../loading/Loading";
-import * as FACET_VALUES from '../../common/Values'
+import * as FACET_VALUES from '../../common/values'
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { useDispatch } from "react-redux";
 import { fetchFacetsSuccess } from "../../redux/facet/facetActions";

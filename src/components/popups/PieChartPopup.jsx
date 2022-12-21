@@ -9,7 +9,7 @@ import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { faUndo } from "@fortawesome/free-solid-svg-icons";
-import { updateFacets } from "../../common/FacetHelper";
+import { updateFacets } from "../../common/facetHelper";
 import {
   changeColSortRuntime,
   updateResetFacet,
