@@ -12,13 +12,14 @@ import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
 import Authenticate from "./auth/Authenticate";
 import Authentication from "./auth/Authentication";
-import LoginButton from "./components/LoginButton";
+import LandingPage from '../src/landing-page/LandingPage'
 
 function App() {
   const styles = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
   });
+
   return (
     <Provider store={store}>
       <animated.div style={styles}>
@@ -26,7 +27,7 @@ function App() {
           <Router>
             <HandleErrors />
             <Routes>
-              <Route path='/' element={<LoginButton />} exact />
+              <Route path='/' element={<LandingPage />} exact />
               <Route path="/authenticate" element={<Authenticate />} exact />
               <Route path="authentication" element={<Authentication />} exact />
               <Route path="/home" element={<HomePage />} exact />

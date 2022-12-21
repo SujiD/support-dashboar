@@ -8,11 +8,11 @@ const Authenticate = () => {
   const { setError } = useContext(ErrorContext);
   const [prepareData, setPrepareData] = useState({ endpoint: "", payload: {} });
   useEffect(() => {
-    const getPreparedData = async () => {
-      return await apiClient.authenticateService
+    const getPreparedData = () => {
+      apiClient.authenticateService
         .initializeReq({
-          redirect_uri: "http://localhost:3000/authentication",
-          client_id: "12197290340244569131",
+          redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
+          client_id: `${process.env.REACT_APP_CLIENT_ID}`,
           state: "svgnhTsbv&8sNu",
           response_mode: "query",
         })
@@ -21,7 +21,6 @@ const Authenticate = () => {
             endpoint: res.data.endpoint,
             payload: res.data.payload,
           });
-          return res.data;
         })
         .catch((err) => {
           setError(err);
@@ -43,6 +42,15 @@ const Authenticate = () => {
       }
     }, "5000");
   }, [setError]);
+
+  useEffect(() => {
+    window.onload = function () {
+      if (!window.location.hash) {
+        window.location = window.location + "#loaded";
+        window.location.reload();
+      }
+    };
+  }, []);
 
   return (
     <div>

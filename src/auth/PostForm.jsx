@@ -3,8 +3,6 @@ import Loading from "../components/loading/Loading";
 
 const PostForm = ({ postFormData }) => {
   useEffect(() => {
-    console.log(postFormData.endpoint);
-    console.log(document.getElementsByClassName("postForm")[0]);
     setTimeout(() => {
       document.getElementsByClassName("postForm")[0].submit();
     }, "5000");

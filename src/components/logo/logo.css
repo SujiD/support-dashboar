@@ -1,0 +1,28 @@
+.white-box{
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    position: relative;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.lower-red-box{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 2px;
+    background-color:#eb4034;
+    left: 50px;
+    top: 48px;
+}
+
+.upper-red-box{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    background-color:#eb4034;
+    left: 77px;
+    top: 28px;
+}
