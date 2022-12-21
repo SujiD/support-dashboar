@@ -17,7 +17,7 @@ import {
 import GlobalFilter from "../search-filters/GlobalFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ColumnFilter from "../search-filters/ColumnFilter";
-import { Checkbox } from "../checkbox/Checkbox";
+// import { Checkbox } from "../checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../database/Data";
@@ -131,7 +131,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setPageSize,
     allColumns,
     visibleColumns,
-    getToggleHideAllColumnsProps,
+    // getToggleHideAllColumnsProps,
   } = useTable(
     {
       columns: columns,
@@ -387,10 +387,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
               className="d-flex gap-5 justify-content-center align-items-center"
               style={{ width: "40%" }}
             >
-              <div className="checkbox d-flex mt-3">
+              {/* <div className="checkbox d-flex mt-3">
                 <Checkbox {...getToggleHideAllColumnsProps()} id="all-hidden" />
                 <label htmlFor="all-hidden">Toggle All</label>
-              </div>
+              </div> */}
               <FontAwesomeIcon
                 icon={faGear}
                 onClick={() => setShowTicketPopup(true)}

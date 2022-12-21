@@ -218,16 +218,16 @@ input[type="password"] {
 
 /* Download Icon */
 .download-icon {
-  
   color: black;
   float: right;
   text-decoration: none;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  text-align: center;
 }
 
-.download-icon:hover{
+.download-icon:hover {
   color: black;
   background-color: #ddd;
   transition: all 0.5s;
@@ -281,18 +281,25 @@ input[type="password"] {
   transform: rotate(45deg);
 }
 
-
 /* tooltip */
 .my-tooltip > .tooltip-inner {
   background-color: #fff;
   color: #000;
   border: 1px solid #062e56;
-  }
-  
-  .my-tooltip > .tooltip-arrow {
-    border-top: 5px solid #062e56;
+}
 
+.my-tooltip > .tooltip-arrow {
+  border-top: 5px solid #062e56;
+}
+
+@media screen and (max-width: 1280px) {
+  .main-btn {
+    width: 150px;
   }
+  .download-icon{
+    width: 150px;
+  }
+}
 
 @media screen and (max-width: 990px) {
   .text {
@@ -300,6 +307,8 @@ input[type="password"] {
     font-size: 18px;
   }
 }
+
+
 @media screen and (max-width: 800px) {
   .heading {
     font-size: 20px;
