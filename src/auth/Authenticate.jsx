@@ -13,7 +13,7 @@ const Authenticate = () => {
         .initializeReq({
           redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
           client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-          state: 'svgnhTsbv&8sNu',
+          state: "svgnhTsbv&8sNu",
           response_mode: "query",
         })
         .then((res) => {
@@ -43,12 +43,14 @@ const Authenticate = () => {
     }, "5000");
   }, [setError]);
 
-  window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
+  useEffect(() => {
+    window.onload = function () {
+      if (!window.location.hash) {
+        window.location = window.location + "#loaded";
         window.location.reload();
-    }
-}
+      }
+    };
+  }, []);
 
   return (
     <div>
