@@ -4,7 +4,7 @@ const initialFacet = () => ({
   values: {},
 });
 
-// the value tnhat goes into values
+// the value that goes into values
 
 const initialFacetValue = () => ({
   text: "",

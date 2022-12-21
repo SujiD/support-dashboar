@@ -8,6 +8,7 @@ function PopUp({
   body,
   size,
   proceedBtnName,
+  handleClose,
   closeBtnName,
   handleProceed,
   loading,
@@ -22,6 +23,7 @@ function PopUp({
             <Button
               className="main-btn me-3"
               onClick={() => {
+                if (handleClose) handleClose();
                 setShowPopup(false);
               }}
             >

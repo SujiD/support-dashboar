@@ -8,7 +8,7 @@ import Calendar from "../calendar/Calendar";
 import BarChart from "../charts/BarChart";
 import APIClient from "../../api/APIClient";
 import Loading from "../loading/Loading";
-import IDs from "../../common/Values";
+import * as FACET_VALUES from '../../common/Values'
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { useDispatch } from "react-redux";
 import { fetchFacetsSuccess } from "../../redux/facet/facetActions";
@@ -61,11 +61,11 @@ export const HomePage = () => {
         );
         setInitialFacets(res.data.facets);
         setStatusData({
-          labels: res.data.facets[IDs.status]?.facetValues?.map((d) => d.name),
+          labels: res.data.facets[FACET_VALUES.STATUS]?.facetValues?.map((d) => d.name),
           datasets: [
             {
               label: "Status",
-              data: res.data.facets[IDs.status]?.facetValues?.map(
+              data: res.data.facets[FACET_VALUES.STATUS]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#ff984e"],
@@ -75,13 +75,13 @@ export const HomePage = () => {
           ],
         });
         setPriorityData({
-          labels: res.data.facets[IDs.priority]?.facetValues?.map(
+          labels: res.data.facets[FACET_VALUES.PRIORITY]?.facetValues?.map(
             (d) => d.name
           ),
           datasets: [
             {
               label: "Priority",
-              data: res.data.facets[IDs.priority]?.facetValues?.map(
+              data: res.data.facets[FACET_VALUES.PRIORITY]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#42d4f4"],
@@ -91,13 +91,13 @@ export const HomePage = () => {
           ],
         });
         setDepartmentData({
-          labels: res.data.facets[IDs.department]?.facetValues?.map(
+          labels: res.data.facets[FACET_VALUES.DEPARTMENT]?.facetValues?.map(
             (data) => data.name
           ),
           datasets: [
             {
               label: "Department",
-              data: res.data.facets[IDs.department]?.facetValues?.map(
+              data: res.data.facets[FACET_VALUES.DEPARTMENT]?.facetValues?.map(
                 (data) => data.count
               ),
               backgroundColor: ["#f5d881"],
@@ -107,13 +107,13 @@ export const HomePage = () => {
           ],
         });
         // setOwnerD({
-        //   labels: res.data.facets[IDs.owner].facetValues?.map(
+        //   labels: res.data.facets[FACET_VALUES.OWNER].facetValues?.map(
         //     (data) => data.name
         //   ),
         //   datasets: [
         //     {
         //       label: "Owner",
-        //       data: res.data.facets[IDs.owner].facetValues?.map(
+        //       data: res.data.facets[FACET_VALUES.OWNER].facetValues?.map(
         //         (data) => data.count
         //       ),
         //       backgroundColor: ["#70d8c1"],
