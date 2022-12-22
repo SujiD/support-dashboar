@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import * as ROUTES from "../../common/routes";
 import "./Error.css";
 
 const ErrorPage = () => {
@@ -39,7 +40,7 @@ const ErrorPage = () => {
         <Button
           variant="danger"
           className="goHome"
-          onClick={() => navigate("/")}
+          onClick={() => navigate(`${ROUTES.GET_STARTED}`)}
         >
           Go Back to get Started
         </Button>

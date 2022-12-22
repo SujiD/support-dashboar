@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 import landingImage from "../assests/landingPage.svg";
 import Header from "./Header";
+import * as ROUTES from "../common/routes";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const LandingPage = () => {
       <div className="sub-container">
         <h1 className="text-light">Welcome to Support Dashboard</h1>
         <Button
-          onClick={() => navigate("/authenticate")}
+          onClick={() => navigate(`${ROUTES.INITIALIZE}`)}
           className="get-started-btn"
         >
           Get Started

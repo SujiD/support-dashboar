@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import "./SearchFilters.css";
-const GlobalFilter = ({handleSearch}) => {
+const GlobalFilter = ({ handleSearch }) => {
   const [filter, setFilter] = useState("");
 
   return (
@@ -13,6 +13,7 @@ const GlobalFilter = ({handleSearch}) => {
         onChange={(event) => setFilter(event.target.value)}
         className="searchInput ms-1"
       />
+
       <FontAwesomeIcon
         icon={faSearch}
         className="SearchButton"

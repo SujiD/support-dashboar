@@ -1,0 +1,44 @@
+.view-padding {
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 2%;
+}
+.bootstrap-tab-container {
+  border-bottom: solid 3px var(--primBlue) !important;
+  flex-wrap: nowrap !important;
+  overflow: none !important;
+}
+.bootstrap-single-tab {
+  background: linear-gradient(
+    0deg,
+    var(--primBlue) 0%,
+    #c7ddf8 0.01%,
+    var(--terBlue) 100%
+  ) !important;
+  font-weight: bold !important;
+  color: black !important;
+  width: 255px !important;
+  border: none !important;
+  margin-left: 10% !important;
+  margin-bottom: 0px !important;
+  box-shadow: 2px 0px 4px 0px #00000040 !important;
+  transition: none;
+}
+.bootstrap-single-tab:hover {
+  color: black !important;
+  background: var(--terBlue) !important;
+  transition: all 0.2s ease-in-out;
+}
+.bootstrap-single-tab.active {
+  background: var(--primBlue) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+.bootstrap-tab-content {
+  /* border-top: 25px solid var(--terBlue) !important; */
+  box-shadow: 0 0px 7px 0px #c5c5c5 !important;
+  border-radius: 3px !important;
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  padding: 2%;
+}

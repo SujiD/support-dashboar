@@ -35,7 +35,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   line-height: 35px;
   font-size: 1rem;
   text-transform: uppercase;
-  background-color: #e75951;
+  background: var(--primBlue) !important;
   color: #fff;
 }
 .date {

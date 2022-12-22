@@ -8,14 +8,13 @@ import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { useEffect, useCallback } from "react";
-import { faUndo } from "@fortawesome/free-solid-svg-icons";
 import { updateFacets } from "../../common/facetHelper";
 import {
   changeColSortRuntime,
   updateResetFacet,
 } from "../../redux/runtime/runtimeActions";
 import { resetColumn } from "../../redux/column/columnAction";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as FaIcons from "react-icons/fa";
 
 const PieChartPopup = ({
   size,
@@ -140,9 +139,8 @@ const PieChartPopup = ({
       });
   };
 
-  const getHiddenIndices = useCallback(
-    () => {
-      const hiddenIndicesObj = {};
+  const getHiddenIndices = useCallback(() => {
+    const hiddenIndicesObj = {};
     if (facetData) {
       facetData?.datasets[0].data.forEach((element, index) => {
         if (element === 0) {
@@ -151,26 +149,12 @@ const PieChartPopup = ({
       });
     }
     setHiddenIndices(hiddenIndicesObj);
-    },
-    [facetData],
-  )
-  
-  // const getHiddenIndices = () => {
-  //   const hiddenIndicesObj = {};
-  //   if (facetData) {
-  //     facetData?.datasets[0].data.forEach((element, index) => {
-  //       if (element === 0) {
-  //         hiddenIndicesObj[index] = true;
-  //       }
-  //     });
-  //   }
-  //   setHiddenIndices(hiddenIndicesObj);
-  // };
+  }, [facetData]);
 
   useEffect(() => {
-    console.log('check')
     getHiddenIndices();
   }, [getHiddenIndices]);
+
   return (
     <Modal centered size={size} show={showPopup}>
       <Modal.Header className="d-flex align-items-center justify-content-center">
@@ -185,7 +169,7 @@ const PieChartPopup = ({
           }}
           onClick={() => handleReset()}
         >
-          <FontAwesomeIcon icon={faUndo} className="me-2" />
+          <FaIcons.FaUndo className="me-2"/>
           Reset
         </Button>
       </Modal.Header>

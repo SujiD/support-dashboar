@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SideBarData } from "./SideBarData";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
+import * as ROUTES from "../../common/routes";
 
 export const NavBar = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -12,7 +13,7 @@ export const NavBar = () => {
   let navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/");
+    navigate(`${ROUTES.GET_STARTED}`);
     sessionStorage.clear();
   };
 
@@ -23,7 +24,7 @@ export const NavBar = () => {
           <Link to="#" className="menu-bars" onClick={showSidebar}>
             {sidebar ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
           </Link>
-          <Link to="/home" className="logo">
+          <Link to={ROUTES.HOME} className="logo">
             MarkLogic
           </Link>
           <button className="mx-5 logout-btn" onClick={handleLogout}>

@@ -1,3 +1,9 @@
+:root {
+  --primBlue: #060b26;
+  --secBlue: #012095;
+  --terBlue: #a7cafa;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -103,7 +109,7 @@ input[type="password"] {
 
 /* primary button */
 .main-btn {
-  background-color: #060b26 !important;
+  background-color: var(--primBlue) !important;
   color: white !important;
   border: solid 1px white;
   width: auto;
@@ -119,8 +125,8 @@ input[type="password"] {
 }
 
 .disable-btn {
-  background-color: #a6b2f1 !important;
-  color: white !important;
+  background-color: var(--terBlue) !important;
+  color: black !important;
   border: solid 1px white;
   width: auto;
   height: auto;
@@ -190,8 +196,8 @@ input[type="password"] {
 }
 
 .react-table tr {
-  border: 1px solid #a6b2f1;
-  border-bottom: #a6b2f1;
+  border: 1px solid var(--terBlue);
+  border-bottom: var(--terBlue);
 }
 
 .react-table tbody tr {
@@ -199,14 +205,14 @@ input[type="password"] {
 }
 
 .react-table tbody tr:hover {
-  background-color: #a6b2f1;
+  background-color: var(--terBlue);
 }
 
 .react-table thead {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #060b26;
+  background: linear-gradient(to right bottom, var(--primBlue) 50%, var(--secBlue));
   color: white;
 }
 
@@ -285,18 +291,21 @@ input[type="password"] {
 .my-tooltip > .tooltip-inner {
   background-color: #fff;
   color: #000;
-  border: 1px solid #062e56;
+  border: 1px solid var(--primBlue);
 }
 
 .my-tooltip > .tooltip-arrow {
-  border-top: 5px solid #062e56;
+  border-top: 5px solid var(--primBlue);
 }
 
 @media screen and (max-width: 1280px) {
   .main-btn {
     width: 150px;
   }
-  .download-icon{
+  .main-paginate-btn {
+    width: auto;
+  }
+  .download-icon {
     width: 150px;
   }
 }
@@ -307,7 +316,6 @@ input[type="password"] {
     font-size: 18px;
   }
 }
-
 
 @media screen and (max-width: 800px) {
   .heading {

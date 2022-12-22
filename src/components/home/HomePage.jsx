@@ -1,14 +1,10 @@
 import { NavBar } from "../nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
-// import { ownerData } from "../Database/Data";
-// import PieChart from "../components/charts/PieChart";
-// import DataView from "../components/tables/DataView";
-// import StaticBox from "../components/static-box/StaticBox";
 import Calendar from "../calendar/Calendar";
 import BarChart from "../charts/BarChart";
 import APIClient from "../../api/APIClient";
 import Loading from "../loading/Loading";
-import * as FACET_VALUES from '../../common/values'
+import * as FACET_VALUES from "../../common/values";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { useDispatch } from "react-redux";
 import { fetchFacetsSuccess } from "../../redux/facet/facetActions";
@@ -30,7 +26,6 @@ export const HomePage = () => {
     }),
     []
   );
-  // const [selectStat, setSelectStat] = useState("owner");
   const [apiClient] = useState(() => new APIClient());
   const [loading, setLoading] = useState(false);
   const [statusData, setStatusData] = useState();
@@ -61,7 +56,9 @@ export const HomePage = () => {
         );
         setInitialFacets(res.data.facets);
         setStatusData({
-          labels: res.data.facets[FACET_VALUES.STATUS]?.facetValues?.map((d) => d.name),
+          labels: res.data.facets[FACET_VALUES.STATUS]?.facetValues?.map(
+            (d) => d.name
+          ),
           datasets: [
             {
               label: "Status",
@@ -158,7 +155,6 @@ export const HomePage = () => {
             <button
               className="data-box-btn mt-5 align-center"
               style={{ borderColor: "#f5d881" }}
-              // onClick={() => setSelectStat("Department")}
             >
               <BarChart
                 chartData={departmentData}
@@ -170,7 +166,6 @@ export const HomePage = () => {
             <button
               className="data-box-btn mt-5"
               style={{ borderColor: "#ff984e" }}
-              // onClick={() => setSelectStat("Status")}
             >
               <BarChart
                 chartData={statusData}
@@ -182,7 +177,6 @@ export const HomePage = () => {
             <button
               className="data-box-btn mt-5"
               style={{ borderColor: "#42d4f4" }}
-              // onClick={() => setSelectStat("Priority")}
             >
               <BarChart
                 chartData={priorityData}
@@ -191,38 +185,6 @@ export const HomePage = () => {
               />
             </button>
           </div>
-          {/* <div className="d-flex">
-            <StaticBox
-              heading={"What's new with entities"}
-              content={
-                <div className=" d-flex align-items-center chart-container">
-                  <Form.Select
-                    size="sm"
-                    onChange={(event) => handleChange(event)}
-                    value={selectStat}
-                    className="select-btn"
-                  >
-                    <option value="Owner">Owner</option>
-                    <option value="Department">Department</option>
-                    <option value="Status">Status</option>
-                    <option value="Priority">Priority</option>
-                  </Form.Select>
-                  {selectStat === "Priority" ? (
-                    <PieChart chartData={priorityData} className="pie-chart" />
-                  ) : selectStat === "Status" ? (
-                    <PieChart chartData={statusData} className="pie-chart" />
-                  ) : selectStat === "Department" ? (
-                    <PieChart
-                      chartData={departmentData}
-                      className="pie-chart"
-                    />
-                  ) : (
-                    <PieChart chartData={ownerData} className="pie-chart" />
-                  )}
-                </div>
-              }
-            />
-          </div> */}
           <CustomizedTable
             loading={loading}
             setLoading={setLoading}

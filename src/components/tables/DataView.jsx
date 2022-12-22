@@ -1,6 +1,4 @@
 import { CSVLink } from "react-csv";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Spinner, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
@@ -35,7 +33,7 @@ const DataView = (props) => {
             filename={props.table + ".csv"}
             className="download-icon fa-lg mb-3 "
           >
-            Export <FontAwesomeIcon icon={faDownload} />
+            Export
           </CSVLink>
           <Table size="sm" className="react-table">
             <thead>

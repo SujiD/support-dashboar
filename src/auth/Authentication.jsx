@@ -4,6 +4,7 @@ import { useEffect, useContext, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import SignIn from "../components/login/SignIn";
 import Loading from "../components/loading/Loading";
+import * as ROUTES from "../common/routes";
 const Authentication = () => {
   let [searchParams] = useSearchParams(window.location.search);
   const [apiClient] = useState(() => new APIClient());
@@ -52,7 +53,7 @@ const Authentication = () => {
           sessionStorage.setItem("token", res.data.token);
           sessionStorage.setItem("state", state);
           sessionStorage.setItem("expiry", res.data.expires);
-          navigate("/home");
+          navigate(`${ROUTES.HOME}`);
         })
         .catch((err) => {
           setError(err);

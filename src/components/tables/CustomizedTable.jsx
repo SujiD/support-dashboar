@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext, useCallback } from "react";
 import {
   useTable,
   useSortBy,
@@ -6,25 +6,16 @@ import {
   useFilters,
   usePagination,
 } from "react-table";
-import {
-  faSortUp,
-  faSortDown,
-  faGear,
-  faFilter,
-  faAsterisk,
-  faRefresh,
-} from "@fortawesome/free-solid-svg-icons";
 import GlobalFilter from "../search-filters/GlobalFilter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ColumnFilter from "../search-filters/ColumnFilter";
-// import { Checkbox } from "../checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../database/Data";
 import PieChartPopup from "../popups/PieChartPopup";
 import APIClient from "../../api/APIClient";
-import { useContext } from "react";
 import { ErrorContext } from "../../contexts/ErrorContext";
+import * as FaIcons from "react-icons/fa";
+import * as IoIcons from "react-icons/io";
 import {
   fetchFacetsSuccess,
   fetchFacetsUpdate,
@@ -43,6 +34,8 @@ import {
   updateSearch,
 } from "../../redux/runtime/runtimeActions";
 import { clearCols } from "../../redux/column/columnAction";
+import { useNavigate } from "react-router-dom";
+import * as ROUTES from "../../common/routes";
 
 const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
@@ -55,6 +48,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const facetTableData = useSelector((state) => {
     return state.facet.facets;
@@ -102,21 +96,25 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setLoading(false);
   }, [apiClient.entityService, setError, setLoading, dispatch]);
 
-  const ticketCols = tableFields.map((ticketCol) => {
-    return {
-      Header: ticketCol.label,
-      name: ticketCol.name,
-      accessor: ticketCol.field,
-      disableSortBy: true,
-      maxWidth: 600,
-      sort: "default",
-    };
-  });
+  const ticketCols = useMemo(() => {
+    return tableFields.map((ticketCol) => {
+      return {
+        Header: ticketCol.label,
+        name: ticketCol.name,
+        accessor: ticketCol.field,
+        disableSortBy: true,
+        maxWidth: 600,
+        sort: "default",
+      };
+    });
+  }, [tableFields]);
 
-  // eslint-disable-next-line
-  const columns = useMemo(() => ticketCols, [tableFields]);
-  // eslint-disable-next-line
-  const ticketData = useMemo(() => facetTableData.results, []);
+  const columns = useMemo(() => ticketCols, [ticketCols]);
+
+  const ticketData = useMemo(
+    () => facetTableData.results,
+    [facetTableData.results]
+  );
 
   const defaultColumn = useMemo(() => {
     return {
@@ -151,7 +149,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     usePagination
   );
 
-  const csvHelper = () => {
+  const csvHelper = useCallback(() => {
     let finalArray = [];
     if (visibleColumns && visibleColumns.length > 0) {
       visibleColumns[0].filteredRows.forEach((row) => {
@@ -166,11 +164,11 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       });
       setCSVData(finalArray);
     }
-  };
+  }, [visibleColumns, prepareRow]);
+
   useEffect(() => {
     csvHelper();
-    // eslint-disable-next-line
-  }, [visibleColumns]);
+  }, [csvHelper]);
 
   useEffect(() => {
     setPageSize(pageStoreData.pageSize);
@@ -356,6 +354,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setLoading(true);
     dispatch(clearCols());
     dispatch(initializeColumnSort({}));
+    dispatch(updateSearch(""));
     reqBody.facets = initialFacets;
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -421,8 +420,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                 <Checkbox {...getToggleHideAllColumnsProps()} id="all-hidden" />
                 <label htmlFor="all-hidden">Toggle All</label>
               </div> */}
-              <FontAwesomeIcon
-                icon={faGear}
+              <IoIcons.IoIosSettings
                 onClick={() => setShowTicketPopup(true)}
                 style={{ cursor: "pointer" }}
                 className="fa-2x mx-3"
@@ -441,7 +439,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                     className="main-btn"
                   >
                     {" "}
-                    <FontAwesomeIcon icon={faRefresh} /> Reset All
+                    <IoIcons.IoIosRefresh /> Reset All
                   </Button>
                 </>
               ) : null}
@@ -498,8 +496,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                         >
                           {column.render("Header")}
                         </span>
-                        <FontAwesomeIcon
-                          icon={faFilter}
+                        <FaIcons.FaFilter
                           className="ms-1"
                           onClick={() => handleFilter(column)}
                         />
@@ -509,8 +506,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                             cols.changes.length > 0
                           ) {
                             return (
-                              <FontAwesomeIcon
-                                icon={faAsterisk}
+                              <FaIcons.FaAsterisk
                                 key={index}
                                 className="ms-1 fa-1x"
                               />
@@ -520,9 +516,9 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                           }
                         })}
                         {runtimeColumnSorting[column.name] === "asc" ? (
-                          <FontAwesomeIcon icon={faSortDown} />
+                          <FaIcons.FaSortDown />
                         ) : runtimeColumnSorting[column.name] === "desc" ? (
-                          <FontAwesomeIcon icon={faSortUp} />
+                          <FaIcons.FaSortUp />
                         ) : (
                           ""
                         )}
@@ -541,7 +537,11 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                           return (
                             <td
                               {...cell.getCellProps()}
-                              onClick={(cell) => console.log(cell)}
+                              onClick={() =>
+                                navigate(
+                                  `${ROUTES.VIEW_REPORT}/${row.original.id}`
+                                )
+                              }
                             >
                               {cell.render("Cell")}
                             </td>
@@ -586,9 +586,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
               </select>
               <button
                 className={
-                  pageStoreData.prev === 1 ? "disable-btn" : "main-btn"
+                  pageStoreData.prev === 1
+                    ? "disable-btn"
+                    : "main-btn main-paginate-btn"
                 }
-                // className="main-btn"
                 onClick={gotoStartPage}
                 disabled={pageStoreData.prev === 1}
               >
@@ -596,9 +597,10 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
               </button>
               <button
                 className={
-                  pageStoreData.prev === 1 ? "disable-btn" : "main-btn"
+                  pageStoreData.prev === 1
+                    ? "disable-btn"
+                    : "main-btn main-paginate-btn"
                 }
-                // className="main-btn"
                 onClick={handlePrevPage}
                 disabled={pageStoreData.prev === 1}
               >
@@ -611,9 +613,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                     ? pageStoreData.numOfPages + 1
                     : pageStoreData.numOfPages)
                     ? "disable-btn"
-                    : "main-btn"
+                    : "main-btn main-paginate-btn"
                 }
-                // className="main-btn"
                 onClick={handleNextPage}
                 disabled={
                   pageStoreData.next ===
@@ -631,9 +632,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                     ? pageStoreData.numOfPages + 1
                     : pageStoreData.numOfPages)
                     ? "disable-btn"
-                    : "main-btn"
+                    : "main-btn main-paginate-btn"
                 }
-                // className="main-btn"
                 onClick={gotoLastPage}
                 disabled={
                   pageStoreData.next ===

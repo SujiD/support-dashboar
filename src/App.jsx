@@ -5,14 +5,16 @@ import { useSpring, animated } from "react-spring";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import ErrorPage from "./components/Error/ErrorPage";
+import ErrorPage from "./components/error/ErrorPage";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import HandleErrors from "./common/HandleError";
 import Authenticate from "./auth/Authenticate";
 import Authentication from "./auth/Authentication";
-import LandingPage from '../src/landing-page/LandingPage'
+import LandingPage from "../src/landing-page/LandingPage";
+import * as ROUTES from "../src/common/routes";
+import ReportView from "./components/view-report/ReportView";
 
 function App() {
   const styles = useSpring({
@@ -27,11 +29,28 @@ function App() {
           <Router>
             <HandleErrors />
             <Routes>
-              <Route path='/' element={<LandingPage />} exact />
-              <Route path="/authenticate" element={<Authenticate />} exact />
-              <Route path="authentication" element={<Authentication />} exact />
-              <Route path="/home" element={<HomePage />} exact />
-              <Route path="*" element={<ErrorPage />} exact />
+              <Route
+                path={ROUTES.GET_STARTED}
+                element={<LandingPage />}
+                exact
+              />
+              <Route
+                path={ROUTES.INITIALIZE}
+                element={<Authenticate />}
+                exact
+              />
+              <Route
+                path={ROUTES.AUTHENTICATION}
+                element={<Authentication />}
+                exact
+              />
+              <Route path={ROUTES.HOME} element={<HomePage />} exact />
+              <Route
+                path={`${ROUTES.VIEW_REPORT}/:viewID`}
+                element={<ReportView />}
+                exact
+              />
+              <Route path={ROUTES.ERROR} element={<ErrorPage />} exact />
             </Routes>
           </Router>
           <ToastContainer />
