@@ -7,6 +7,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import TicketInfo from "../ticket-info/TicketInfo";
 import * as ROUTES from "../../common/routes";
 import "./ReportView.css";
+import SurveyInfo from "../../survey-info/SurveyInfo";
 
 const ReportView = () => {
   const { viewID } = useParams();
@@ -18,8 +19,6 @@ const ReportView = () => {
   const viewData = useMemo(() => {
     return originalViewData.filter((data) => data.id === viewID)[0];
   }, [originalViewData, viewID]);
-
-  console.log(viewData);
 
   return (
     <>
@@ -57,7 +56,7 @@ const ReportView = () => {
           tabClassName="bootstrap-single-tab"
         >
           <div className="bootstrap-tab-content">
-            <TicketInfo ticketInfo={viewData.ticket} />
+            <SurveyInfo surveyInfo={viewData.survey} />
           </div>
         </Tab>
       </Tabs>

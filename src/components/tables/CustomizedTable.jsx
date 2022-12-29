@@ -496,10 +496,15 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                         >
                           {column.render("Header")}
                         </span>
-                        <FaIcons.FaFilter
-                          className="ms-1"
-                          onClick={() => handleFilter(column)}
-                        />
+                        {runTimeResults.facets[column.name] ? (
+                          <FaIcons.FaFilter
+                            className="ms-1"
+                            onClick={() => handleFilter(column)}
+                          />
+                        ) : (
+                          ""
+                        )}
+
                         {columnChanges.map((cols, index) => {
                           if (
                             cols.id === column.name &&
