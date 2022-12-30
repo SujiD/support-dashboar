@@ -27,7 +27,7 @@ import {
 } from "../../redux/page/pageActions";
 import { useEffect } from "react";
 import { CSVLink } from "react-csv";
-import { OverlayTrigger, Spinner, Tooltip, Button } from "react-bootstrap";
+import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import {
   changeColSortRuntime,
   initializeColumnSort,
@@ -435,18 +435,18 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                   >
                     Export CSV
                   </CSVLink>
-                  <Button
+                  <button
                     onClick={() => handleTotalReset()}
                     className="main-btn"
                   >
                     {" "}
                     <IoIcons.IoIosRefresh /> Reset All
-                  </Button>
+                  </button>
                 </>
               ) : null}
             </div>
           </div>
-          <div style={{ overflow: "auto" }}>
+          <div style={{ overflow: "auto", position: "relative", zIndex: 1 }}>
             <table {...getTableProps()} className="react-table">
               <thead>
                 {headerGroups.map((headerGroup) => (

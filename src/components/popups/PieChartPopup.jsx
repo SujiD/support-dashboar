@@ -49,6 +49,10 @@ const PieChartPopup = ({
     return state.runtime.search;
   });
 
+  const pageStoreData = useSelector((state) => {
+    return state.pageData;
+  });
+
   let heading = title;
   let reqBody = {
     appPath: "Report",
@@ -56,9 +60,6 @@ const PieChartPopup = ({
     start: "1",
     view: "all",
   };
-  const pageStoreData = useSelector((state) => {
-    return state.pageData;
-  });
 
   const handleUpdate = () => {
     setLoading(true);
@@ -169,7 +170,7 @@ const PieChartPopup = ({
           }}
           onClick={() => handleReset()}
         >
-          <FaIcons.FaUndo className="me-2"/>
+          <FaIcons.FaUndo className="me-2" />
           Reset
         </Button>
       </Modal.Header>

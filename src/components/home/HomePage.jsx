@@ -1,6 +1,6 @@
 import { NavBar } from "../nav-bar/NavBar";
 import { useEffect, useState, useContext } from "react";
-import Calendar from "../calendar/Calendar";
+import CustomCalendar from "../calendar/Calendar";
 import BarChart from "../charts/BarChart";
 import APIClient from "../../api/APIClient";
 import Loading from "../loading/Loading";
@@ -136,19 +136,16 @@ export const HomePage = () => {
       <NavBar />
       {!loading && statusData && departmentData && priorityData ? (
         <>
-          <div className="date-cont">
-            <Calendar />
-          </div>
           <div className="d-flex align-items-center justify-content-evenly mb-5 top-home">
             {/* <button
               className="data-box-btn mt-5"
               style={{ borderColor: "#70d8c1" }}
               // onClick={() => setSelectStat("Owner")}
-            >
+              >
               <BarChart
-                chartData={ownerData}
-                className="bar-chart"
-                title={"Ticket status by Owner"}
+              chartData={ownerData}
+              className="bar-chart"
+              title={"Ticket status by Owner"}
               />
             </button> */}
 
@@ -184,6 +181,7 @@ export const HomePage = () => {
                 title={"Ticket status by Priority"}
               />
             </button>
+            <CustomCalendar setLoading={setLoading} loading={loading} />
           </div>
           <CustomizedTable
             loading={loading}
