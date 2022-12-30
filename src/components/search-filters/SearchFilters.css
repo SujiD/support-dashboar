@@ -20,8 +20,8 @@
 }
 
 .SearchButton {
-  width: 30px !important;
-  height: 30px !important;
+  /* width: 30px !important;
+  height: 30px !important; */
   padding: 10px !important;
   border: 1px solid #060b26 !important;
   background: #060b26 !important;

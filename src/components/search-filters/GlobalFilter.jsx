@@ -1,5 +1,4 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as FaIcons from "react-icons/fa";
 import { useState } from "react";
 import "./SearchFilters.css";
 const GlobalFilter = ({ handleSearch }) => {
@@ -14,9 +13,9 @@ const GlobalFilter = ({ handleSearch }) => {
         className="searchInput ms-1"
       />
 
-      <FontAwesomeIcon
-        icon={faSearch}
+      <FaIcons.FaSearch
         className="SearchButton"
+        size={51.5}
         onClick={() => handleSearch(filter)}
       />
     </div>

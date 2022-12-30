@@ -423,7 +423,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
               <IoIcons.IoIosSettings
                 onClick={() => setShowTicketPopup(true)}
                 style={{ cursor: "pointer" }}
-                className="fa-2x mx-3"
+                size={50}
+                className="mx-3"
               />
               {visibleColumns.length > 0 ? (
                 <>
