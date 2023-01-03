@@ -243,8 +243,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     }
     setLoading(true);
     reqBody.facets = runTimeResults.facets;
-    if (runtimeSearch !== "") {
-      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    if (runtimeSearch.value !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch.value}`;
     }
     if (Object.keys(runtimeColumnSorting).length > 0) {
       reqBody.sort = runtimeColumnSorting;
@@ -354,7 +354,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setLoading(true);
     dispatch(clearCols());
     dispatch(initializeColumnSort({}));
-    dispatch(updateSearch(""));
+    dispatch(updateSearch({ value: "", type: "string" }));
     reqBody.facets = initialFacets;
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -383,7 +383,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     setLoading(true);
     let newQuery = `${reqBody.q} AND ${filterValue}`;
     reqBody.q = newQuery;
-    dispatch(updateSearch(filterValue));
+    dispatch(updateSearch({ value: filterValue, type: "string" }));
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -393,8 +393,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
             numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
-            next: pageStoreData.next,
-            prev: pageStoreData.prev,
+            next: runtimeSearch.value === filterValue ? pageStoreData.next : 1,
+            prev: runtimeSearch.value === filterValue ? pageStoreData.next : 1,
             start: res.data.start,
           })
         );

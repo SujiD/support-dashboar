@@ -28,6 +28,7 @@ const PieChartPopup = ({
   initialFacets,
 }) => {
   const [showUpdate, setShowUpdate] = useState(true);
+  const [initialPagination, setInitialPagination] = useState(false);
   const [hiddenIndices, setHiddenIndices] = useState({});
   const { setError } = useContext(ErrorContext);
   const [apiClient] = useState(() => new APIClient());
@@ -65,8 +66,8 @@ const PieChartPopup = ({
     setLoading(true);
     setShowUpdate(true);
     reqBody.facets = runtimeResults.facets;
-    if (runtimeSearch !== "") {
-      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    if (runtimeSearch.value !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch.value}`;
     }
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -77,8 +78,8 @@ const PieChartPopup = ({
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
             numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
-            next: pageStoreData.next,
-            prev: pageStoreData.prev,
+            next: initialPagination ? 1 : pageStoreData.next,
+            prev: initialPagination ? 1 : pageStoreData.prev,
             start: res.data.start,
           })
         );
@@ -114,8 +115,8 @@ const PieChartPopup = ({
     runtimeResults.facets[id] = updatedInitialFacets[id];
     dispatch(updateResetFacet(runtimeResults.facets));
     reqBody.facets = runtimeResults.facets;
-    if (runtimeSearch !== "") {
-      reqBody.q = `${reqBody.q} AND ${runtimeSearch}`;
+    if (runtimeSearch.value !== "") {
+      reqBody.q = `${reqBody.q} AND ${runtimeSearch.value}`;
     }
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -182,6 +183,7 @@ const PieChartPopup = ({
               facetId={id}
               setShowUpdate={setShowUpdate}
               hiddenIndices={hiddenIndices}
+              setInitialPagination={setInitialPagination}
             />
           ) : (
             <Spinner animation="border" variant="primary" />

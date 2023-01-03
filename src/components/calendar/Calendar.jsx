@@ -10,6 +10,7 @@ import Loading from "../loading/Loading";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
+import { updateSearch } from "../../redux/runtime/runtimeActions";
 
 const CustomCalendar = ({ setLoading, loading }) => {
   const [date, setDate] = useState(new Date());
@@ -26,6 +27,10 @@ const CustomCalendar = ({ setLoading, loading }) => {
     return state.pageData;
   });
 
+  const runtimeSearch = useSelector((state) => {
+    return state.runtime.search;
+  });
+
   let reqBody = {
     appPath: "Report",
     q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
@@ -36,8 +41,6 @@ const CustomCalendar = ({ setLoading, loading }) => {
   const handleDateSearch = () => {
     setLoading(true);
     setShowCalendar(false);
-
-    console.log(date[0].getDay());
     const startDate = `${date[0].getFullYear()}-${(
       "0" + date[0].getDate()
     ).slice(-2)}-${("0" + (date[0].getMonth() + 1)).slice(-2)}T00:00:00Z`;
@@ -45,11 +48,10 @@ const CustomCalendar = ({ setLoading, loading }) => {
       "0" + date[1].getDate()
     ).slice(-2)}-${("0" + (date[1].getMonth() + 1)).slice(-2)}T00:00:00Z`;
 
-    reqBody[
-      "q"
-    ] += ` AND 93803cbe97e2b0a38b39c3f2016cfef5-creationtime GT ${startDate} AND 93803cbe97e2b0a38b39c3f2016cfef5-creationtime LT ${finishDate}`;
+    const newSearch = `93803cbe97e2b0a38b39c3f2016cfef5-creationtime GT ${startDate} AND 93803cbe97e2b0a38b39c3f2016cfef5-creationtime LT ${finishDate}`;
+    reqBody.q += ` AND ${newSearch}`;
+    dispatch(updateSearch({value: newSearch, type: 'date'}));
     reqBody.facets = runtimeResults.facets;
-    console.log(reqBody);
     apiClient.entityService
       .getAllSearchData(reqBody)
       .then((res) => {
@@ -59,8 +61,8 @@ const CustomCalendar = ({ setLoading, loading }) => {
             pageSize: res.data["page-length"],
             totalLength: res.data.total,
             numOfPages: Math.ceil(res.data.total / res.data["page-length"]),
-            next: pageStoreData.next,
-            prev: pageStoreData.prev,
+            next: runtimeSearch.value === newSearch ? pageStoreData.next : 1,
+            prev: runtimeSearch.value === newSearch ? pageStoreData.next : 1,
             start: res.data.start,
           })
         );

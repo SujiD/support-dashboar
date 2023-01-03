@@ -30,7 +30,10 @@ const initialState = {
     "survey.collateralComment",
     "survey.shipmentDetailsComment",
   ],
-  search: "",
+  search: {
+    value: '',
+    type: 'string'
+  },
   columnsort: {},
   initialResults: {},
   results: {},

@@ -7,7 +7,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { toggleRuntimeSelect } from "../../redux/runtime/runtimeActions";
 import { addCols, updateCols } from "../../redux/column/columnAction";
 // import { UpdateCols } from "../../redux/column/columnAction";
-const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
+const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices, setInitialPagination }) => {
   const dispatch = useDispatch();
 
   const runTimeResults = useSelector((state) => {
@@ -19,6 +19,7 @@ const PieChart = ({ chartData, facetId, setShowUpdate, hiddenIndices }) => {
   });
 
   const legendClick = (event, legendItem, legend) => {
+    setInitialPagination(true);
     if (colResults.columns.filter((col) => col.id === facetId).length === 0) {
       dispatch(addCols({ id: facetId, changes: [legendItem.text] }));
     } else if (
