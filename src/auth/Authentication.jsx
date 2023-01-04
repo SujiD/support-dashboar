@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import SignIn from "../components/login/SignIn";
 import Loading from "../components/loading/Loading";
 import * as ROUTES from "../common/routes";
+
 const Authentication = () => {
   let [searchParams] = useSearchParams(window.location.search);
   const [apiClient] = useState(() => new APIClient());
@@ -49,7 +50,6 @@ const Authentication = () => {
           state: state,
         })
         .then((res) => {
-          console.log(res.data);
           sessionStorage.setItem("token", res.data.token);
           sessionStorage.setItem("state", state);
           sessionStorage.setItem("expiry", res.data.expires);
@@ -73,7 +73,7 @@ const Authentication = () => {
   return showLogin && code == null ? (
     <SignIn formData={formData} />
   ) : code !== null ? (
-    <>Login Successful</>
+    <Loading />
   ) : (
     <Loading />
   );

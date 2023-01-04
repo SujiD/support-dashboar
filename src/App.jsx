@@ -15,6 +15,9 @@ import Authentication from "./auth/Authentication";
 import LandingPage from "../src/landing-page/LandingPage";
 import * as ROUTES from "../src/common/routes";
 import ReportView from "./components/view-report/ReportView";
+import withAuth from "./auth/withAuth";
+
+const HomePageWithAuth = withAuth(HomePage);
 
 function App() {
   const styles = useSpring({
@@ -44,7 +47,7 @@ function App() {
                 element={<Authentication />}
                 exact
               />
-              <Route path={ROUTES.HOME} element={<HomePage />} exact />
+              <Route path={ROUTES.HOME} element={<HomePageWithAuth />} exact />
               <Route
                 path={`${ROUTES.VIEW_REPORT}/:viewID`}
                 element={<ReportView />}

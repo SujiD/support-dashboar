@@ -7,50 +7,46 @@ const Authenticate = () => {
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
   const [prepareData, setPrepareData] = useState({ endpoint: "", payload: {} });
+
   useEffect(() => {
-    const getPreparedData = () => {
-      apiClient.authenticateService
-        .initializeReq({
-          redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
-          client_id: `${process.env.REACT_APP_CLIENT_ID}`,
-          state: "svgnhTsbv&8sNu",
-          response_mode: "query",
-        })
-        .then((res) => {
-          setPrepareData({
-            endpoint: res.data.endpoint,
-            payload: res.data.payload,
-          });
-        })
-        .catch((err) => {
-          setError(err);
-          console.log(err.response.data);
+    apiClient.authenticateService
+      .initializeReq({
+        redirect_uri: `${process.env.REACT_APP_REDIRECT_URL}`,
+        client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+        state: "svgnhTsbv&8sNu",
+        response_mode: "query",
+      })
+      .then((res) => {
+        setPrepareData({
+          endpoint: res.data.endpoint,
+          payload: res.data.payload,
         });
-    };
-    getPreparedData();
+        console.log("Running");
+      })
+      .catch((err) => {
+        setError(err);
+        console.log(err.response.data);
+      });
   }, [apiClient.authenticateService, setError]);
 
   useEffect(() => {
+    console.log("preparing data");
     setTimeout(() => {
+      console.log("form submission");
       try {
-        if (document.getElementsByTagName("form")[0]) {
+        if (
+          document.getElementsByTagName("form")[0] &&
+          prepareData.endpoint !== ""
+        ) {
           document.getElementsByTagName("form")[0].submit();
+          console.log("form submmitted");
         }
       } catch (err) {
         setError(err);
         console.log(err.response.data);
       }
     }, "5000");
-  }, [setError]);
-
-  useEffect(() => {
-    window.onload = function () {
-      if (!window.location.hash) {
-        window.location = window.location + "#loaded";
-        window.location.reload();
-      }
-    };
-  }, []);
+  }, [setError, prepareData.endpoint]);
 
   return (
     <div>

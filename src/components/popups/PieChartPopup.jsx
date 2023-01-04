@@ -15,6 +15,7 @@ import {
 } from "../../redux/runtime/runtimeActions";
 import { resetColumn } from "../../redux/column/columnAction";
 import * as FaIcons from "react-icons/fa";
+import { useMemo } from "react";
 
 const PieChartPopup = ({
   size,
@@ -55,16 +56,17 @@ const PieChartPopup = ({
   });
 
   let heading = title;
-  let reqBody = {
-    appPath: "Report",
-    q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
-    start: "1",
-    view: "all",
-  };
+  let reqBody = useMemo(() => {
+    return {
+      appPath: "Report",
+      q: "0ca72f154fc71e0bc6fa75772b925e7c-reportType:survey",
+      start: "1",
+      view: "all",
+    };
+  }, []);
 
-  const handleUpdate = () => {
+  const fetchData = useCallback(() => {
     setLoading(true);
-    setShowUpdate(true);
     reqBody.facets = runtimeResults.facets;
     if (runtimeSearch.value !== "") {
       reqBody.q = `${reqBody.q} AND ${runtimeSearch.value}`;
@@ -84,12 +86,33 @@ const PieChartPopup = ({
           })
         );
         setLoading(false);
-        setShowPopup(true);
       })
       .catch((err) => {
         setError(err);
         setLoading(false);
       });
+  }, [
+    apiClient,
+    dispatch,
+    initialPagination,
+    reqBody,
+    runtimeSearch,
+    setError,
+    setLoading,
+    pageStoreData.next,
+    pageStoreData.prev,
+    runtimeResults.facets,
+  ]);
+
+  useEffect(() => {
+    if (showUpdate) {
+      fetchData();
+    }
+  }, [fetchData, showUpdate]);
+
+  const handleUpdate = () => {
+    setShowPopup(true);
+    setShowUpdate(true);
   };
 
   const handleColumnChangeReset = () => {
