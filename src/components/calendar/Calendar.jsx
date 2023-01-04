@@ -1,22 +1,23 @@
-import { useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Calendar from "react-calendar";
-import * as FcIcons from "react-icons/fc";
-import * as FaIcons from "react-icons/fa";
 import "./Calendar.css";
+import { useState, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "react-calendar/dist/Calendar.css";
+import * as FaIcons from "react-icons/fa";
 import APIClient from "../../api/APIClient";
-import Loading from "../loading/Loading";
+import Calendar from "react-calendar";
 import { ErrorContext } from "../../contexts/ErrorContext";
 import { fetchPageDataSuccess } from "../../redux/page/pageActions";
 import { fetchFacetsUpdate } from "../../redux/facet/facetActions";
 import { updateSearch } from "../../redux/runtime/runtimeActions";
 
-const CustomCalendar = ({ setLoading, loading }) => {
+const CustomCalendar = ({ setLoading }) => {
+  var today = new Date();
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [date, setDate] = useState(new Date());
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
-  const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
 
   const runtimeResults = useSelector((state) => {
@@ -50,7 +51,7 @@ const CustomCalendar = ({ setLoading, loading }) => {
 
     const newSearch = `93803cbe97e2b0a38b39c3f2016cfef5-creationtime GT ${startDate} AND 93803cbe97e2b0a38b39c3f2016cfef5-creationtime LT ${finishDate}`;
     reqBody.q += ` AND ${newSearch}`;
-    dispatch(updateSearch({value: newSearch, type: 'date'}));
+    dispatch(updateSearch({ value: newSearch, type: "date" }));
     reqBody.facets = runtimeResults.facets;
     apiClient.entityService
       .getAllSearchData(reqBody)
@@ -73,52 +74,54 @@ const CustomCalendar = ({ setLoading, loading }) => {
         setLoading(false);
       });
   };
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-  return !loading ? (
-    <div className="calendar-container mt-5">
-      <div className="d-flex calendar-body flex-column date-container justify-content-evenly">
-        <div className="date-text text-center mb-2">Select Date Range</div>
-        <div className="d-flex align-items-center justify-content-between align-items-center">
-          <div className="range-container">
+  return (
+    <>
+      <div className="position-relative">
+        <div className="d-flex flex-column">
+          <div
+            className="cal m-3 mt-4"
+            role="button"
+            onClick={() => setShowCalendar(!showCalendar)}
+          >
             {date.length > 0 ? (
               <>
-                <div className="start-container d-flex align-items-center justify-content-between">
-                  <span className="container-date-text">Start Date:</span>
-                  <span className="start-container-date">
-                    {date[0].toDateString()}
-                  </span>
-                </div>
-                <div className="finish-container d-flex align-items-center justify-content-between mt-3">
-                  <span className="container-date-text">Finish Date:</span>
-                  <span className="finish-container-date">
-                    {date[1].toDateString()}
-                  </span>
-                </div>
+                <div className="month">{`${
+                  monthNames[date[0].getMonth()]
+                }, ${date[0].getFullYear().toString().slice(2, 5)} - ${
+                  monthNames[date[1].getMonth()]
+                }, ${date[1].getFullYear().toString().slice(2, 5)}`}</div>
+                <div className="date">{`${date[0].getDate()}-${date[1].getDate()}`}</div>
               </>
             ) : (
-              <div className="start-container d-flex align-items-center justify-content-between">
-                <span className="container-date-text">Date:</span>
-                <span className="start-container-date">
-                  {date.toDateString()}
-                </span>
-              </div>
+              <>
+                <div className="month">{monthNames[month - 1]}</div>
+                <div className="date">{day}</div>
+              </>
             )}
           </div>
-          <FcIcons.FcCalendar
-            size={40}
-            onClick={() => setShowCalendar(!showCalendar)}
-            role="button"
-          />
+          {date.length > 0 ? (
+            <button className="main-btn" onClick={() => handleDateSearch()}>
+              Search <FaIcons.FaSearch size={25} />
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
-        <button
-          className={`search-date mt-3 ${
-            date.length > 0 ? "main-btn" : "disable-btn"
-          }`}
-          disabled={!(date.length > 0)}
-          onClick={() => handleDateSearch()}
-        >
-          Search Date <FaIcons.FaSearch />
-        </button>
       </div>
       {showCalendar ? (
         <Calendar
@@ -132,9 +135,7 @@ const CustomCalendar = ({ setLoading, loading }) => {
       ) : (
         <></>
       )}
-    </div>
-  ) : (
-    <Loading />
+    </>
   );
 };
 
