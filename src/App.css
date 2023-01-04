@@ -44,6 +44,9 @@
 
 /***    Login Page     ***/
 .login-app {
+  min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
   font-family: sans-serif;
   display: flex;
   align-items: center;
