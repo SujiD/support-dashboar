@@ -1,11 +1,11 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { Button, Form } from "react-bootstrap";
 import { inputSchema, passwordSchema } from "../../common/ValidationSchemas";
 import * as Yup from "yup";
 import InputField from "../inputs/InputField";
 import PostForm from "../../auth/PostForm";
+import landingImage from "../../assests/landingPage.svg";
 
 const initialValues = {
   username: "",
@@ -27,7 +27,10 @@ function SignIn({ formData }) {
   return (
     <>
       {!submitForm && (
-        <div className="login-app">
+        <div
+          className="login-app"
+          style={{ backgroundImage: `url(${landingImage})` }}
+        >
           <div className="login-form">
             <div className="title">Sign In with MarkLogic</div>
             <Formik
