@@ -8,6 +8,8 @@ import {
 import "./TicketPopup.css";
 const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
   const dispatch = useDispatch();
+  const filteredAllCols = allColumns.filter((column) => column.id !== 'ticketId');
+
   const updateHiddenCols = (e, columnId) => {
     if (!e.target.checked) {
       dispatch(addRuntimeHiddenCols(columnId));
@@ -15,8 +17,10 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
       dispatch(removeRuntimeHiddenCols(columnId));
     }
   };
+
+
   return (
-    <Modal size="lg" centered show={showPopup}>
+    <Modal size="xl" centered show={showPopup}>
       <Modal.Header>
         <Modal.Title>Table Layout</Modal.Title>
       </Modal.Header>
@@ -27,8 +31,8 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
               <Accordion.Header className="acc-header">Ticket</Accordion.Header>
               <Accordion.Body className="acc-body">
                 <ul className="active-col-names">
-                  {allColumns
-                    .filter((column) => column.id.split(".")[0] !== "survey")
+                  {filteredAllCols
+                    .filter((column) => column.id.split(".")[0] !== "survey" || column.id !== 'ticketId')
                     .map((column) => {
                       return (
                         <li key={column.id} className="active-li">
@@ -53,7 +57,7 @@ const TicketPopup = ({ showPopup, setShowPopup, allColumns }) => {
               <Accordion.Header className="acc-header">Survey</Accordion.Header>
               <Accordion.Body className="acc-body">
                 <ul className="active-col-names">
-                  {allColumns
+                  {filteredAllCols
                     .filter((column) => column.id.split(".")[0] === "survey")
                     .map((column) => {
                       return (

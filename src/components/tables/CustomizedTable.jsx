@@ -6,16 +6,9 @@ import {
   useFilters,
   usePagination,
 } from "react-table";
-import GlobalFilter from "../search-filters/GlobalFilter";
-import ColumnFilter from "../search-filters/ColumnFilter";
 import { useDispatch, useSelector } from "react-redux";
-import TicketPopup from "../popups/TicketPopup";
 import { colors } from "../../database/Data";
-import PieChartPopup from "../popups/PieChartPopup";
-import APIClient from "../../api/APIClient";
 import { ErrorContext } from "../../contexts/ErrorContext";
-import * as FaIcons from "react-icons/fa";
-import * as IoIcons from "react-icons/io";
 import {
   fetchFacetsSuccess,
   fetchFacetsUpdate,
@@ -34,8 +27,14 @@ import {
   updateSearch,
 } from "../../redux/runtime/runtimeActions";
 import { clearCols } from "../../redux/column/columnAction";
-import { useNavigate } from "react-router-dom";
-import * as ROUTES from "../../common/routes";
+import GlobalFilter from "../search-filters/GlobalFilter";
+import ColumnFilter from "../search-filters/ColumnFilter";
+import TicketPopup from "../popups/TicketPopup";
+import PieChartPopup from "../popups/PieChartPopup";
+import APIClient from "../../api/APIClient";
+import ReportView from "../view-report/ReportView";
+import * as FaIcons from "react-icons/fa";
+import * as IoIcons from "react-icons/io";
 
 const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [showTicketPopup, setShowTicketPopup] = useState(false);
@@ -43,12 +42,13 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [title, setTitle] = useState("");
   const [facetId, setFacetId] = useState("");
+  const [currentViewID, setCurrentViewID] = useState();
+  const [showReportView, setShowReportView] = useState(false);
   const [csvData, setCSVData] = useState([]);
   const [tableFields, setTableFields] = useState([]);
   const [apiClient] = useState(() => new APIClient());
   const { setError } = useContext(ErrorContext);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   const facetTableData = useSelector((state) => {
     return state.facet.facets;
@@ -83,6 +83,13 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     apiClient.entityService
       .getTableFields()
       .then((res) => {
+        // const filteredFields = [];
+        // res.data.data.dataFields.forEach((col) => {
+        //   if (col['visible'] !== undefined) {
+        //     filteredFields.push(col);
+        //   }
+        // });
+        // console.log(res.data.data.dataFields)
         setTableFields(res.data.data.dataFields);
         if (parseInt(sessionStorage.getItem("count")) === 1) {
           sessionStorage.setItem("count", 2);
@@ -539,17 +546,22 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                     prepareRow(row);
                     return (
                       <tr {...row.getRowProps()}>
-                        {row.cells.map((cell) => {
+                        {row.cells.map((cell, index) => {
                           return (
                             <td
-                              {...cell.getCellProps()}
+                              key={index}
                               onClick={() =>
-                                navigate(
-                                  `${ROUTES.VIEW_REPORT}/${row.original.id}`
-                                )
+                                {
+                                  setCurrentViewID(row.original.id);
+                                  setShowReportView(true);
+                                }
                               }
                             >
-                              {cell.render("Cell")}
+                              {
+                                 typeof cell.value === "object"
+                                  ? cell.value.value
+                                  : cell.value
+                                }
                             </td>
                           );
                         })}
@@ -671,6 +683,12 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
         loading={loading}
         setLoading={setLoading}
         initialFacets={initialFacets}
+      />
+      <ReportView
+        viewID={currentViewID}
+        size="lg"
+        showPopup={showReportView}
+        setShowPopup={setShowReportView}
       />
     </>
   );

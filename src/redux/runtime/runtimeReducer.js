@@ -3,6 +3,13 @@ import { runtimeTypes } from "./runtimeTypes";
 const initialState = {
   tableHiddenCols: [
     "reportType",
+    // "reportCreator",
+    // "ticket.ticketCreator",
+    // "ticket.ticketCustomer",
+    // "ticket.ticketEndCustomer",
+    // "ticket.ticketOwner",
+    // "ticket.ticketLastreplier.fullName",
+    "ticketId",
     "ticket.modifiedtime",
     "ticket.creationtime",
     "ticket.ticketTitle",

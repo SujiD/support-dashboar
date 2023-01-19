@@ -1,17 +1,12 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { NavBar } from "../nav-bar/NavBar";
+import { Modal, Tab, Tabs, Button } from "react-bootstrap";
 import MainInfo from "../main-info/MainInfo";
-import { Tab, Tabs } from "react-bootstrap";
 import TicketInfo from "../ticket-info/TicketInfo";
-import * as ROUTES from "../../common/routes";
-import "./ReportView.css";
 import SurveyInfo from "../../survey-info/SurveyInfo";
+import "./ReportView.css";
 
-const ReportView = () => {
-  const { viewID } = useParams();
-  let navigate = useNavigate();
+const ReportView = ({ viewID, size, showPopup, setShowPopup }) => {
   const originalViewData = useSelector((state) => {
     return state.facet.facets.results;
   });
@@ -21,46 +16,59 @@ const ReportView = () => {
   }, [originalViewData, viewID]);
 
   return (
-    <>
-      <NavBar />
-      <div className="p-5">
-        <p
-          className="link"
-          role="button"
-          onClick={() => navigate(`${ROUTES.HOME}`)}
-        >
-          {"<"} Back to HomePage
-        </p>
-        <h1 className="heading">Report View</h1>
-      </div>
-      <MainInfo
-        info={viewData.reportCreator}
-        reportType={viewData.reportType}
-      />
-      <Tabs
-        defaultActiveKey="ticket-elements"
-        className="mb-3 bootstrap-tab-container mt-5"
-      >
-        <Tab
-          eventKey="ticket-elements"
-          title="Ticket Details"
-          tabClassName="bootstrap-single-tab mx-4"
-        >
-          <div className="bootstrap-tab-content">
-            <TicketInfo ticketInfo={viewData.ticket} />
-          </div>
-        </Tab>
-        <Tab
-          eventKey="survey-elements"
-          title="Survey Details"
-          tabClassName="bootstrap-single-tab"
-        >
-          <div className="bootstrap-tab-content">
-            <SurveyInfo surveyInfo={viewData.survey} />
-          </div>
-        </Tab>
-      </Tabs>
-    </>
+    viewData && (
+      <>
+        <Modal centered size={size} show={showPopup}>
+          <Modal.Header>Report View</Modal.Header>
+          <Modal.Body>
+            <>
+              <MainInfo
+                info={viewData.reportCreator}
+                reportType={viewData.reportType}
+              />
+              <Tabs
+                defaultActiveKey="ticket-elements"
+                className="mb-3 bootstrap-tab-container mt-5"
+              >
+                <Tab
+                  eventKey="ticket-elements"
+                  title="Ticket Details"
+                  tabClassName="bootstrap-single-tab mx-4"
+                >
+                  <div className="bootstrap-tab-content">
+                    <TicketInfo ticketInfo={viewData.ticket} />
+                  </div>
+                </Tab>
+                <Tab
+                  eventKey="survey-elements"
+                  title="Survey Details"
+                  tabClassName="bootstrap-single-tab"
+                >
+                  <div className="bootstrap-tab-content">
+                    <SurveyInfo surveyInfo={viewData.survey} />
+                  </div>
+                </Tab>
+              </Tabs>
+            </>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              onClick={() => {
+                setShowPopup(false);
+              }}
+              style={{
+                backgroundColor: "#060b26",
+                borderColor: "#060b26",
+                float: "right",
+              }}
+              className="mx-3"
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    )
   );
 };
 

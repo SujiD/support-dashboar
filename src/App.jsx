@@ -2,9 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage } from "./components/home/HomePage";
 import { ToastContainer } from "react-toastify";
 import { useSpring, animated } from "react-spring";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import * as ROUTES from "../src/common/routes";
 import ErrorPage from "./components/error/ErrorPage";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
@@ -13,9 +11,10 @@ import HandleErrors from "./common/HandleError";
 import Authenticate from "./auth/Authenticate";
 import Authentication from "./auth/Authentication";
 import LandingPage from "../src/landing-page/LandingPage";
-import * as ROUTES from "../src/common/routes";
-import ReportView from "./components/view-report/ReportView";
 import withAuth from "./auth/withAuth";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "./App.css";
 
 const HomePageWithAuth = withAuth(HomePage);
 
@@ -48,11 +47,6 @@ function App() {
                 exact
               />
               <Route path={ROUTES.HOME} element={<HomePageWithAuth />} exact />
-              <Route
-                path={`${ROUTES.VIEW_REPORT}/:viewID`}
-                element={<ReportView />}
-                exact
-              />
               <Route path={ROUTES.ERROR} element={<ErrorPage />} exact />
             </Routes>
           </Router>
