@@ -88,6 +88,13 @@ const ReportView = ({  size, showPopup, setShowPopup, ticketID }) => {
                   >
                     <div>No Summary Details Yet</div>
                   </Tab>
+                  <Tab
+                    eventKey="status-elements"
+                    title="Status Details"
+                    tabClassName="bootstrap-single-tab"
+                  >
+                    <div>No Status Details Yet</div>
+                  </Tab>
                 </Tabs>
               </>
             ) : (
