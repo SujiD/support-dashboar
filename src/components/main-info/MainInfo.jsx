@@ -1,6 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 
-const MainInfo = ({ info, reportType }) => {
+const MainInfo = ({ info }) => {
   return (
     <div className="px-5">
       <Row>
@@ -9,11 +9,7 @@ const MainInfo = ({ info, reportType }) => {
             <tbody>
               <tr className="pb-4">
                 <th className="pb-3 align-top">Creator Full Name:</th>
-                <td className="ps-4 pb-3 align-top">{info.fullName}</td>
-              </tr>
-              <tr className="pb-4">
-                <th className="pb-3 align-top">Report Type:</th>
-                <td className="ps-4 pb-3 align-top">{reportType}</td>
+                <td className="ps-4 pb-3 align-top">{info?.fullName}</td>
               </tr>
             </tbody>
           </table>

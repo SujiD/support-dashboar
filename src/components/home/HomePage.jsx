@@ -32,6 +32,9 @@ export const HomePage = () => {
   const [departmentData, setDepartmentData] = useState();
   const [priorityData, setPriorityData] = useState();
   const [initialFacets, setInitialFacets] = useState([]);
+  // const runTimeResults = useSelector((state) => {
+  //   return state.runtime.results;
+  // });
   // const [ownerD, setOwnerD] = useState();
   const { setError } = useContext(ErrorContext);
   // const facets = useSelector((state) => {

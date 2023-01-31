@@ -43,6 +43,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
   const [title, setTitle] = useState("");
   const [facetId, setFacetId] = useState("");
   const [currentViewID, setCurrentViewID] = useState();
+  const [ticketID, setTicketID] = useState();
   const [showReportView, setShowReportView] = useState(false);
   const [csvData, setCSVData] = useState([]);
   const [tableFields, setTableFields] = useState([]);
@@ -83,13 +84,6 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
     apiClient.entityService
       .getTableFields()
       .then((res) => {
-        // const filteredFields = [];
-        // res.data.data.dataFields.forEach((col) => {
-        //   if (col['visible'] !== undefined) {
-        //     filteredFields.push(col);
-        //   }
-        // });
-        // console.log(res.data.data.dataFields)
         setTableFields(res.data.data.dataFields);
         if (parseInt(sessionStorage.getItem("count")) === 1) {
           sessionStorage.setItem("count", 2);
@@ -553,6 +547,7 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
                               onClick={() =>
                                 {
                                   setCurrentViewID(row.original.id);
+                                  setTicketID(row.original.ticketId);
                                   setShowReportView(true);
                                 }
                               }
@@ -686,7 +681,8 @@ const CustomizedTable = ({ loading, setLoading, initialFacets }) => {
       />
       <ReportView
         viewID={currentViewID}
-        size="lg"
+        ticketID = {ticketID}
+        size="xl"
         showPopup={showReportView}
         setShowPopup={setShowReportView}
       />

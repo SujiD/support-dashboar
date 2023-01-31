@@ -31,7 +31,7 @@ const SurveyInfo = ({ surveyInfo }) => {
                 <td className="ps-4 pb-3 align-top">
                   {surveyInfo.resolutionComment ||
                   surveyInfo.resolutionComment !== ""
-                    ? capitalizeFirstLetter(surveyInfo.resolutionComment)
+                    ? (surveyInfo.resolutionComment)
                     : "No Resolution Comments"}
                 </td>
               </tr>
